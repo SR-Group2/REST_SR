@@ -6,10 +6,11 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.khmeracademy.rest.entities.Users;
+import org.khmeracademy.rest.filters.UserFilter;
 import org.khmeracademy.rest.form.UserLogin;
 import org.khmeracademy.rest.services.UserService;
+import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mangofactory.swagger.annotations.ApiIgnore;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -25,9 +30,27 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "username", dataType = "string", paramType = "query", defaultValue="",
+	            value = "Username"),
+		@ApiImplicitParam(name = "email", dataType = "string", paramType = "query", defaultValue="",
+        value = "Email"),
+		@ApiImplicitParam(name = "firstname", dataType = "string", paramType = "query", defaultValue="",
+        value = "Email"),
+		@ApiImplicitParam(name = "lastname", dataType = "string", paramType = "query", defaultValue="",
+        value = "Email"),
+	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
+	            value = "Results page you want to retrieve (1..N)"),
+	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
+	            value = "Number of records per page."),
+	})
 	@RequestMapping(value="/get-user", method=RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> getAllUsers(){
+	public ResponseEntity<Map<String, Object>> getAllUsers(@ApiIgnore UserFilter filter, @ApiIgnore Pagination pagination){
 		Map<String, Object> map= new Hashtable<String, Object>();
+		
+		System.out.println(" USER FILTER ING ==>" + filter);
+		
+		System.out.println(" LIMIT ==> " + pagination.getLimit() + " OFFSET ==>" + pagination.offset() );
 		try{
 			ArrayList<Users> user= userService.getAllUsers();
 			if(!user.isEmpty()){

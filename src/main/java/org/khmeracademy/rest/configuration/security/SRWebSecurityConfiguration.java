@@ -34,7 +34,7 @@ public class SRWebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			.antMatchers("/swagger/**").hasAnyRole("API_DEVELOPER");
+			.antMatchers("/swagger/**").permitAll(); //hasAnyRole("API_DEVELOPER");
 		http
 			.formLogin()
 			.loginPage("/login")

@@ -25,7 +25,7 @@ public class APIConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.antMatcher("/api/**")
 			.authorizeRequests()
-			.anyRequest().hasRole("API_DEVELOPER");
+			.anyRequest().permitAll();//hasRole("API_DEVELOPER");
 		http.csrf().disable();
 		
 		http.httpBasic()
