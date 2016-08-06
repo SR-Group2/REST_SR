@@ -14,19 +14,19 @@ public interface RestypeRepository {
 	
 	String R_RESTYPE = "SELECT "
 			+ " restype_id, "
-			+ " restype_name, "
+			+ " restype_name, restype_name_kh,"
 			+ " parentid_restypeid"
 			+ " FROM restypes";
 	@Select(R_RESTYPE)
 	public ArrayList<Restypes> getAllRestype();
 	
-	String C_RESTYPE = "INSERT INTO restypes(restype_name,parentid_restypeid) "
-			+ " VALUES(#{restype_name}, #{parentid_restypeid})";
+	String C_RESTYPE = "INSERT INTO restypes(restype_name,restype_name_kh, parentid_restypeid) "
+			+ " VALUES(#{restype_name}, #{restype_name_kh}, #{parentid_restypeid})";
 	@Insert(C_RESTYPE)
 	public boolean insertRestype(Restypes restype);
 	
 	String U_RESTYPE = "UPDATE restypes SET "
-			+ "	restype_name=#{restype_name} , "
+			+ "	restype_name=#{restype_name} , restype_name_kh=#{restype_name_kh}"
 			+ " parentid_restypeid = #{parentid_restypeid} "
 			+ "WHERE "
 			+ "	restype_id=#{restype_id}";
@@ -43,7 +43,7 @@ public interface RestypeRepository {
 	
 	String F_RESTYPE = "SELECT"
 			+ " restype_id,"
-			+ " restype_name"
+			+ " restype_name, restype_name_kh"
 			+ " FROM"
 			+ " restypes"
 			+ " WHERE"

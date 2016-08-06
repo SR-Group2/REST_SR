@@ -3,6 +3,14 @@ package org.khmeracademy.rest.entities;
 public class Restypes {
 	private int restype_id;
 	private String restype_name;
+	private String restype_name_kh;
+	
+	public String getRestype_name_kh() {
+		return restype_name_kh;
+	}
+	public void setRestype_name_kh(String restype_name_kh) {
+		this.restype_name_kh = restype_name_kh;
+	}
 	private int parentid_restypeid;
 	
 	public int getRestype_id() {
