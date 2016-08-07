@@ -2,6 +2,7 @@ package org.khmeracademy.rest.services.impl;
 
 import java.util.ArrayList;
 
+import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.repositories.RestypeRepository;
@@ -38,7 +39,7 @@ public class RestypeServiceImpl implements RestypeService {
 	}
 
 	@Override
-	public ArrayList<Restypes> findRestypeById(int restype_id) {
+	public ArrayList<Restaurants> findRestypeById(int restype_id) {
 		return restypeRepository.findRestypeById(restype_id);
 	}
 

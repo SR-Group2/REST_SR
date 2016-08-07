@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
 import org.springframework.stereotype.Repository;
 
@@ -52,15 +55,26 @@ public interface RestypeRepository {
 	@Delete(D_RESTYPE)
 	public boolean deleteRestype(int restype_id);
 	
+//	String F_RESTYPE = "SELECT"
+//			+ " restype_id,"
+//			+ " restype_name, restype_name_kh, date_added, date_modify, restype_picture"
+//			+ " FROM"
+//			+ " restypes rs"
+//			+ " WHERE"
+//			+ " restype_id = #{restype_id}";
 	String F_RESTYPE = "SELECT"
-			+ " restype_id,"
-			+ " restype_name, restype_name_kh, date_added, date_modify, restype_picture"
-			+ " FROM"
-			+ " restypes"
-			+ " WHERE"
-			+ " restype_id = #{restype_id}";
+						+ "	 r.rest_id, r.rest_name, r.contact, r.about,"
+						+ " r.open_close, r.location, rsp.restype_id AS rsprestype_id, "
+						+ "	 rsp.restype_name FROM restaurants r "
+						+ " INNER JOIN menus mn ON mn.rest_id = r.rest_id "
+						+ " INNER JOIN restypes rsp ON mn.restype_id = rsp.restype_id "
+						+ " WHERE rsp.restype_id = #{restype_id}";
 	@Select(F_RESTYPE)
-	public ArrayList<Restypes>  findRestypeById(int restype_id);
+	@Results(value={
+			@Result(property="restypes.restype_id", column="rsprestype_id")
+	})
+	public ArrayList<Restaurants>  findRestypeById(int restype_id);
+	
 	
 	String COUNT_RESTYPE = "SELECT COUNT(restype_id) FROM restypes WHERE restype_name LIKE '%'||#{keyword}||'%' ";
 	@Select(COUNT_RESTYPE)

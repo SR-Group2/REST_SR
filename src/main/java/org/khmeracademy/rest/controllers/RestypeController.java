@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.services.RestypeService;
@@ -169,7 +170,7 @@ public class RestypeController {
 	public ResponseEntity<Map<String,Object>> findRestypeById(@PathVariable("restype-id") int restype_id){
 		Map<String , Object> map = new Hashtable<String , Object>();
 		try{
-			ArrayList<Restypes> restypes = restypeService.findRestypeById(restype_id);
+			ArrayList<Restaurants> restypes = restypeService.findRestypeById(restype_id);
 			if(!restypes.isEmpty()){
 				map.put("DATA", restypes);
 				map.put("CODE", "200 OK");

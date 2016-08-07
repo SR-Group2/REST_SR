@@ -11,6 +11,21 @@ public class Restypes {
 	private Date date_modify;
 	private int parentid_restypeid;
 	
+	private Menus menus;
+	private Restaurants restaurants;
+	
+	public Menus getMenus() {
+		return menus;
+	}
+	public void setMenus(Menus menus) {
+		this.menus = menus;
+	}
+	public Restaurants getRestaurants() {
+		return restaurants;
+	}
+	public void setRestaurants(Restaurants restaurants) {
+		this.restaurants = restaurants;
+	}
 	public String getRestype_picture() {
 		return restype_picture;
 	}

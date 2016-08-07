@@ -21,23 +21,24 @@ public interface RestaurantRepository {
 			+ " R.about,"
 			+ " R.open_close,"
 			+ " R.location,"
-			+ " RT.restype_id,"
-			+ " A.address_id,"
-			+ " U.user_id"
+			+ " M.restype_id AS menu_restype_id,"
+			+ " A.address_id AS address_address_id,"
+			+ " U.user_id AS user_user_id"
 			+ " FROM"
 			+ " restaurants R"
 			+ " INNER JOIN"
-			+ " restypes RT"
-			+ " ON R.restype_id = RT.restype_id"
+			+ " menus M"
+			+ " ON M.rest_id = R.rest_id "
+			+ " INNER JOIN restypes RT ON RT.restype_id = M.restype_id"
 			+ " INNER JOIN Addresses A"
 			+ " ON R.address_id = A.address_id"
 			+ " INNER JOIN users U"
 			+ " ON R.user_id = U.user_id";
 	@Select(R_RESTAURANT)
 	@Results(value={
-			@Result(property = "restype.restype_id", column = "restype_id"),
-			@Result(property = "address.address_id", column = "address_id"),
-			@Result(property = "user.user_id", column = "user_id")
+			@Result(property = "restypes.restype_id", column = "restype_restype_id"),
+			@Result(property = "address.address_id", column = "address_address_id"),
+			@Result(property = "user.user_id", column = "user_user_id")
 	})
 	public ArrayList<Restaurants> getAllRestaurant();
 	
@@ -68,16 +69,26 @@ public interface RestaurantRepository {
 	@Update(U_RESTAURANT)
 	public boolean updateRestaurant(Restaurants restaurant);
 	
-	String F_RESTAURANT = "SELECT"
-			+ " rest_id,"
-			+ " rest_name,"
-			+ " contact,"
-			+ " about,"
-			+ " open_close,"
-			+ " location"
-			+ " FROM"
-			+ " restaurants "
-			+ " WHERE rest_id = #{rest_id}";
+	String F_RESTAURANT = "SELECT DISTINCT"
+	+ " R.rest_id,"
+	+ " R.rest_name,"
+	+ " R.contact,"
+	+ " R.about,"
+	+ " R.open_close,"
+	+ " R.location,"
+	+ " A.address_id AS address_address_id,"
+	+ " U.user_id AS user_user_id"
+	+ " FROM"
+	+ " restaurants R"
+	+ " INNER JOIN menus M ON R.rest_id = M.rest_id"
+	+ " INNER JOIN restypes rs ON rs.restype_id = M.restype_id"
+	+ " INNER JOIN Addresses A ON R.address_id = A.address_id"
+	+ " INNER JOIN users U ON R.user_id = U.user_id"
+	+ " WHERE R.rest_id = #{rest_id}";
 	@Select(F_RESTAURANT)
+//	@Results(value={
+//			@Result(property = "address.address_id", column = "address_address_id"),
+//			@Result(property = "user.user_id", column = "user_user_id")
+//	})
 	public ArrayList<Restaurants>  findRestaurantById(int rest_id);
 }

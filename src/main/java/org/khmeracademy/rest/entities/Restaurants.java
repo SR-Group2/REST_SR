@@ -9,16 +9,24 @@ public class Restaurants {
 	private String about;
 	private Date open_close;
 	private String location;
-	private Restypes restype;
 	private Addresses address;
 	private Users user;
+	private Menus menus;
+	private Restypes restypes;
 	
-	public Restypes getRestype() {
-		return restype;
+	public Restypes getRestypes() {
+		return restypes;
 	}
-	public void setRestype(Restypes restype) {
-		this.restype = restype;
+	public void setRestypes(Restypes restypes) {
+		this.restypes = restypes;
 	}
+	public Menus getMenus() {
+		return menus;
+	}
+	public void setMenus(Menus menus) {
+		this.menus = menus;
+	}
+	
 	public Addresses getAddress() {
 		return address;
 	}

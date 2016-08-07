@@ -2,6 +2,7 @@ package org.khmeracademy.rest.services;
 
 import java.util.ArrayList;
 
+import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.utils.Pagination;
@@ -20,7 +21,7 @@ public interface RestypeService {
 	
 	public boolean updateRestype(Restypes restype);
 	
-	public ArrayList<Restypes>  findRestypeById(int restype_id);
+	public ArrayList<Restaurants>  findRestypeById(int restype_id);
 	
 	public ArrayList<Restypes> findRestypeByKeyword(String keyword);
 }
