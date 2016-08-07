@@ -3,6 +3,7 @@ package org.khmeracademy.rest.services.impl;
 import java.util.ArrayList;
 
 import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.repositories.RestypeRepository;
 import org.khmeracademy.rest.services.RestypeService;
 import org.khmeracademy.rest.utils.Pagination;
@@ -15,8 +16,10 @@ public class RestypeServiceImpl implements RestypeService {
 	@Autowired
 	private RestypeRepository restypeRepository;
 	@Override
-	public ArrayList<Restypes> getAllRestype(Pagination pagination) {
-		return restypeRepository.getAllRestype(pagination);
+	public ArrayList<Restypes> getAllRestype(Pagination pagination, RestypeFilter filter) {
+		System.out.println(pagination.getOffset() + " " + pagination.getLimit());
+		System.out.println(filter.getKeyword()) ;
+		return restypeRepository.getAllRestype("%" + filter.getKeyword() + "%", pagination.getLimit(), pagination.getOffset());
 	}
 
 	@Override
@@ -40,8 +43,8 @@ public class RestypeServiceImpl implements RestypeService {
 	}
 
 	@Override
-	public int countRestype() {
-		return restypeRepository.countRestype();
+	public int countRestype(String keyword) {
+		return restypeRepository.countRestype(keyword);
 	}
 
 	@Override

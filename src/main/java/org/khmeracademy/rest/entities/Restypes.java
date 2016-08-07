@@ -9,6 +9,7 @@ public class Restypes {
 	private String restype_picture;
 	private Date date_added;
 	private Date date_modify;
+	private int parentid_restypeid;
 	
 	public String getRestype_picture() {
 		return restype_picture;
@@ -34,7 +35,6 @@ public class Restypes {
 	public void setRestype_name_kh(String restype_name_kh) {
 		this.restype_name_kh = restype_name_kh;
 	}
-	private int parentid_restypeid;
 	
 	public int getRestype_id() {
 		return restype_id;

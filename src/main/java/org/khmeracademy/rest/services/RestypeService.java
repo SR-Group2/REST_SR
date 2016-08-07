@@ -3,15 +3,16 @@ package org.khmeracademy.rest.services;
 import java.util.ArrayList;
 
 import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface RestypeService {
 
-	public int countRestype();
+	public int countRestype(String keyword);
 	
-	public ArrayList<Restypes> getAllRestype(Pagination pagination);
+	public ArrayList<Restypes> getAllRestype(Pagination pagination, RestypeFilter filter);
 	
 	public boolean insertRestype(Restypes restype);
 	

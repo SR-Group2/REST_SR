@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.services.RestypeService;
 import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,45 @@ public class RestypeController {
 	@Autowired
 	private RestypeService restypeService;
 	
-//	@ApiImplicitParams({
-//		@ApiImplicitParam(name = "restype_name", dataType = "string", paramType = "query", defaultValue="",
-//	            value = "restaurant menu"),
-//	    @ApiImplicitParam(name = "offset", dataType = "integer", paramType = "query", defaultValue="1",
-//	            value = "Results page you want to retrieve)"),
-//	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
-//	            value = "Number of records per page."),
-//	})
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "keyword", dataType = "string", paramType = "query", defaultValue="",
+	            value = "search restaurant"),
+	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
+	            value = "Results page you want to retrieve)"),
+	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
+	            value = "Number of records per page."),
+	})
+	
+	@RequestMapping(value = "/get-restype",method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getAllRestype(@ApiIgnore RestypeFilter restypeFilter, Pagination pagination){
+		Map<String , Object> map = new Hashtable<String , Object>();
+		
+		try{
+			pagination.setTotalCount(restypeService.countRestype(restypeFilter.getKeyword()));
+			
+//			System.out.println(" LIMIT ==> " + pagination.getLimit() + " OFFSET ==>" + pagination.offset() +
+//					pagination.getPage() + pagination.getTotalPages());
+			
+			ArrayList<Restypes> restypes = restypeService.getAllRestype(pagination, restypeFilter);
+			if(!restypes.isEmpty()){
+				map.put("DATA", restypes);
+				map.put("PAGINATION", pagination);
+				map.put("CODE", "200 OK");
+				map.put("STATUS", true);
+				map.put("MESSAGE", "DATA FOUND!");
+			}else{
+				map.put("STATUS", true);
+				map.put("CODE", "300 DATA NOT FOUND");
+				map.put("MESSAGE", "DATA NOT FOUND!");
+			}
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("CODE", "404 NOT FOUND");
+			map.put("MESSAGE", "NOT FOUND!");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK) ;
+	}
 	
 	@RequestMapping(value = "/find-restype-by-keyword",method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> findRestypeByKeyword(
@@ -65,42 +97,7 @@ public class RestypeController {
 		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK) ;
 	}
 	
-	@RequestMapping(value = "/get-restype",method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> getAllRestype(@RequestParam(
-			value = "page", required = false , defaultValue="1") int page 
-			, @RequestParam(value="limit" , required = false , defaultValue="16") int limit){
-		Map<String , Object> map = new Hashtable<String , Object>();
-		
-		try{
-			
-			Pagination pagination = new Pagination();
-			pagination.setLimit(limit);
-			pagination.setPage(page);
-			pagination.setTotalCount(restypeService.countRestype());
-//			
-//			System.out.println(" LIMIT ==> " + pagination.getLimit() + " OFFSET ==>" + pagination.offset() +
-//					pagination.getPage() + pagination.getTotalPages());
-			
-			ArrayList<Restypes> restypes = restypeService.getAllRestype(pagination);
-			if(!restypes.isEmpty()){
-				map.put("DATA", restypes);
-				map.put("PAGINATION", pagination);
-				map.put("CODE", "200 OK");
-				map.put("STATUS", true);
-				map.put("MESSAGE", "DATA FOUND!");
-			}else{
-				map.put("STATUS", true);
-				map.put("CODE", "300 DATA NOT FOUND");
-				map.put("MESSAGE", "DATA NOT FOUND!");
-			}
-		}catch(Exception e){
-			map.put("STATUS", false);
-			map.put("CODE", "404 NOT FOUND");
-			map.put("MESSAGE", "NOT FOUND!");
-			e.printStackTrace();
-		}
-		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK) ;
-	}
+	
 	
 	@RequestMapping(value = "/insert-restype", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertRestype(@RequestBody Restypes restype){

@@ -52,6 +52,8 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 			return "swagger";
 		}else if(roles.contains("ROLE_ADMIN")){
 			return "admin";
+		}else if(roles.contains("ROLE_STANDARD_USER")){
+			return "user";
 		}else{
 			return "accessDenied";
 		}
