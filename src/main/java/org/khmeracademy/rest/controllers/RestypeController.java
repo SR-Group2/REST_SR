@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.services.RestypeService;
+import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.mangofactory.swagger.annotations.ApiIgnore;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
 
 @RestController
 @RequestMapping("/api/restype")
@@ -23,13 +29,62 @@ public class RestypeController {
 	@Autowired
 	private RestypeService restypeService;
 	
-	@RequestMapping(value = "/get-restype",method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> getAllRestype(){
+//	@ApiImplicitParams({
+//		@ApiImplicitParam(name = "restype_name", dataType = "string", paramType = "query", defaultValue="",
+//	            value = "restaurant menu"),
+//	    @ApiImplicitParam(name = "offset", dataType = "integer", paramType = "query", defaultValue="1",
+//	            value = "Results page you want to retrieve)"),
+//	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
+//	            value = "Number of records per page."),
+//	})
+	
+	@RequestMapping(value = "/find-restype-by-keyword",method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> findRestypeByKeyword(
+			@RequestParam(value="keyword" , required = false) String keyword){
 		Map<String , Object> map = new Hashtable<String , Object>();
+		
 		try{
-			ArrayList<Restypes> restypes = restypeService.getAllRestype();
+			
+			ArrayList<Restypes> restypes = restypeService.findRestypeByKeyword(keyword);
 			if(!restypes.isEmpty()){
 				map.put("DATA", restypes);
+				map.put("CODE", "200 OK");
+				map.put("STATUS", true);
+				map.put("MESSAGE", "DATA FOUND!");
+			}else{
+				map.put("STATUS", true);
+				map.put("CODE", "300 DATA NOT FOUND");
+				map.put("MESSAGE", "DATA NOT FOUND!");
+			}
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("CODE", "404 NOT FOUND");
+			map.put("MESSAGE", "NOT FOUND!");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK) ;
+	}
+	
+	@RequestMapping(value = "/get-restype",method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getAllRestype(@RequestParam(
+			value = "page", required = false , defaultValue="1") int page 
+			, @RequestParam(value="limit" , required = false , defaultValue="16") int limit){
+		Map<String , Object> map = new Hashtable<String , Object>();
+		
+		try{
+			
+			Pagination pagination = new Pagination();
+			pagination.setLimit(limit);
+			pagination.setPage(page);
+			pagination.setTotalCount(restypeService.countRestype());
+//			
+//			System.out.println(" LIMIT ==> " + pagination.getLimit() + " OFFSET ==>" + pagination.offset() +
+//					pagination.getPage() + pagination.getTotalPages());
+			
+			ArrayList<Restypes> restypes = restypeService.getAllRestype(pagination);
+			if(!restypes.isEmpty()){
+				map.put("DATA", restypes);
+				map.put("PAGINATION", pagination);
 				map.put("CODE", "200 OK");
 				map.put("STATUS", true);
 				map.put("MESSAGE", "DATA FOUND!");

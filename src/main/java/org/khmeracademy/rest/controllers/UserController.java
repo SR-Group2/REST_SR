@@ -30,27 +30,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "username", dataType = "string", paramType = "query", defaultValue="",
-	            value = "Username"),
-		@ApiImplicitParam(name = "email", dataType = "string", paramType = "query", defaultValue="",
-        value = "Email"),
-		@ApiImplicitParam(name = "firstname", dataType = "string", paramType = "query", defaultValue="",
-        value = "Email"),
-		@ApiImplicitParam(name = "lastname", dataType = "string", paramType = "query", defaultValue="",
-        value = "Email"),
-	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
-	            value = "Results page you want to retrieve (1..N)"),
-	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
-	            value = "Number of records per page."),
-	})
+	
 	@RequestMapping(value="/get-user", method=RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> getAllUsers(@ApiIgnore UserFilter filter, @ApiIgnore Pagination pagination){
+	public ResponseEntity<Map<String, Object>> getAllUsers(){
 		Map<String, Object> map= new Hashtable<String, Object>();
 		
-		System.out.println(" USER FILTER ING ==>" + filter);
-		
-		System.out.println(" LIMIT ==> " + pagination.getLimit() + " OFFSET ==>" + pagination.offset() );
 		try{
 			ArrayList<Users> user= userService.getAllUsers();
 			if(!user.isEmpty()){

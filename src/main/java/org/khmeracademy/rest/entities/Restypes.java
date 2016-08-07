@@ -1,10 +1,33 @@
 package org.khmeracademy.rest.entities;
 
+import java.util.Date;
+
 public class Restypes {
 	private int restype_id;
 	private String restype_name;
 	private String restype_name_kh;
+	private String restype_picture;
+	private Date date_added;
+	private Date date_modify;
 	
+	public String getRestype_picture() {
+		return restype_picture;
+	}
+	public void setRestype_picture(String restype_picture) {
+		this.restype_picture = restype_picture;
+	}
+	public Date getDate_added() {
+		return date_added;
+	}
+	public void setDate_added(Date date_added) {
+		this.date_added = date_added;
+	}
+	public Date getDate_modify() {
+		return date_modify;
+	}
+	public void setDate_modify(Date date_modify) {
+		this.date_modify = date_modify;
+	}
 	public String getRestype_name_kh() {
 		return restype_name_kh;
 	}

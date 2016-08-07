@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.repositories.RestypeRepository;
 import org.khmeracademy.rest.services.RestypeService;
+import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,8 +15,8 @@ public class RestypeServiceImpl implements RestypeService {
 	@Autowired
 	private RestypeRepository restypeRepository;
 	@Override
-	public ArrayList<Restypes> getAllRestype() {
-		return restypeRepository.getAllRestype();
+	public ArrayList<Restypes> getAllRestype(Pagination pagination) {
+		return restypeRepository.getAllRestype(pagination);
 	}
 
 	@Override
@@ -37,6 +37,16 @@ public class RestypeServiceImpl implements RestypeService {
 	@Override
 	public ArrayList<Restypes> findRestypeById(int restype_id) {
 		return restypeRepository.findRestypeById(restype_id);
+	}
+
+	@Override
+	public int countRestype() {
+		return restypeRepository.countRestype();
+	}
+
+	@Override
+	public ArrayList<Restypes> findRestypeByKeyword(String keyword) {
+		return restypeRepository.findRestypeByKeyword(keyword);
 	}
 	
 }
