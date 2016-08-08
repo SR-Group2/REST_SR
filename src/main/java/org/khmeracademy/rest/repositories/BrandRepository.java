@@ -51,7 +51,8 @@ public interface BrandRepository {
 	String U_BRAND = "UPDATE brands SET "
 			+ "	contact=#{contact} , "
 			+ "	rest_id=#{rest.rest_id} , "
-			+ "	address_id=#{address.address_id} "
+			+ "	address_id=#{address.address_id},"
+			+ " date_modify=CURRENT_TIMESTAMP "
 			+ "WHERE "
 			+ "	brand_id=#{brand_id}";
 	@Update(U_BRAND)
