@@ -84,11 +84,12 @@ public interface RestaurantRepository {
 	+ " INNER JOIN restypes rs ON rs.restype_id = M.restype_id"
 	+ " INNER JOIN Addresses A ON R.address_id = A.address_id"
 	+ " INNER JOIN users U ON R.user_id = U.user_id"
-	+ " WHERE R.rest_id = #{rest_id}";
+	+ " WHERE R.rest_id = #{rest_id} ";
 	@Select(F_RESTAURANT)
-//	@Results(value={
-//			@Result(property = "address.address_id", column = "address_address_id"),
-//			@Result(property = "user.user_id", column = "user_user_id")
-//	})
-	public ArrayList<Restaurants>  findRestaurantById(int rest_id);
+	@Results(value={
+			@Result(property = "address.address_id", column = "address_address_id"),
+			@Result(property = "user.user_id", column = "user_user_id"),
+			@Result(property = "menus.restype_id", column = "user_user_id")
+	})
+	public Restaurants  findRestaurantById(int rest_id);
 }

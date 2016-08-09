@@ -67,17 +67,17 @@ public void setPicture(String picture) {
 
 	//	private Roles role;
 //	
-	@JsonProperty("ID")
+	//@JsonProperty("ID")
 	private int user_id;
-	@JsonProperty("USERNAME")
+	//@JsonProperty("USERNAME")
 	private String username;
-	@JsonProperty("PASSWORD")
+	//@JsonProperty("PASSWORD")
 	private String password;
-	@JsonProperty("ROLE")
+	//@JsonProperty("ROLE")
 	private Roles role;
-	@JsonProperty("EMAIl")
+	//@JsonProperty("EMAIl")
 	private String email;
-	@JsonProperty("ROLE_NAME")
+	//@JsonProperty("ROLE_NAME")
 	private String role_name;
 	
 	

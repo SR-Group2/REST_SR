@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Roles {
 	
-	@JsonProperty("ID")
+	//@JsonProperty("ID")
 	private int id;
-	@JsonProperty("KEY")
+	//@JsonProperty("KEY")
 	private String key;
-	@JsonProperty("NAME")
+	//@JsonProperty("NAME")
 	private String name;
 	
 	public Roles() {

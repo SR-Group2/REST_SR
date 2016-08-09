@@ -71,7 +71,8 @@ public interface RestypeRepository {
 						+ " WHERE rsp.restype_id = #{restype_id}";
 	@Select(F_RESTYPE)
 	@Results(value={
-			@Result(property="restypes.restype_id", column="rsprestype_id")
+			@Result(property="restypes.restype_id", column="rsprestype_id"),
+			
 	})
 	public ArrayList<Restaurants>  findRestypeById(int restype_id);
 	

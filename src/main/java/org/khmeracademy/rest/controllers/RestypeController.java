@@ -58,7 +58,7 @@ public class RestypeController {
 				map.put("STATUS", true);
 				map.put("MESSAGE", "DATA FOUND!");
 			}else{
-				map.put("STATUS", true);
+				map.put("STATUS", false);
 				map.put("CODE", "300 DATA NOT FOUND");
 				map.put("MESSAGE", "DATA NOT FOUND!");
 			}
@@ -85,7 +85,7 @@ public class RestypeController {
 				map.put("STATUS", true);
 				map.put("MESSAGE", "DATA FOUND!");
 			}else{
-				map.put("STATUS", true);
+				map.put("STATUS", false);
 				map.put("CODE", "300 DATA NOT FOUND");
 				map.put("MESSAGE", "DATA NOT FOUND!");
 			}
@@ -177,7 +177,7 @@ public class RestypeController {
 				map.put("STATUS", true);
 				map.put("MESSAGE", "DATA FOUND!");
 			}else{
-				map.put("STATUS", true);
+				map.put("STATUS", false);
 				map.put("CODE", "300 DATA NOT FOUND");
 				map.put("MESSAGE", "DATA NOT FOUND!");
 			}

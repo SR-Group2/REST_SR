@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 public interface RestaurantService {
 
 	public ArrayList<Restaurants> getAllRestaurant();
+	
 	public boolean insertRestaurant(Restaurants restaurant);
+	
 	public boolean deleteRestaurant(int rest_id);
+	
 	public boolean updateRestaurant(Restaurants restaurant);
-	public ArrayList<Restaurants> findRestaurantById(int rest_id);
+	
+	public Restaurants findRestaurantById(int rest_id);
 }

@@ -35,7 +35,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public ArrayList<Restaurants> findRestaurantById(int rest_id) {
+	public Restaurants findRestaurantById(int rest_id) {
 		return restaurantRepository.findRestaurantById(rest_id);
 	}
 

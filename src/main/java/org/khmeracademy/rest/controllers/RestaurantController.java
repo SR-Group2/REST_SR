@@ -117,8 +117,8 @@ public class RestaurantController {
 	public ResponseEntity<Map<String, Object>> findRestaurantById(@PathVariable("rest-id") int rest_id){
 		Map<String, Object> map = new Hashtable<String, Object>();
 		try {
-			ArrayList<Restaurants> restaurants = restaurantService.findRestaurantById(rest_id);
-			if(!restaurants.isEmpty()){
+			Restaurants restaurants = restaurantService.findRestaurantById(rest_id);
+			if(!restaurants.equals(null)){
 				map.put("DATA", restaurants);
 				map.put("CODE", "200 OK");
 				map.put("STATUS", true);
