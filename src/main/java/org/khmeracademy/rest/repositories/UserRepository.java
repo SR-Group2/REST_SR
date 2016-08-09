@@ -77,7 +77,7 @@ public interface UserRepository {
 			@Result(property="role.id", column="role_id"),
 			@Result(property="role.name", column="role_name" )
 	})
-	public ArrayList<Users> findUserById(int id);
+	public Users findUserById(int id);
 	
 	
 	@Select("SELECT user_id, username, password, email, role_id FROM users WHERE username=#{username}")

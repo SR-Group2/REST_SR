@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface RestaurantRepository {
 
 	String R_RESTAURANT = "SELECT"
+			+ " DISTINCT"
 			+ " R.rest_id,"
 			+ " R.rest_name,"
 			+ " R.contact,"
