@@ -44,7 +44,7 @@ public interface RestaurantRepository {
 	public ArrayList<Restaurants> getAllRestaurant();
 	
 	String C_RESTAURANT = "INSERT INTO restaurants(rest_name,contact,about,open_close,location,restype_id,address_id,user_id)"
-			+ " VALUES(#{rest_name} , #{contact} , #{about},#{open_close},#{location},#{restype.restype_id},#{address.address_id},#{user.user_id})";
+			+ " VALUES(#{rest_name} , #{contact} , #{about},#{open_close},#{location},#{restypes.restype_id},#{address.address_id},#{user.user_id})";
 	@Insert(C_RESTAURANT)
 	public boolean insertRestaurant(Restaurants restaurant);
 	
@@ -62,7 +62,7 @@ public interface RestaurantRepository {
 			+ "	about=#{about},"
 			+ " open_close = #{open_close},"
 			+ " location = #{location},"
-			+ " restype_id = #{restype.restype_id},"
+			+ " restype_id = #{restypes.restype_id},"
 			+ " address_id = #{address.address_id},"
 			+ " user_id = #{user.user_id} "
 			+ "WHERE "
