@@ -17,21 +17,37 @@ public interface BrandRepository {
 	String R_BRAND = "SELECT"
 			+" B.brand_id,"
 			+" B.contact,"
+			+" B.date_added,"
+			+" B.date_modify,"
 			+" R.rest_id,"
+			+" R.rest_name,"
+			+" R.contact,"
+			+" R.about,"
+			+" R.open_close,"
+			+" R.location,"
 			+" A.address_id,"
 			+" A.street,"
-			+" B.date_added,"
-			+" B.date_modify"
+			+" A.district,"
+			+" A.communce,"
+			+" A.province"
 			+" FROM brands B "
 			+" INNER JOIN restaurants R"
 			+" ON B.rest_id = R.rest_id"
 			+" INNER JOIN addresses A"
 			+" ON A.address_id = B.address_id";
-
 	@Select(R_BRAND)
 	@Results(value={
 			@Result(property="rest.rest_id", column = "rest_id"),
-			@Result(property = "address.address_id", column = "address_id")
+			@Result(property="rest.rest_name", column = "rest_name"),
+			@Result(property="rest.contact", column = "contact"),
+			@Result(property="rest.about", column = "about"),
+			@Result(property="rest.open_close", column = "open_close"),
+			@Result(property="rest.location", column = "location"),
+			@Result(property = "address.address_id", column = "address_id"),
+			@Result(property = "address.street", column = "street"),
+			@Result(property = "address.district", column = "district"),
+			@Result(property = "address.communce", column = "communce"),
+			@Result(property = "address.province", column = "province")
 	})
 	public ArrayList<Brands> getAllBrand();
 		
@@ -60,16 +76,41 @@ public interface BrandRepository {
 	
 	
 	String F_BRAND = "SELECT"
-			+ " brand_id,"
-			+ " contact,"
-			+ " rest_id,"
-			+ " address_id,"
-			+ " date_added,"
-			+ " date_modify"
-			+ " FROM"
-			+ " brands"
-			+ " WHERE"
-			+ " brand_id = #{brand_id}";
+			+" B.brand_id,"
+			+" B.contact,"
+			+" B.date_added,"
+			+" B.date_modify,"
+			+" R.rest_id,"
+			+" R.rest_name,"
+			+" R.contact,"
+			+" R.about,"
+			+" R.open_close,"
+			+" R.location,"
+			+" A.address_id,"
+			+" A.street,"
+			+" A.district,"
+			+" A.communce,"
+			+" A.province"
+			+" FROM brands B "
+			+" INNER JOIN restaurants R"
+			+" ON B.rest_id = R.rest_id"
+			+" INNER JOIN addresses A"
+			+" ON A.address_id = B.address_id"
+			+" WHERE"
+			+" B.brand_id = #{brand_id}";
 	@Select(F_BRAND)
+	@Results(value={
+			@Result(property="rest.rest_id", column = "rest_id"),
+			@Result(property="rest.rest_name", column = "rest_name"),
+			@Result(property="rest.contact", column = "contact"),
+			@Result(property="rest.about", column = "about"),
+			@Result(property="rest.open_close", column = "open_close"),
+			@Result(property="rest.location", column = "location"),
+			@Result(property = "address.address_id", column = "address_id"),
+			@Result(property = "address.street", column = "street"),
+			@Result(property = "address.district", column = "district"),
+			@Result(property = "address.communce", column = "communce"),
+			@Result(property = "address.province", column = "province")
+	})
 	public ArrayList<Brands>  findBrandById(int brand_id);
 }
