@@ -24,10 +24,10 @@ public interface RestypeRepository {
 			+ "	  	  date_added, "
 			+ "		  date_modify, "
 			+ "		  parentid_restypeid "
-			+ "FROM  restypes "
-			+ "WHERE LOWER(restype_name) LIKE LOWER(#{keyword}) "
-			+ "ORDER BY date_added DESC "
-			+ "offset #{offset} LIMIT #{limit}  ";
+			+ " FROM  restypes "
+			+ " WHERE LOWER(restype_name) LIKE LOWER(#{keyword}) "
+			+ " ORDER BY date_added DESC "
+			+ " offset #{offset} LIMIT #{limit}  ";
 	@Select(R_RESTYPE)
 	public ArrayList<Restypes> getAllRestype(@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
 	
@@ -40,9 +40,9 @@ public interface RestypeRepository {
 	
 	String U_RESTYPE = "UPDATE restypes SET "
 			+ "	restype_name=#{restype_name} , restype_name_kh=#{restype_name_kh}, "
-			+ "date_modify=CURRENT_TIMESTAMP , restype_picture=#{restype_picture},"
+			+ " date_modify=CURRENT_TIMESTAMP , restype_picture=#{restype_picture},"
 			+ " parentid_restypeid = #{parentid_restypeid} "
-			+ "WHERE "
+			+ " WHERE "
 			+ "	restype_id=#{restype_id}";
 	@Update(U_RESTYPE)
 	public boolean updateRestype(Restypes restype);

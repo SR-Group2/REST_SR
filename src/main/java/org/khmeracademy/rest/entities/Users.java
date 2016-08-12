@@ -10,8 +10,17 @@ public class Users {
 //	private int user_id;
 private String first_name;
 private String last_name;
+private String gender;
 public String getFirst_name() {
 	return first_name;
+}
+
+public String getGender() {
+	return gender;
+}
+
+public void setGender(String gender) {
+	this.gender = gender;
 }
 
 public void setFirst_name(String first_name) {
