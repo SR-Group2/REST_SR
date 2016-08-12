@@ -47,9 +47,6 @@ public class RestypeController {
 		try{
 			pagination.setTotalCount(restypeService.countRestype(restypeFilter.getKeyword()));
 			
-//			System.out.println(" LIMIT ==> " + pagination.getLimit() + " OFFSET ==>" + pagination.offset() +
-//					pagination.getPage() + pagination.getTotalPages());
-			
 			ArrayList<Restypes> restypes = restypeService.getAllRestype(pagination, restypeFilter);
 			if(!restypes.isEmpty()){
 				map.put("DATA", restypes);
@@ -166,14 +163,28 @@ public class RestypeController {
 		return new ResponseEntity<Map<String,Object>>(map , HttpStatus.OK);
 	}
 	
+
+	
+	@ApiImplicitParams({
+	
+	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
+	            value = "Results page you want to retrieve)"),
+	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
+	            value = "Number of records per page."),
+	})
 	@RequestMapping(value = "/{restype-id}",method = RequestMethod.GET)
-	public ResponseEntity<Map<String,Object>> findRestypeById(@PathVariable("restype-id") int restype_id){
+	public ResponseEntity<Map<String,Object>> findRestypeById(@PathVariable("restype-id") int restype_id,
+			 Pagination pagination){
 		Map<String , Object> map = new Hashtable<String , Object>();
 		try{
+			
+			pagination.setTotalCount(restypeService.countRest(restype_id));
+			
 			ArrayList<Restaurants> restypes = restypeService.findRestypeById(restype_id);
 			if(!restypes.isEmpty()){
 				map.put("DATA", restypes);
 				map.put("CODE", "200 OK");
+				map.put("PAGINATION", pagination);
 				map.put("STATUS", true);
 				map.put("MESSAGE", "DATA FOUND!");
 			}else{

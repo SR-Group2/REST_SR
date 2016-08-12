@@ -9,11 +9,11 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Restaurants;
+import org.khmeracademy.rest.entities.Restypes;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RestaurantRepository {
-
 
 	String R_RESTAURANT = "SELECT"
 			+ " R.rest_id,"
@@ -128,4 +128,6 @@ public interface RestaurantRepository {
 			@Result(property = "menus.restype_id", column = "user_user_id")
 	})
 	public Restaurants  findRestaurantById(int rest_id);
+	
+	
 }

@@ -52,5 +52,11 @@ public class RestypeServiceImpl implements RestypeService {
 	public ArrayList<Restypes> findRestypeByKeyword(String keyword) {
 		return restypeRepository.findRestypeByKeyword(keyword);
 	}
+
+	@Override
+	public int countRest(int restype_id) {
+		
+		return restypeRepository.countRest(restype_id);
+	}
 	
 }

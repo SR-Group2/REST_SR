@@ -13,6 +13,8 @@ public interface RestypeService {
 
 	public int countRestype(String keyword);
 	
+	public int countRest(int restype_id);
+	
 	public ArrayList<Restypes> getAllRestype(Pagination pagination, RestypeFilter filter);
 	
 	public boolean insertRestype(Restypes restype);
