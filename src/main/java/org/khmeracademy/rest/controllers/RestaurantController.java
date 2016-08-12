@@ -69,7 +69,7 @@ public class RestaurantController {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/{rest-id}", method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Map<String, Object>> updateRestaurant(@RequestBody Restaurants restaurant){
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
