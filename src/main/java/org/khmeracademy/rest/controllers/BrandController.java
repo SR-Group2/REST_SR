@@ -69,7 +69,7 @@ public class BrandController {
 		return new ResponseEntity<Map<String,Object>>(map , HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/{brand-id}", method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Map<String, Object>> updateBrand(@RequestBody Brands brand){
 		Map<String , Object> map = new HashMap<String , Object>();
 		try{
@@ -117,8 +117,8 @@ public class BrandController {
 	public ResponseEntity<Map<String,Object>> findBrandById(@PathVariable("brand-id") int brand_id){
 		Map<String , Object> map = new Hashtable<String , Object>();
 		try{
-			ArrayList<Brands> brands = brandService.findBrandById(brand_id);
-			if(!brands.isEmpty()){
+			Brands brands = brandService.findBrandById(brand_id);
+			if(brands != null){
 				map.put("DATA", brands);
 				map.put("CODE", "200 OK");
 				map.put("STATUS", true);

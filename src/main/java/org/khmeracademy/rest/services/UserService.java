@@ -18,7 +18,7 @@ public interface UserService {
 	
 	public boolean deleteUser(int id);
 	
-	public ArrayList<Users> findUserById(int id);
+	public Users findUserById(int id);
 	
 	public ArrayList<Roles> findRolesByRoleId( int role_id);
 	

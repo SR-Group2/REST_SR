@@ -18,7 +18,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository {
 	
-	String R_USER= "SELECT U.user_id, U.first_name, U.last_name, U.username, U.email, U.password, U.dob, U.joined, U.picture, R.role_id, R.role_name"
+	String R_USER= "SELECT U.user_id, U.first_name, U.last_name, U.username, U.email, U.password, U.dob,"
+			+ " U.gender, U.joined, U.picture, R.role_id, R.role_name"
 			+ " FROM users U"
 			+ " INNER JOIN"
 			+ " roles R"
@@ -31,8 +32,8 @@ public interface UserRepository {
 	public ArrayList<Users> getAllUsers();
 	
 	String C_USER="INSERT INTO"
-			+ " users (first_name, last_name, username, email, password, dob, picture, role_id)"
-			+ " VALUES(#{first_name},#{last_name},#{username},#{email},#{password},#{dob},#{picture},#{role.id})";
+			+ " users (first_name, last_name, username, email, password, dob, gender, picture, role_id)"
+			+ " VALUES(#{first_name},#{last_name},#{username},#{email},#{password},#{dob},#{gender}, #{picture},#{role.id})";
 	
 	@Insert(C_USER)
 	@Results(value={
@@ -48,6 +49,7 @@ public interface UserRepository {
 			+ " email=#{email},"
 			+ " password=#{password},"
 			+ " dob=#{dob},"
+			+ " gender=#{gender},"
 			+ " picture=#{picture},"
 			+ " role_id=#{role.id} WHERE user_id=#{user_id}";
 	
@@ -66,8 +68,9 @@ public interface UserRepository {
 	@Delete(D_USER)
 	public boolean deleteUser(int id);
 	
-	String F_USER="SELECT U.user_id, U.first_name, U.last_name, U.username, U.email, U.password, U.dob, U.joined"
-			+ ", U.picture, R.role_id, R.role_name"
+	String F_USER="SELECT U.user_id, U.first_name, U.last_name, U.username, U.email,"
+			+ " U.gender, U.password, U.dob, U.joined,"
+			+ " U.picture, R.role_id, R.role_name"
 			+ " FROM users U"
 			+ " INNER JOIN"
 			+ " roles R"
@@ -77,7 +80,7 @@ public interface UserRepository {
 			@Result(property="role.id", column="role_id"),
 			@Result(property="role.name", column="role_name" )
 	})
-	public ArrayList<Users> findUserById(int id);
+	public Users findUserById(int id);
 	
 	
 	@Select("SELECT user_id, username, password, email, role_id FROM users WHERE username=#{username}")

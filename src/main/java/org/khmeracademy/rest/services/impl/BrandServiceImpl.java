@@ -35,7 +35,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	public ArrayList<Brands> findBrandById(int brand_id) {
+	public Brands findBrandById(int brand_id) {
 		return brandRepositoy.findBrandById(brand_id);
 	}
 

@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Users {
-//	private int user_id;
+	
 private String first_name;
 private String last_name;
+private String gender;
+
 public String getFirst_name() {
 	return first_name;
 }
@@ -54,19 +54,26 @@ public void setJoined(Date joined) {
 	this.joined = joined;
 }
 
-private Date dob;
-private Date joined;
-private String picture;
-public String getPicture() {
-	return picture;
-}
+	private Date dob;
+	private Date joined;
+	private String picture;
+	public String getPicture() {
+		return picture;
+	}
+	
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
 
-public void setPicture(String picture) {
-	this.picture = picture;
-}
+	
+	public String getGender() {
+		return gender;
+	}
 
-	//	private Roles role;
-//	
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	//@JsonProperty("ID")
 	private int user_id;
 	//@JsonProperty("USERNAME")

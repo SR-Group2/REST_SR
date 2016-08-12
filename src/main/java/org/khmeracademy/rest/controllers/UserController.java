@@ -154,8 +154,8 @@ public class UserController {
 	public ResponseEntity<Map<String, Object>> getUserById(@PathVariable("user-id") int id){
 		Map<String, Object> map= new HashMap<String, Object>();
 		try{
-			ArrayList<Users> user= userService.findUserById(id);
-			if(!user.isEmpty()){
+			Users user= userService.findUserById(id);
+			if(!user.equals(null)){
 				map.put("DATA", user);
 				map.put("STATUS", true);
 				map.put("CODE", "200");

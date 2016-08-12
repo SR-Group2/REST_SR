@@ -11,5 +11,5 @@ public interface BrandService {
 	public boolean insertBrand(Brands brand);
 	public boolean deleteBrand(int brand_id);
 	public boolean updateBrand(Brands brand);
-	public ArrayList<Brands>  findBrandById(int brand_id);
+	public Brands findBrandById(int brand_id);
 }
