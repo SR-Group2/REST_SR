@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository {
 	
-	String R_USER= "SELECT U.user_id, U.first_name, U.last_name, U.username, U.email, U.password, U.dob, U.joined, U.picture, R.role_id, R.role_name"
+	String R_USER= "SELECT U.user_id, U.first_name, U.last_name, U.username, U.email, U.password, U.dob, U.gender, U.joined, U.picture, R.role_id, R.role_name"
 			+ " FROM users U"
 			+ " INNER JOIN"
 			+ " roles R"
@@ -31,8 +31,8 @@ public interface UserRepository {
 	public ArrayList<Users> getAllUsers();
 	
 	String C_USER="INSERT INTO"
-			+ " users (first_name, last_name, username, email, password, dob, picture, role_id)"
-			+ " VALUES(#{first_name},#{last_name},#{username},#{email},#{password},#{dob},#{picture},#{role.id})";
+			+ " users (first_name, last_name, username, email, password, dob,gender, picture, role_id)"
+			+ " VALUES(#{first_name},#{last_name},#{username},#{email},#{password},#{dob},#{gender},#{picture},#{role.id})";
 	
 	@Insert(C_USER)
 	@Results(value={
