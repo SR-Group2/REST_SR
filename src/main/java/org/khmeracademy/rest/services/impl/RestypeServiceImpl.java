@@ -20,7 +20,8 @@ public class RestypeServiceImpl implements RestypeService {
 	public ArrayList<Restypes> getAllRestype(Pagination pagination, RestypeFilter filter) {
 		System.out.println(pagination.getOffset() + " " + pagination.getLimit());
 		System.out.println(filter.getKeyword()) ;
-		return restypeRepository.getAllRestype("%" + filter.getKeyword() + "%", pagination.getLimit(), pagination.getOffset());
+		return restypeRepository.getAllRestype("%" + filter.getKeyword().toLowerCase() + "%", 
+				pagination.getLimit(), pagination.getOffset());
 	}
 
 	@Override
@@ -39,8 +40,10 @@ public class RestypeServiceImpl implements RestypeService {
 	}
 
 	@Override
-	public ArrayList<Restaurants> findRestypeById(int restype_id) {
-		return restypeRepository.findRestypeById(restype_id);
+	public ArrayList<Restaurants> findRestypeById(int restype_id, Pagination pagination) {
+		
+		return restypeRepository.findRestypeById(restype_id, pagination.getLimit(), pagination.getOffset());
+		
 	}
 
 	@Override

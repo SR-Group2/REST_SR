@@ -41,10 +41,12 @@ public class RestypeController {
 	})
 	
 	@RequestMapping(value = "/get-restype",method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> getAllRestype(@ApiIgnore RestypeFilter restypeFilter, Pagination pagination){
+	public ResponseEntity<Map<String, Object>> getAllRestype(@ApiIgnore RestypeFilter restypeFilter, 
+			@ApiIgnore Pagination pagination){
 		Map<String , Object> map = new Hashtable<String , Object>();
 		
 		try{
+			
 			pagination.setTotalCount(restypeService.countRestype(restypeFilter.getKeyword()));
 			
 			ArrayList<Restypes> restypes = restypeService.getAllRestype(pagination, restypeFilter);
@@ -172,15 +174,15 @@ public class RestypeController {
 	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
 	            value = "Number of records per page."),
 	})
-	@RequestMapping(value = "/{restype-id}",method = RequestMethod.GET)
-	public ResponseEntity<Map<String,Object>> findRestypeById(@PathVariable("restype-id") int restype_id,
-			 Pagination pagination){
+	@RequestMapping(value = "/{restype_id}",method = RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> findRestypeById(@PathVariable("restype_id") int restype_id,
+			@ApiIgnore Pagination pagination){
 		Map<String , Object> map = new Hashtable<String , Object>();
 		try{
 			
 			pagination.setTotalCount(restypeService.countRest(restype_id));
 			
-			ArrayList<Restaurants> restypes = restypeService.findRestypeById(restype_id);
+			ArrayList<Restaurants> restypes = restypeService.findRestypeById(restype_id, pagination);
 			if(!restypes.isEmpty()){
 				map.put("DATA", restypes);
 				map.put("CODE", "200 OK");

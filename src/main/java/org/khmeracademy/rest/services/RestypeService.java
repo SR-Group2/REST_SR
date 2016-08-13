@@ -23,7 +23,7 @@ public interface RestypeService {
 	
 	public boolean updateRestype(Restypes restype);
 	
-	public ArrayList<Restaurants>  findRestypeById(int restype_id);
+	public ArrayList<Restaurants>  findRestypeById(int restype_id, Pagination pagination);
 	
 	public ArrayList<Restypes> findRestypeByKeyword(String keyword);
 }

@@ -24,12 +24,15 @@ public interface RestypeRepository {
 			+ "	  	  date_added, "
 			+ "		  date_modify, "
 			+ "		  parentid_restypeid "
-			+ "FROM  restypes "
-			+ "WHERE LOWER(restype_name) LIKE LOWER(#{keyword}) "
-			+ "ORDER BY date_added DESC "
-			+ "offset #{offset} LIMIT #{limit}  ";
+			+ " FROM  restypes "
+			+ " WHERE LOWER(restype_name) LIKE LOWER(#{keyword}) "
+			+ " ORDER BY date_added DESC "
+			+ " OFFSET #{offset} LIMIT #{limit} ";
 	@Select(R_RESTYPE)
-	public ArrayList<Restypes> getAllRestype(@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
+	public ArrayList<Restypes> getAllRestype(@Param("keyword") String keyword, 
+			@Param("limit") int limit, @Param("offset") int offset);
+	
+	
 	
 	String C_RESTYPE = "INSERT INTO restypes(restype_name,restype_name_kh,"
 			+ "restype_picture, parentid_restypeid) "
@@ -63,14 +66,15 @@ public interface RestypeRepository {
 						+ " INNER JOIN menus mn ON mn.rest_id = r.rest_id "
 						+ " INNER JOIN restypes rsp ON mn.restype_id = rsp.restype_id "
 						+ " WHERE rsp.restype_id = #{restype_id}"
-						+ "ORDER BY date_added DESC "
-						+ "offset #{offset} LIMIT #{limit}  ";
+						+ " ORDER BY date_added DESC "
+						+ " OFFSET #{offset} LIMIT #{limit}  ";
 	@Select(F_RESTYPE)
 	@Results(value={
 			@Result(property="restypes.restype_id", column="rsprestype_id")
 			
 	})
-	public ArrayList<Restaurants>  findRestypeById(int restype_id);
+	public ArrayList<Restaurants>  findRestypeById(@Param("restype_id") int restype_id,
+			@Param("limit") int limit, @Param("offset") int offset);
 	
 	
 	String COUNT_RESTYPE = "SELECT COUNT(restype_id) FROM restypes WHERE restype_name LIKE '%'||#{keyword}||'%' ";
@@ -88,6 +92,7 @@ public interface RestypeRepository {
 				+"	FROM restaurants r "
 				+" INNER JOIN menus mn ON mn.rest_id = r.rest_id "
 				+" INNER JOIN restypes rsp ON mn.restype_id = rsp.restype_id " 
-				+" WHERE rsp.restype_id = #{restype_id)";
+				+" WHERE rsp.restype_id = #{restype_id}";
+	@Select(COUNT_RESTAURANT)
 	public int countRest(int restype_id);
 }
