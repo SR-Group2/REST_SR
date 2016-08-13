@@ -11,5 +11,5 @@ public interface CommentService {
 	public boolean insertComment(Comments comment);
 	public boolean  updateComment(Comments comment);
 	public boolean deleteComment(int id);
-	public ArrayList<Comments> getCommentById(int id);
+	public Comments getCommentById(int id);
 }

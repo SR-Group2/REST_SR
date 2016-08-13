@@ -11,30 +11,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentServiceImpl implements CommentService{
 	@Autowired
-	private CommentReopository commmentRepository;
+	private CommentReopository commentRepository;
 	@Override
 	public ArrayList<Comments> getAllComments() {
-		return commmentRepository.getAllComments();
+		return commentRepository.getAllComments();
 	}
 
 	@Override
 	public boolean insertComment(Comments comment) {
-		return commmentRepository.insertComment(comment);
+		return commentRepository.insertComment(comment);
 	}
 
 	@Override
 	public boolean updateComment(Comments comment) {
-		return commmentRepository.updateComment(comment);
+		return commentRepository.updateComment(comment);
 	}
 
 	@Override
 	public boolean deleteComment(int id) {
-		return commmentRepository.deleteComment(id);
+		return commentRepository.deleteComment(id);
 	}
 
 	@Override
-	public ArrayList<Comments> getCommentById(int id) {
-		return commmentRepository.getCommentById(id);
+	public Comments getCommentById(int id) {
+		return commentRepository.getCommentById(id);
 	}
 
 }

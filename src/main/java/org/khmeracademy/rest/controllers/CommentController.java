@@ -118,8 +118,8 @@ public class CommentController {
 	public ResponseEntity<Map<String, Object>> getCommentById(@PathVariable("comment-id") int id){
 		Map<String, Object> map= new Hashtable<String, Object>();
 		try{
-			ArrayList<Comments> comment= commentService.getCommentById(id);
-			if(!comment.isEmpty()){
+			Comments comment= commentService.getCommentById(id);
+			if(!comment.equals(null)){
 				map.put("DATA", comment);
 				map.put("STATUS", true);
 				map.put("CODE", "200");

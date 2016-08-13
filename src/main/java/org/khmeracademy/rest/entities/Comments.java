@@ -4,7 +4,14 @@ public class Comments {
 	private int comment_id;
 	private String comment;
 	private Users user;
-	private Foods food;
+	private Restaurants rest;
+	
+	public Restaurants getRest() {
+		return rest;
+	}
+	public void setRest(Restaurants rest) {
+		this.rest = rest;
+	}
 	public int getComment_id() {
 		return comment_id;
 	}
@@ -22,11 +29,5 @@ public class Comments {
 	}
 	public void setUser(Users user) {
 		this.user = user;
-	}
-	public Foods getFood() {
-		return food;
-	}
-	public void setFood(Foods food) {
-		this.food = food;
 	}
 }
