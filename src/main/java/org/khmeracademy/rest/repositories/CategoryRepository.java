@@ -27,7 +27,7 @@ public interface CategoryRepository {
 	String F_CAT = "SELECT category_id, category_name, other, date_added, date_modify FROM CATEGORIES"
 			+ " WHERE category_id = #{category_id}";
 	@Select(F_CAT)
-	public ArrayList<Categories> findCategoryById(@Param("category_id") int category_id);
+	public Categories findCategoryById(@Param("category_id") int category_id);
 	
 	/* =================  UPDATE DATA   =================== */
 	String U_CAT = "UPDATE CATEGORIES SET category_name=#{category_name}, other=#{other},date_modify=CURRENT_TIMESTAMP"

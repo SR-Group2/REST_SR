@@ -100,8 +100,8 @@ public class CategoryController {
 		Map<String , Object> map = new HashMap<String , Object>();
 	
 		try{
-			ArrayList<Categories> category = categoryService.findCategoryById(category_id);
-			if(!category.isEmpty()) {
+			Categories category = categoryService.findCategoryById(category_id);
+			if(!category.equals(null)) {
 				map.put("CODE", "200 OK");
 				map.put("DATA", category);
 				map.put("STATUS", true);

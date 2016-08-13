@@ -10,7 +10,7 @@ public interface CategoryService {
 	
 	public ArrayList<Categories> getCategory();
 	
-	public ArrayList<Categories> findCategoryById(int category_id);
+	public Categories findCategoryById(int category_id);
 	
 	public boolean updateCategory(Categories category);
 	

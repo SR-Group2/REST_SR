@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	
 	@Override
-	public ArrayList<Categories> findCategoryById(int category_id) {
+	public Categories findCategoryById(int category_id) {
 		
 		return categoryRepository.findCategoryById(category_id);
 	}
