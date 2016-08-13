@@ -48,8 +48,12 @@ public class RestypeController {
 		try{
 			
 			pagination.setTotalCount(restypeService.countRestype(restypeFilter.getKeyword()));
-			
+//			pagination.setOffset(pagination.getOffset());
 			ArrayList<Restypes> restypes = restypeService.getAllRestype(pagination, restypeFilter);
+			for(int i=0;i<restypes.size();i++){
+				System.out.println("NAME "+ restypes.get(i).getRestype_name());
+				System.out.println("Offset " + pagination.getOffset());
+			}
 			if(!restypes.isEmpty()){
 				map.put("DATA", restypes);
 				map.put("PAGINATION", pagination);

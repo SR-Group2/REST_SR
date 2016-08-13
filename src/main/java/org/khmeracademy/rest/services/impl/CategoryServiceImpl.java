@@ -43,6 +43,12 @@ public class CategoryServiceImpl implements CategoryService{
 		
 		return categoryRepository.deleteCategory(category_id);
 	}
+
+	@Override
+	public ArrayList<Categories> getCategoryByRestId(int rest_id) {
+		
+		return categoryRepository.getCategoryByRestId(rest_id);
+	}
 	
 	
 	

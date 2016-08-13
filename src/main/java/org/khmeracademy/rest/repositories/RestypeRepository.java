@@ -26,8 +26,8 @@ public interface RestypeRepository {
 			+ "		  parentid_restypeid "
 			+ " FROM  restypes "
 			+ " WHERE LOWER(restype_name) LIKE LOWER(#{keyword}) "
-			+ " ORDER BY date_added DESC "
-			+ " OFFSET #{offset} LIMIT #{limit} ";
+			+ " ORDER BY restype_id DESC "
+			+ " LIMIT #{limit} OFFSET #{offset} ";
 	@Select(R_RESTYPE)
 	public ArrayList<Restypes> getAllRestype(@Param("keyword") String keyword, 
 			@Param("limit") int limit, @Param("offset") int offset);

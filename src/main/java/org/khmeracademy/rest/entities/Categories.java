@@ -9,6 +9,14 @@ public class Categories {
 	private Date date_added;
 	private Date date_modify;
 	
+	private Restaurants rest;
+	
+	public Restaurants getRest() {
+		return rest;
+	}
+	public void setRest(Restaurants rest) {
+		this.rest = rest;
+	}
 	public int getCategory_id() {
 		return category_id;
 	}

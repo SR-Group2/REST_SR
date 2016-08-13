@@ -15,4 +15,7 @@ public interface CategoryService {
 	public boolean updateCategory(Categories category);
 	
 	public boolean deleteCategory(int category_id);
+	
+	public ArrayList<Categories> getCategoryByRestId(int rest_id);
+	
 }

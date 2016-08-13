@@ -113,7 +113,8 @@ public interface RestaurantRepository {
 	+ " R.open_close,"
 	+ " R.location,"
 	+ " A.address_id AS address_address_id,"
-	+ " U.user_id AS user_user_id"
+	+ " U.user_id AS user_user_id,"
+	+ " U.username AS user_username"
 	+ " FROM"
 	+ " restaurants R"
 	+ " INNER JOIN menus M ON R.rest_id = M.rest_id"
@@ -125,6 +126,7 @@ public interface RestaurantRepository {
 	@Results(value={
 			@Result(property = "address.address_id", column = "address_address_id"),
 			@Result(property = "user.user_id", column = "user_user_id"),
+			@Result(property = "user.username", column = "user_username"),
 			@Result(property = "menus.restype_id", column = "user_user_id")
 	})
 	public Restaurants  findRestaurantById(int rest_id);

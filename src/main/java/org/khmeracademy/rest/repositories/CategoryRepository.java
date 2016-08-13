@@ -39,4 +39,16 @@ public interface CategoryRepository {
 	String D_CAT = "DELETE FROM CATEGORIES WHERE category_id = #{category_id}";
 	@Delete(D_CAT)
 	public boolean deleteCategory(@Param("category_id") int category_id);
+	
+	/*====================== Get Category By Restaurant ID ==================*/
+	String GC_BRID = "SELECT "
+					+"		r.rest_id, "
+					+"		r.rest_name, "
+					+"		c.category_id, "
+					+"		c.category_name"
+					+"	FROM "
+					+"	categories c INNER JOIN catrests cr ON c.category_id = cr.category_id "
+					+"	INNER JOIN restaurants r ON r.rest_id = cr.rest_id WHERE r.rest_id = #{rest_id}";
+	@Select(GC_BRID)
+	public ArrayList<Categories> getCategoryByRestId(int rest_id);
 }
