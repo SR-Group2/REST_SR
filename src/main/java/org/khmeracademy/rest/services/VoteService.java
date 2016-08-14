@@ -10,5 +10,5 @@ public interface VoteService {
 	public boolean insertVote(Votes vote);
 	public boolean  updateVote(Votes vote);
 	public boolean deleteVote(int id);
-	public ArrayList<Votes> getVoteById(int id);
+	public Votes getVoteById(int id);
 }

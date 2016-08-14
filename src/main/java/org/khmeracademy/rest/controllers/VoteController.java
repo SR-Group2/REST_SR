@@ -118,8 +118,8 @@ public class VoteController {
 	public ResponseEntity<Map<String, Object>> getVoteById(@PathVariable("vote-id") int id){
 		Map<String, Object> map= new Hashtable<String, Object>();
 		try{
-			ArrayList<Votes> votes= voteService.getVoteById(id);
-			if(!votes.isEmpty()){
+			Votes votes= voteService.getVoteById(id);
+			if(!votes.equals(null)){
 				map.put("DATA", votes);
 				map.put("STATUS", true);
 				map.put("CODE", "200");

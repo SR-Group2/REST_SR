@@ -95,7 +95,7 @@ public class CategoryController {
 			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		}
 	//======================= FIND CATEGORY BY ID =============================
-	@RequestMapping(value="/find-category-by-id/{category_id}" , method = RequestMethod.GET , headers = "Accept=Application/json")
+	@RequestMapping(value="/{category_id}" , method = RequestMethod.GET , headers = "Accept=Application/json")
 	public ResponseEntity<Map<String , Object>> findCategoryById(@PathVariable("category_id") int category_id){
 		Map<String , Object> map = new HashMap<String , Object>();
 	
@@ -119,7 +119,7 @@ public class CategoryController {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	//======================= DELETE  CATEGORY =============================
-	@RequestMapping(value="/delete-category/{category_id}" , method = RequestMethod.DELETE , headers = "Accept=Application/json")
+	@RequestMapping(value="/{category_id}" , method = RequestMethod.DELETE , headers = "Accept=Application/json")
 	public ResponseEntity<Map<String , Object>> deleteCategory(@PathVariable("category_id") int category_id){
 		Map<String , Object> map = new HashMap<String , Object>();
 		try{
@@ -140,7 +140,7 @@ public class CategoryController {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	//======================= UPDATE CATEGORY =============================
-	@RequestMapping(value="/update-category" , method = RequestMethod.PUT , headers = "Accept=Application/json")
+	@RequestMapping(method = RequestMethod.PUT , headers = "Accept=Application/json")
 	public ResponseEntity<Map<String , Object>> updateCategory(@RequestBody Categories category){
 		Map<String , Object> map = new HashMap<String , Object>();
 		try{

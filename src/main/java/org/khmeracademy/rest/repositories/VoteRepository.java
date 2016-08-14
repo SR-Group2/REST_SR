@@ -14,13 +14,27 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VoteRepository {
 	
-	String R_VOTE= "SELECT vote_id, vote_number, rest_id, food_id, user_id"
-			+ "	FROM votes";
+	String R_VOTE= "SELECT"
+			+ " V.vote_id,"
+			+ " V.vote_number,"
+			+ " R.rest_id,"
+			+ " R.rest_name,"
+			+ " U.user_id,"
+			+ " U.first_name,"
+			+ "	U.last_name"
+			+ "	FROM"
+			+ " votes V "
+			+ " INNER JOIN restaurants R"
+			+ " ON V.rest_id = R.rest_id"
+			+ " INNER JOIN users U"
+			+ " ON V.user_id = U.user_id";
 	@Select(R_VOTE)
 	@Results(value={
 			@Result(property="rest.rest_id", column="rest_id"),
-			@Result(property="food.food_id", column="food_id" ),
-			@Result(property="user.user_id", column="user_id")
+			@Result(property="rest.rest_name", column="rest_name"),
+			@Result(property="user.user_id", column="user_id"),
+			@Result(property="user.first_name", column="first_name"),
+			@Result(property="user.last_name", column="last_name")
 	})
 	public ArrayList<Votes> getAllVotes();
 	
@@ -53,6 +67,5 @@ public interface VoteRepository {
 			+ " WHERE"
 			+ " vote_id=#{vote_id} ";
 	@Select(F_VOTE)
-	public ArrayList<Votes> getVoteById(int id);
-
+	public Votes getVoteById(int id);
 }

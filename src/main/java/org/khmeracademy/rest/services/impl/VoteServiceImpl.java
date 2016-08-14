@@ -33,7 +33,7 @@ public class VoteServiceImpl implements VoteService{
 	}
 
 	@Override
-	public ArrayList<Votes> getVoteById(int id) {
+	public Votes getVoteById(int id) {
 		return voteRepository.getVoteById(id);
 	}
 
