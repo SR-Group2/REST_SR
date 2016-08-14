@@ -16,7 +16,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Override
 	public ArrayList<Restaurants> getAllRestaurant() {
-		return restaurantRepository.findAll();
+		return restaurantRepository.getAllRestaurant();
 	}
 
 	@Override
@@ -38,5 +38,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public Restaurants findRestaurantById(int rest_id) {
 		return restaurantRepository.findRestaurantById(rest_id);
 	}
+
+	@Override
+	public ArrayList<Restaurants> findRestaurantWithCategory() {
+		// TODO Auto-generated method stub
+		return restaurantRepository.findRestaurantWithCategory();
+	}
+
+	
 
 }

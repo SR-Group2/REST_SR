@@ -23,6 +23,32 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
+	//==================== GET RESTAURANT WITH CATEGORY==============
+	@RequestMapping(value = "/get-restaurant-with-category", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getRestuarantWidthCaegory(){
+		Map<String, Object> map = new Hashtable<String, Object>();
+		try {
+			ArrayList<Restaurants> restaurants = restaurantService.findRestaurantWithCategory();
+			if(!restaurants.isEmpty()){
+				map.put("DATA", restaurants);
+				map.put("CODE", "200 OK");
+				map.put("STATUS", true);
+				map.put("MESSAGE", "DATA FOUND");
+			}else{
+				map.put("STATUS", false);
+				map.put("CODE", "300 DATA NOT FOUND");
+				map.put("MESSAGE", "DATA NOT FOUND");
+			}
+		} catch (Exception e) {
+			map.put("STATUS", false);
+			map.put("CODE", "404 NOT FOUND");
+			map.put("MESSAGE", " NOT FOUND!");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
+	//==================== GET RESTAURANT WITH CATEGORY==============
 	@RequestMapping(value = "/get-restaurant", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getAllRestaurant(){
 		Map<String, Object> map = new Hashtable<String, Object>();

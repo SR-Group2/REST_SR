@@ -87,7 +87,7 @@ public interface RestypeRepository {
 	@Select(FIND_RESTYPE)
 	public ArrayList<Restypes> findRestypeByKeyword(String keyword);
 	
-	
+	//================= Count Number of Resturant in Restype FOR Pagination
 	String COUNT_RESTAURANT = "SELECT count(r.rest_id) num_rest "
 				+"	FROM restaurants r "
 				+" INNER JOIN menus mn ON mn.rest_id = r.rest_id "

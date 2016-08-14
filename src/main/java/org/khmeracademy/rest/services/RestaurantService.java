@@ -17,4 +17,6 @@ public interface RestaurantService {
 	public boolean updateRestaurant(Restaurants restaurant);
 	
 	public Restaurants findRestaurantById(int rest_id);
+	
+	public ArrayList<Restaurants> findRestaurantWithCategory();
 }

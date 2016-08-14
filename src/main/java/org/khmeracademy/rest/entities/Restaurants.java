@@ -1,6 +1,5 @@
 package org.khmeracademy.rest.entities;
 
-import java.util.Date;
 import java.util.List;
 
 public class Restaurants {
@@ -12,37 +11,47 @@ public class Restaurants {
 	private String location;
 	private Addresses address;
 	private Users user;
-	private Menus menus;
-	//private Restypes restypes;
-	private List<Restypes> restypes;
+	private List<Menus> menus;
+	private Restypes restypes;
+	private List<Restypes> restypesList;
 	
-//	public Restypes getRestypes() {
-//		return restypes;
-//	}
-//	public void setRestypes(Restypes restypes) {
-//		this.restypes = restypes;
-//	}
-	
-	public List<Restypes> getRestypes() {
+	public Restypes getRestypes() {
 		return restypes;
 	}
+	public List<Restypes> getRestypesList() {
+		return restypesList;
+	}
+	public void setRestypesList(List<Restypes> restypesList) {
+		this.restypesList = restypesList;
+	}
+	public String getOpen_close() {
+		return open_close;
+	}
+	public void setRestypes(Restypes restypes) {
+		this.restypes = restypes;
+	}
+	
+	/*public List<Restypes> getRestypes() {
+		return restypes;
+	}*/
 	
 	public void setOpen_close(String open_close) {
 		this.open_close = open_close;
 	}
 
-	public void setRestypes(List<Restypes> restypes) {
-		this.restypes = restypes;
-	}
-	public Menus getMenus() {
-		return menus;
-	}
-	public void setMenus(Menus menus) {
-		this.menus = menus;
-	}
+//	public void setRestypes(List<Restypes> restypes) {
+//		this.restypes = restypes;
+//	}
+	
 	
 	public Addresses getAddress() {
 		return address;
+	}
+	public List<Menus> getMenus() {
+		return menus;
+	}
+	public void setMenus(List<Menus> menus) {
+		this.menus = menus;
 	}
 	public void setAddress(Addresses address) {
 		this.address = address;

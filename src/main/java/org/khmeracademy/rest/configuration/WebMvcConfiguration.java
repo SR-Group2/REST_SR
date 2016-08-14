@@ -8,15 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.mangofactory.swagger.plugin.EnableSwagger;
 
 @Configuration
 @MapperScan("org.khmeracademy.rest.repositories")
 @EnableSwagger
+@EnableWebMvc
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 	
 	@Autowired 
@@ -38,7 +44,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-	
 		registry.addViewController("/login").setViewName("login");
 		registry.addViewController("/401").setViewName("/error/401");
 		registry.addViewController("/swagger").setViewName("/swagger");
@@ -52,6 +57,29 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 		registry.addMapping("/**")
 				.allowedMethods("GET","POST","DELETE","PUT","OPTIONS","PATCH")
 				.allowedOrigins("*");
+	}
+	
+	@Bean
+	public CommonsMultipartResolver multipartResolver(){
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(50 * 1024 * 1024);
+		return resolver;
+	}
+	
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setPrefix("/WEB-INF/pages/");
+		viewResolver.setSuffix(".jsp");
+		registry.viewResolver(viewResolver);
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		// URL WEB ==> RESOURCE FILE 
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		
+		registry.addResourceHandler("/images/**").addResourceLocations("file:/resources/images/");
 	}
 	
 }
