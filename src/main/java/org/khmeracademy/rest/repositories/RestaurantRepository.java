@@ -1,15 +1,17 @@
 package org.khmeracademy.rest.repositories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.khmeracademy.rest.entities.Categories;
 import org.khmeracademy.rest.entities.Restaurants;
-import org.khmeracademy.rest.entities.Restypes;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,8 +24,9 @@ public interface RestaurantRepository {
 					+ " R.about,"
 					+ " R.open_close,"
 					+ " R.location,"
-					+ " M.restype_id AS menu_restype_id,"
-					+ " A.address_id AS address_address_id,"
+					+ " M.restype_id,"
+					+ " M.rest_id,"
+					+ " A.address_id,"
 					+ " A.street,"
 					+ " A.district,"
 					+ " A.communce,"
@@ -46,18 +49,18 @@ public interface RestaurantRepository {
 					+ " RO.role_name"
 					+ " FROM"
 					+ " restaurants R" 
-					+ " INNER JOIN menus M ON M .rest_id = R.rest_id"
-					+ " INNER JOIN restypes RT ON RT.restype_id = M .restype_id"
-					+ " INNER JOIN Addresses A ON R.address_id = A .address_id"
+					+ " INNER JOIN menus M ON M.rest_id = R.rest_id"
+					+ " INNER JOIN restypes RT ON RT.restype_id = M.restype_id"
+					+ " INNER JOIN Addresses A ON R.address_id = A.address_id"
 					+ " INNER JOIN users U ON U.user_id = R.user_id"
 					+ " INNER JOIN roles RO ON U.role_id = RO.role_id"
 					+ " WHERE"
 					+ " U.role_id = 2";
 		@Select(R_RESTAURANT)
 		@Results(value={
-			@Result(property = "restypes.restype_id", column = "restype_restype_id"),
-			@Result(property = "address.address_id", column = "address_address_id"),
-			@Result(property = "address.user_id", column = "user_user_id"),
+			@Result(property = "restypes.restype_id", column = "restype_id"),
+			@Result(property = "address.address_id", column = "address_id"),
+			@Result(property = "users.user_id", column = "user_id"),
 			@Result(property = "restypes.restype_id", column = "restype_id"),
 			@Result(property = "restypes.restype_name", column = "restype_name"),
 			@Result(property = "address.street", column = "street"),
@@ -80,15 +83,16 @@ public interface RestaurantRepository {
 	})
 	public ArrayList<Restaurants> getAllRestaurant();
 	
-	String C_RESTAURANT = "INSERT INTO restaurants(rest_name,contact,about,open_close,location,restype_id,address_id,user_id)"
-			+ " VALUES(#{rest_name} , #{contact} , #{about},#{open_close},#{location},#{restypes.restype_id},#{address.address_id},#{user.user_id})";
+	String C_RESTAURANT = "INSERT INTO restaurants(rest_name,contact,about,open_close,location,address_id,user_id)"
+			+ " VALUES(#{rest_name} , #{contact} , #{about},#{open_close},#{location},#{address.address_id},#{user.user_id})";
 	@Insert(C_RESTAURANT)
 	public boolean insertRestaurant(Restaurants restaurant);
 	
 	String D_RESTAURANT = "DELETE"
 			+ " FROM"
 			+ " restaurants"
-			+ " WHERE"
+			+ " WHERE U.role_id = 2"
+			+ " AND "
 			+ " rest_id = #{rest_id}";
 	@Delete(D_RESTAURANT)
 	public boolean deleteRestaurant(int rest_id);
@@ -99,10 +103,9 @@ public interface RestaurantRepository {
 			+ "	about=#{about},"
 			+ " open_close = #{open_close},"
 			+ " location = #{location},"
-			+ " restype_id = #{restypes.restype_id},"
 			+ " address_id = #{address.address_id},"
 			+ " user_id = #{user.user_id} "
-			+ "WHERE "
+			+ " WHERE "
 			+ "	rest_id = #{rest_id}";
 	@Update(U_RESTAURANT)
 	public boolean updateRestaurant(Restaurants restaurant);
@@ -138,9 +141,9 @@ public interface RestaurantRepository {
 			+ " RO.role_name"
 			+ " FROM"
 			+ " restaurants R" 
-			+ " INNER JOIN menus M ON M .rest_id = R.rest_id"
-			+ " INNER JOIN restypes RT ON RT.restype_id = M .restype_id"
-			+ " INNER JOIN Addresses A ON R.address_id = A .address_id"
+			+ " INNER JOIN menus M ON M.rest_id = R.rest_id"
+			+ " INNER JOIN restypes RT ON RT.restype_id = M.restype_id"
+			+ " INNER JOIN Addresses A ON R.address_id = A.address_id"
 			+ " INNER JOIN users U ON U.user_id = R.user_id"
 			+ " INNER JOIN roles RO ON U.role_id = RO.role_id"
 			+ " WHERE U.role_id = 2 AND R.rest_id = #{rest_id}";
@@ -167,9 +170,29 @@ public interface RestaurantRepository {
 			@Result(property = "user.picture", column = "picture"),
 			@Result(property = "user.username", column = "username"),
 			@Result(property = "user.gender", column = "gender"),
-			@Result(property = "user.password", column = "password")
+			@Result(property = "user.password", column = "password"),
+			@Result(property = "role.role_id", column ="role_id")
 	})
-	public Restaurants  findRestaurantById(int rest_id);
 	
+			public Restaurants  findRestaurantById(int rest_id);
+	
+	
+	@Select("SELECT * FROM restaurants")
+	@Results(
+			@Result(property="restypes", javaType=List.class, column="rest_id", many=@Many(select="getCategoryByRestId"))
+			//@Result(property="restypes", javaType=List.class, column="rest_id", one=@One(select="org.khmeracademy.rest.repositories.AddressRepository.findAddressById"))
+	)
+	public ArrayList<Restaurants> findAll();
+	
+	/*====================== Get Category By Restaurant ID ==================*/
+	String GC_BRID = "SELECT "
+					+"		c.category_id, "
+					+"		c.category_name"
+					+"	FROM "
+					+"	categories c "
+					+"  INNER JOIN catrests cr ON c.category_id = cr.category_id "
+					+"	WHERE cr.rest_id = #{rest_id}";
+	@Select(GC_BRID)
+	public ArrayList<Categories> getCategoryByRestId(int rest_id);
 	
 }

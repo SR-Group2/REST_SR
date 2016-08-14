@@ -1,23 +1,37 @@
 package org.khmeracademy.rest.entities;
 
 import java.util.Date;
+import java.util.List;
 
 public class Restaurants {
 	private int rest_id;
 	private String rest_name;
 	private String contact;
 	private String about;
-	private Date open_close;
+	private String open_close;
 	private String location;
 	private Addresses address;
 	private Users user;
 	private Menus menus;
-	private Restypes restypes;
+	//private Restypes restypes;
+	private List<Restypes> restypes;
 	
-	public Restypes getRestypes() {
+//	public Restypes getRestypes() {
+//		return restypes;
+//	}
+//	public void setRestypes(Restypes restypes) {
+//		this.restypes = restypes;
+//	}
+	
+	public List<Restypes> getRestypes() {
 		return restypes;
 	}
-	public void setRestypes(Restypes restypes) {
+	
+	public void setOpen_close(String open_close) {
+		this.open_close = open_close;
+	}
+
+	public void setRestypes(List<Restypes> restypes) {
 		this.restypes = restypes;
 	}
 	public Menus getMenus() {
@@ -62,12 +76,6 @@ public class Restaurants {
 	}
 	public void setAbout(String about) {
 		this.about = about;
-	}
-	public Date getOpen_close() {
-		return open_close;
-	}
-	public void setOpen_close(Date open_close) {
-		this.open_close = open_close;
 	}
 	public String getLocation() {
 		return location;
