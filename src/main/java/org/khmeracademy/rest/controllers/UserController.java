@@ -54,12 +54,13 @@ public class UserController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
-	
+	//=========== Login Username ================
 	@RequestMapping(value="find-user-by-username", method = RequestMethod.POST , headers = "Accept=application/json")
 	public ResponseEntity<Map<String , Object>> findUserByUsername(@RequestBody UserLogin login){
 		Map< String , Object> map = new HashMap<String , Object>();
 		try{
 			Users user = userService.findUserByUsername(login.getUsername());
+			System.out.println(login.getUsername());
 			if(user != null){
 				map.put("STATUS",true);
 				map.put("MESSAGE","Success");
