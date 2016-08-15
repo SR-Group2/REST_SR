@@ -172,7 +172,6 @@ public class RestypeController {
 
 	
 	@ApiImplicitParams({
-	
 	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
 	            value = "Results page you want to retrieve)"),
 	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
