@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Categories;
 import org.khmeracademy.rest.entities.Menus;
@@ -82,12 +83,18 @@ public interface RestaurantRepository {
 	})
 	public ArrayList<Restaurants> getAllRestaurant();
 	
+	//TODO: 2. ADD TO RESTAURANT RETURN ID
 	String C_RESTAURANT = "INSERT INTO restaurants(rest_name,contact,about,"
-			+ "open_close,location,restype_id,address_id,user_id)"
+			+ "open_close,location,address_id,user_id)"
 			+ " VALUES(#{rest_name} , #{contact} , #{about},#{open_close},"
-			+ "#{location},#{restypes.restype_id},"
+			+ "#{location},"
 			+ "#{address.address_id},#{user.user_id})";
 	@Insert(C_RESTAURANT)
+	@SelectKey(
+            keyProperty = "rest_id",
+            before = false,
+            resultType = Integer.class,
+            statement = { "SELECT last_value FROM restaurants_rest_id_seq" })
 	public boolean insertRestaurant(Restaurants restaurant);
 	
 	String D_RESTAURANT = "DELETE"
@@ -133,14 +140,13 @@ public interface RestaurantRepository {
 	@Results(value={
 			@Result(property = "address.address_id", column = "address_address_id"),
 			@Result(property = "user.user_id", column = "user_user_id"),
-			@Result(property = "user.username", column = "user_username"),
-			@Result(property = "menus.restype_id", column = "user_user_id")
+			@Result(property = "user.username", column = "user_username")
 	})
 	public Restaurants  findRestaurantById(int rest_id);
 	
 	/*======================DASHBOARD REQUIREMENT ==================*/
 	/*======================GET Restaurant WITH CATEGORY ==================*/
-//	@Select("SELECT * FROM restaurants")
+
 	String F_RESTAURANT_C = "SELECT "
 			+ " R.rest_id,"
 			+ " R.rest_name,"
@@ -181,12 +187,13 @@ public interface RestaurantRepository {
 			@Result(property = "user.picture", column = "picture"),
 			@Result(property = "user.username", column = "username"),
 			@Result(property = "user.password", column = "password"),
+			@Result(property = "address.address_id", column = "address_address_id"),
 			@Result(property = "address.district", column = "district"),
 			@Result(property = "address.communce", column = "communce"),
 			@Result(property = "address.province", column = "province"),
 			@Result(property = "address.street", column = "street"),
-			@Result(property="restypesList", javaType=List.class, column="rest_id", many=@Many(select="getCategoryByRestId")),
-			@Result(property="menus", javaType=List.class, column="rest_id", many=@Many(select="findMenuByRestId"))
+			@Result(property="categories", javaType=List.class, column="rest_id", many=@Many(select="getCategoryByRestId")),
+			@Result(property="restype", javaType=List.class, column="rest_id", many=@Many(select="findMenuByRestId"))
 	})
 	public ArrayList<Restaurants> findRestaurantWithCategory();
 	
@@ -201,12 +208,13 @@ public interface RestaurantRepository {
 	@Select(GC_BRID)
 	public ArrayList<Categories> getCategoryByRestId(int rest_id);
 	
-	@Select("SELECT  RT.restype_name , RT.restype_name_kh  FROM restaurants R"
+	@Select("SELECT  RT.restype_id, RT.restype_name , RT.restype_name_kh  FROM restaurants R"
 			+ " INNER JOIN menus M ON R.rest_id = M.rest_id"
 			+ " INNER JOIN restypes RT ON M.restype_id = RT.restype_id"
 			+ " WHERE R.rest_id =#{rest_id} ")
 	@Results(value={
 			@Result(property = "rest_id", column = "rest_id"),
+			@Result(property = "restype_id", column = "restype_id"),
 			@Result(property = "user.user_id", column = "user_id"),
 			@Result(property = "user.first_name", column = "first_name"),
 			@Result(property = "user.last_name", column = "last_name"),

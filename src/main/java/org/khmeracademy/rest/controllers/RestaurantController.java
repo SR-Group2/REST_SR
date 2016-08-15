@@ -48,7 +48,7 @@ public class RestaurantController {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
-	//==================== GET RESTAURANT WITH CATEGORY==============
+	//==================== GET ALL RESTAURANT==============
 	@RequestMapping(value = "/get-restaurant", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getAllRestaurant(){
 		Map<String, Object> map = new Hashtable<String, Object>();
@@ -116,7 +116,7 @@ public class RestaurantController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
-	
+	//================== DELETE RESTAURANT BY ID =====================
 	@RequestMapping(value = "/{rest-id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Map<String, Object>> deleteRestaurant(@PathVariable("rest-id") int rest_id){
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -138,12 +138,15 @@ public class RestaurantController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/{rest-id}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> findRestaurantById(@PathVariable("rest-id") int rest_id){
+	//============================= FIND RESTAURANT BY ID
+	@RequestMapping(value = "/{rest_id}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> findRestaurantById(@PathVariable("rest_id") int rest_id){
 		Map<String, Object> map = new Hashtable<String, Object>();
 		try {
+		
+			
 			Restaurants restaurants = restaurantService.findRestaurantById(rest_id);
+			
 			if(!restaurants.equals(null)){
 				map.put("DATA", restaurants);
 				map.put("CODE", "200 OK");

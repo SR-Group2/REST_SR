@@ -1,6 +1,7 @@
 package org.khmeracademy.rest.repositories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.khmeracademy.rest.entities.CatRest;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
 import org.springframework.stereotype.Repository;
@@ -95,4 +97,16 @@ public interface RestypeRepository {
 				+" WHERE rsp.restype_id = #{restype_id}";
 	@Select(COUNT_RESTAURANT)
 	public int countRest(int restype_id);
+	
+	//TODO: 3. ADD TO CATE_REST WITH RESTAURANT ID
+	String C_BATCH_CATREST =  "<script>INSERT INTO catrests( rest_id , category_id ) "
+							+ " VALUES "
+							+ " <foreach collection='catrests' item='restype' separator=','>"
+							+ " 	(#{rest_id}, #{restype.restype_id})"
+							+ " </foreach>"
+							+ " </script>";
+	@Insert(C_BATCH_CATREST)
+	public boolean inertBatchCatRest(@Param("catrests") List<Restypes> catRests ,@Param("rest_id") int rest_id);
+
+	
 }

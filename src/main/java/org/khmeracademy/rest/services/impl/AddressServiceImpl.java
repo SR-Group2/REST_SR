@@ -21,7 +21,10 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public boolean insertAddress(Addresses address) {
-		return addressRepository.insertAddress(address);
+		addressRepository.insertAddress(address);
+		
+		System.out.println("ADDRESS ID==>" + address.getAddress_id());
+		return true;
 	}
 
 	@Override

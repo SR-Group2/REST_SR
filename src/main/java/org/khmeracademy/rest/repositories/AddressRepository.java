@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Addresses;
 import org.springframework.stereotype.Repository;
@@ -23,10 +24,16 @@ public interface AddressRepository {
 	@Select(R_ADDRESS)
 	public ArrayList<Addresses> getAllAddress();
 	
+	//TODO: 1. ADDRESS WITH RESTAURANT ID
 	String C_ADDRESS = "INSERT INTO"
 			+ " addresses(street,district,communce,province)"
 			+ " VALUES(#{street},#{district},#{communce},#{province})";
 	@Insert(C_ADDRESS)
+	@SelectKey(
+            keyProperty = "address_id",
+            before = false,
+            resultType = Integer.class,
+            statement = { "SELECT last_value FROM addresses_address_id_seq" })
 	public boolean insertAddress(Addresses address);
 	
 	String D_ADDRESS = "DELETE "

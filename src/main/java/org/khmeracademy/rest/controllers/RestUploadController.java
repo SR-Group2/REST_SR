@@ -39,8 +39,8 @@ public class RestUploadController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (!file.isEmpty()) {
 			
-			String originalSavePath = "/Documents/images/";
-			String thumbnailSavePath = "/Documents/images/thumbnails/";
+			String originalSavePath = "/resources/images/";
+			String thumbnailSavePath = "/resources/images/thumbnails/";
 			try {
 				filename = file.getOriginalFilename();
 				
