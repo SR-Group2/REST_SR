@@ -38,15 +38,14 @@ public interface CommentReopository {
 	public ArrayList<Comments> getAllComments();
 	
 	String C_COMMENT="INSERT INTO"
-			+ " comments (user_id, rest_id, comment)"
-			+ " VALUES(#{user.user_id},#{rest.rest_id},#{comment})";
+			+ " comments(rest_id,user_id,comment)"
+			+ " VALUES(#{rest.rest_id},#{user.user_id},#{comment})";
 	
 	@Insert(C_COMMENT)
 	public boolean insertComment(Comments comment);
 	
 	String U_COMMENT="UPDATE comments"
-			+ " SET user_id=#{user.user_id},"
-			+ " rest_id=#{rest.rest_id},"
+			+ " SET "
 			+ " comment=#{comment}"
 			+ " WHERE"
 			+ " comment_id=#{comment_id}";
