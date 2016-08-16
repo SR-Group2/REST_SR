@@ -54,7 +54,7 @@ public class CommentController {
 				map.put("CODE", "200");
 				map.put("MESSAGE", "SUCCESSFULLY INSERTED");
 			}else{
-				map.put("STATUS", false);
+			 	map.put("STATUS", false);
 				map.put("CODE", "404");
 				map.put("MESSAGE", "Insert failed");
 			}

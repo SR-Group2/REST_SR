@@ -38,7 +38,7 @@ public interface CommentReopository {
 	public ArrayList<Comments> getAllComments();
 	
 	String C_COMMENT="INSERT INTO"
-			+ " comments(rest_id,user_id,comment)"
+			+ " comments(rest_id, user_id,comment)"
 			+ " VALUES(#{rest.rest_id},#{user.user_id},#{comment})";
 	
 	@Insert(C_COMMENT)
