@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -19,9 +20,29 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RestaurantRepository {
-
+	
+	
+	//=================== Restaurant Pagination with search ===============
+	
+	final String R_RESTYPE = 
+			  "SELECT rest_id, "
+			+ "	  	  rest_name, "
+			+ "	  	  rest_name_kh, "
+			+ "	  	  restype_picture, "
+			+ "	  	  date_added, "
+			+ "		  date_modify, "
+			+ "		  parentid_restypeid "
+			+ " FROM  restypes "
+			+ " WHERE LOWER(restype_name) LIKE LOWER(#{keyword}) "
+			+ " ORDER BY restype_id DESC "
+			+ " LIMIT #{limit} OFFSET #{offset} ";
+	@Select(R_RESTYPE)
+	public ArrayList<Restypes> getAllRestype(@Param("keyword") String keyword, 
+			@Param("limit") int limit, @Param("offset") int offset);
+	
+	//================== Restaurant Pagination with search ================
 	String R_RESTAURANT = "SELECT"
-			+ " R.rest_id,"
+			+ " DISTINCT ON(R.rest_id) R.rest_id,"
 			+ " R.rest_name,"
 			+ " R.contact,"
 			+ " R.about,"
