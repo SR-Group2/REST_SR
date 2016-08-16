@@ -3,6 +3,7 @@ package org.khmeracademy.rest.entities;
 public class Votes {
 	private int vote_id;
 	private double vote_number;
+	private int totaluser;
 	private Restaurants rest;
 	private Foods food;
 	private Users user;
@@ -35,6 +36,12 @@ public class Votes {
 	}
 	public void setUser(Users user) {
 		this.user = user;
+	}
+	public int getNumberofuser() {
+		return totaluser;
+	}
+	public void setNumberofuser(int numberofuser) {
+		this.totaluser = numberofuser;
 	}
 	
 	

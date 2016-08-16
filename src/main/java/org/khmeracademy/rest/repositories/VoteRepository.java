@@ -14,29 +14,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VoteRepository {
 	
-	String R_VOTE= "SELECT"
-			+ " V.vote_id,"
-			+ " V.vote_number,"
-			+ " R.rest_id,"
-			+ " R.rest_name,"
-			+ " U.user_id,"
-			+ " U.first_name,"
-			+ "	U.last_name"
-			+ "	FROM"
-			+ " votes V "
-			+ " INNER JOIN restaurants R"
-			+ " ON V.rest_id = R.rest_id"
-			+ " INNER JOIN users U"
-			+ " ON V.user_id = U.user_id";
+	String R_VOTE= "SELECT R.rest_name_khmer,SUM(V.vote_number) votetotal, COUNT(V.user_id) numberofuser FROM votes V INNER JOIN restaurants R ON V.rest_id= R.rest_id GROUP BY rest_name_khmer";
 	@Select(R_VOTE)
 	@Results(value={
 			@Result(property="rest.rest_id", column="rest_id"),
-			@Result(property="rest.rest_name", column="rest_name"),
-			@Result(property="user.user_id", column="user_id"),
-			@Result(property="user.first_name", column="first_name"),
-			@Result(property="user.last_name", column="last_name")
+			@Result(property="rest.rest_name", column="rest_name_khmer"),
+			@Result(property="vote_number", column="votetotal"),
+			@Result(property="totaluser", column="numberofuser")
+			
 	})
 	public ArrayList<Votes> getAllVotes();
+	
+	
 	
 	String C_VOTE="INSERT INTO"
 			+ " votes (vote_number, rest_id, food_id, user_id)"
