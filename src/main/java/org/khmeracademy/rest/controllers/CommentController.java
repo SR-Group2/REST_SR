@@ -22,11 +22,11 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
-	@RequestMapping(value="/get-comment", method=RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> getAllComments(){
+	@RequestMapping(value="/get-comment/{rest_id}", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getAllComments(@PathVariable int rest_id){
 		Map<String, Object> map= new Hashtable<String, Object>();
 		try{
-			ArrayList<Comments> comment= commentService.getAllComments();
+			ArrayList<Comments> comment= commentService.getAllComments(rest_id);
 			if(!comment.isEmpty()){
 				map.put("DATA", comment);
 				map.put("STATUS", true);

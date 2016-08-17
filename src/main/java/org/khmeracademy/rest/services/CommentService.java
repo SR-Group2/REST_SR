@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CommentService {
-	public ArrayList<Comments> getAllComments();
+	public ArrayList<Comments> getAllComments(int rest_id);
 	public boolean insertComment(Comments comment);
 	public boolean  updateComment(Comments comment);
 	public boolean deleteComment(int id);

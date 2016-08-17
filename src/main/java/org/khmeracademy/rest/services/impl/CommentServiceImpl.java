@@ -13,8 +13,8 @@ public class CommentServiceImpl implements CommentService{
 	@Autowired
 	private CommentReopository commentRepository;
 	@Override
-	public ArrayList<Comments> getAllComments() {
-		return commentRepository.getAllComments();
+	public ArrayList<Comments> getAllComments(int rest_id) {
+		return commentRepository.getAllComments(rest_id);
 	}
 
 	@Override

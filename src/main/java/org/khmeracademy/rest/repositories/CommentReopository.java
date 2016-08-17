@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface CommentReopository {
 	
 	String R_COMMENT= "SELECT "
-			+ " comment_id, "
+			+ " C.comment_id, "
 			+ " U.user_id, "
 			+ " R.rest_id, "
 			+ " comment, "
@@ -26,7 +26,7 @@ public interface CommentReopository {
 			+ " INNER JOIN restaurants R"
 			+ " ON C.rest_id = R.rest_id"
 			+ " INNER JOIN users U"
-			+ " ON C.user_id = U.user_id";
+			+ " ON C.user_id = U.user_id WHERE R.rest_id = #{rest_id}";
 	@Select(R_COMMENT)
 	@Results(value={
 			@Result(property="user.user_id", column="user_id"),
@@ -35,7 +35,7 @@ public interface CommentReopository {
 			@Result(property="rest.rest_id", column="rest_id"),
 			@Result(property="rest.rest_name", column="rest_name")
 	})
-	public ArrayList<Comments> getAllComments();
+	public ArrayList<Comments> getAllComments(int rest_id);
 	
 	String C_COMMENT="INSERT INTO"
 			+ " comments(rest_id, user_id,comment)"
