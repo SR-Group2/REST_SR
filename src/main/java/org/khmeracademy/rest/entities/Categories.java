@@ -8,7 +8,14 @@ public class Categories {
 	private String other;
 	private Date date_added;
 	private Date date_modify;
+	private String picture;
 	
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
 	private Restaurants rest;
 	
 	public Restaurants getRest() {

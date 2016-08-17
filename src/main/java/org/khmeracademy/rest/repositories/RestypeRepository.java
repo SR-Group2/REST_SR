@@ -79,7 +79,7 @@ public interface RestypeRepository {
 			@Param("limit") int limit, @Param("offset") int offset);
 	
 	
-	String COUNT_RESTYPE = "SELECT COUNT(restype_id) FROM restypes WHERE restype_name LIKE '%'||#{keyword}||'%' ";
+	String COUNT_RESTYPE = "SELECT COUNT(restype_id) FROM restypes WHERE LOWER(restype_name) LIKE '%'||#{keyword}||'%' ";
 	@Select(COUNT_RESTYPE)
 	public int countRestype(String keyword);
 	

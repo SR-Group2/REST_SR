@@ -13,25 +13,25 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository {
 	/* =================  INSERT DATA   =================== */
-	String C_CAT = "INSERT INTO CATEGORIES (category_name, other, date_added, date_modify)"
-			+ "VALUES(#{category_name}, #{other}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+	String C_CAT = "INSERT INTO CATEGORIES (category_name, other, date_added, date_modify, picture)"
+			+ "VALUES(#{category_name}, #{other}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{picture})";
 	@Insert(C_CAT)
 	public boolean insertCategory(Categories category);
 	
 	/* =================  GET DATA   =================== */
-	String R_CAT = "SELECT category_id, category_name, other, date_added, date_modify FROM CATEGORIES";
+	String R_CAT = "SELECT category_id, category_name, other, date_added, date_modify, picture FROM CATEGORIES";
 	@Select(R_CAT)
 	public ArrayList<Categories> getCategory();
 	
 	/* =================  GET DATA  BY ID =================== */
-	String F_CAT = "SELECT category_id, category_name, other, date_added, date_modify FROM CATEGORIES"
+	String F_CAT = "SELECT category_id, category_name, other, date_added, date_modify, picture FROM CATEGORIES"
 			+ " WHERE category_id = #{category_id}";
 	@Select(F_CAT)
 	public Categories findCategoryById(@Param("category_id") int category_id);
 	
 	/* =================  UPDATE DATA   =================== */
 	String U_CAT = "UPDATE CATEGORIES SET category_name=#{category_name}, other=#{other},date_modify=CURRENT_TIMESTAMP"
-			+ " WHERE category_id=#{category_id}";
+			+ ", picture=#{picture} WHERE category_id=#{category_id}";
 	@Update(U_CAT)
 	public boolean updateCategory(Categories category);
 	
@@ -45,6 +45,9 @@ public interface CategoryRepository {
 					+"		r.rest_id, "
 					+"		r.rest_name, "
 					+"		c.category_id, "
+					+"		c.date_added, "
+					+"		c.date_modify, "
+					+"		c.picture, "
 					+"		c.category_name"
 					+"	FROM "
 					+"	categories c INNER JOIN catrests cr ON c.category_id = cr.category_id "

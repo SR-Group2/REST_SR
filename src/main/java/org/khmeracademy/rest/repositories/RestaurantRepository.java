@@ -13,7 +13,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Categories;
-import org.khmeracademy.rest.entities.Menus;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
 import org.springframework.stereotype.Repository;
@@ -27,20 +26,24 @@ public interface RestaurantRepository {
 	final String R_RESTYPE = 
 			  "SELECT rest_id, "
 			+ "	  	  rest_name, "
-			+ "	  	  rest_name_kh, "
-			+ "	  	  restype_picture, "
-			+ "	  	  date_added, "
-			+ "		  date_modify, "
-			+ "		  parentid_restypeid "
-			+ " FROM  restypes "
-			+ " WHERE LOWER(restype_name) LIKE LOWER(#{keyword}) "
-			+ " ORDER BY restype_id DESC "
+			+ "	  	  contact, "
+			+ "	  	  about, "
+			+ "		  open_close, "
+			+ "		  location"
+			+ " FROM  restaurants "
+			+ " WHERE LOWER(rest_name) LIKE LOWER(#{keyword}) "
+			+ " ORDER BY rest_id DESC "
 			+ " LIMIT #{limit} OFFSET #{offset} ";
 	@Select(R_RESTYPE)
-	public ArrayList<Restypes> getAllRestype(@Param("keyword") String keyword, 
+	public ArrayList<Restaurants> searchRest(@Param("keyword") String keyword, 
 			@Param("limit") int limit, @Param("offset") int offset);
 	
-	//================== Restaurant Pagination with search ================
+	//==================COUNT Restaurant Detail  ================
+	String COUNT_RESTBYID = "SELECT COUNT(rest_id) FROM restaurants WHERE LOWER(rest_name) LIKE '%'||#{keyword}||'%' ";
+	@Select(COUNT_RESTBYID)
+	public int countRestById(String keyword);
+		
+	//================== Restaurant Detail  ================
 	String R_RESTAURANT = "SELECT"
 			+ " DISTINCT ON(R.rest_id) R.rest_id,"
 			+ " R.rest_name,"

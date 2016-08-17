@@ -6,11 +6,14 @@ import org.khmeracademy.rest.entities.Addresses;
 import org.khmeracademy.rest.entities.CatRest;
 import org.khmeracademy.rest.entities.Menus;
 import org.khmeracademy.rest.entities.Restaurants;
+import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.repositories.AddressRepository;
 import org.khmeracademy.rest.repositories.MenuRepository;
 import org.khmeracademy.rest.repositories.RestaurantRepository;
 import org.khmeracademy.rest.repositories.RestypeRepository;
 import org.khmeracademy.rest.services.RestaurantService;
+import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,6 +93,20 @@ public class RestaurantServiceImpl implements RestaurantService {
 			ex.printStackTrace();
 		}
 		return false;
+	}
+
+
+
+	@Override
+	public int countRestById(String keyword) {
+		
+		return restaurantRepository.countRestById(keyword.toLowerCase());
+	}
+
+	@Override
+	public ArrayList<Restaurants> searchRest(Pagination pagination, RestypeFilter filter) {
+		return restaurantRepository.searchRest("%" + filter.getKeyword().toLowerCase() + "%", 
+				pagination.getLimit(), pagination.getOffset());
 	}
 
 	

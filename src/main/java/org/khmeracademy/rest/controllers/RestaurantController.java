@@ -6,7 +6,10 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.khmeracademy.rest.entities.Restaurants;
+import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.services.RestaurantService;
+import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +19,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mangofactory.swagger.annotations.ApiIgnore;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
+
 @RestController
 @RequestMapping("/api/restaurant")
 public class RestaurantController {
 
 	@Autowired
 	private RestaurantService restaurantService;
+	
+	//==================== SEARCH RESTAURANT==============
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "keyword", dataType = "string", paramType = "query", defaultValue="",
+	            value = "search restaurant"),
+	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
+	            value = "Results page you want to retrieve)"),
+	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
+	            value = "Number of records per page."),
+	})
+	
+	@RequestMapping(value = "/search-rest",method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getAllRestype(@ApiIgnore RestypeFilter filter, 
+			@ApiIgnore Pagination pagination){
+		Map<String , Object> map = new Hashtable<String , Object>();
+		
+		try{
+			
+			pagination.setTotalCount(restaurantService.countRestById(filter.getKeyword()));
+			System.out.println(pagination.getTotalCount() + filter.getKeyword());
+//			pagination.setOffset(pagination.getOffset());
+			ArrayList<Restaurants> rest = restaurantService.searchRest(pagination, filter);
+			for(int i=0;i<rest.size();i++){
+				System.out.println("NAME "+ rest.get(i).getRest_name());
+				System.out.println("Offset " + pagination.getOffset());
+			}
+			if(!rest.isEmpty()){
+				map.put("DATA", rest);
+				map.put("PAGINATION", pagination);
+				map.put("CODE", "200 OK");
+				map.put("STATUS", true);
+				map.put("MESSAGE", "DATA FOUND!");
+			}else{
+				map.put("STATUS", false);
+				map.put("CODE", "300 DATA NOT FOUND");
+				map.put("MESSAGE", "DATA NOT FOUND!");
+			}
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("CODE", "404 NOT FOUND");
+			map.put("MESSAGE", "NOT FOUND!");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK) ;
+	}
 	
 	//==================== GET RESTAURANT WITH CATEGORY==============
 	@RequestMapping(value = "/get-restaurant-with-category", method = RequestMethod.GET)
