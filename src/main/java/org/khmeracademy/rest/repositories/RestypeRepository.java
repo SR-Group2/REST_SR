@@ -10,9 +10,10 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.khmeracademy.rest.entities.CatRest;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.form.CategoryId;
+import org.khmeracademy.rest.form.RestTypeId;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -99,14 +100,22 @@ public interface RestypeRepository {
 	public int countRest(int restype_id);
 	
 	//TODO: 3. ADD TO CATE_REST WITH RESTAURANT ID
-	String C_BATCH_CATREST =  "<script>INSERT INTO catrests( rest_id , category_id ) "
+	/*String C_BATCH_CATREST =  "<script>INSERT INTO catrests( rest_id , category_id ) "
 							+ " VALUES "
-							+ " <foreach collection='catrests' item='restype' separator=','>"
-							+ " 	(#{rest_id}, #{restype.restype_id})"
+							+ " <foreach collection='categories_id' item='category_id' separator=','>"
+							+ " 	(#{rest_id}, #{category_id.category_id})"
 							+ " </foreach>"
 							+ " </script>";
 	@Insert(C_BATCH_CATREST)
-	public boolean inertBatchCatRest(@Param("catrests") List<Restypes> catRests ,@Param("rest_id") int rest_id);
-
+	public boolean inertBatchCatRest(@Param("categories_id") List<CategoryId> categories_id ,@Param("rest_id") int rest_id);*/
 	
+	//TODO: 3. ADD TO CATE_REST WITH RESTAURANT ID
+	String C_BATCH_REST_TYPE_ID =  "<script>INSERT INTO menus( rest_id , restype_id ) "
+							+ " VALUES "
+							+ " <foreach collection='restype_ids' item='restype' separator=','>"
+							+ " 	(#{rest_id}, #{restype.restype_id})"
+							+ " </foreach>"
+							+ " </script>";
+	@Insert(C_BATCH_REST_TYPE_ID)
+	public boolean insertBatchRestypeId(@Param("restype_ids") List<RestTypeId> rest_type_ids ,@Param("rest_id") int rest_id);
 }

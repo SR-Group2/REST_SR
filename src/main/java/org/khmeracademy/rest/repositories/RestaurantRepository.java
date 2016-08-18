@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Categories;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.form.RestaurantForm2;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -112,15 +113,15 @@ public interface RestaurantRepository {
 			+ "open_close,location,address_id,user_id)"
 			+ " VALUES(#{rest_name} , #{contact} , #{about},#{open_close},"
 			+ "#{location},"
-			+ "#{address.address_id},#{user.user_id})";
+			+ "#{address.address_id},#{user_id})";
 	@Insert(C_RESTAURANT)
 	@SelectKey(
             keyProperty = "rest_id",
             before = false,
             resultType = Integer.class,
             statement = { "SELECT last_value FROM restaurants_rest_id_seq" })
-	public boolean insertRestaurant(Restaurants restaurant);
-	
+	//public boolean insertRestaurant(RestaurantForm restaurantForm);
+	public boolean insertRestaurant(RestaurantForm2 restaurantForm);
 	String D_RESTAURANT = "DELETE"
 			+ " FROM"
 			+ " restaurants"
@@ -224,6 +225,8 @@ public interface RestaurantRepository {
 	/*====================== Get Category By Restaurant ID ==================*/
 	String GC_BRID = "SELECT "
 					+"		c.category_id, "
+					+"		c.picture, "
+					+"		c.category_name_kh, "
 					+"		c.category_name"
 					+"	FROM "
 					+"	categories c "

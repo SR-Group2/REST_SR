@@ -3,8 +3,8 @@ package org.khmeracademy.rest.services;
 import java.util.ArrayList;
 
 import org.khmeracademy.rest.entities.Restaurants;
-import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.filters.RestypeFilter;
+import org.khmeracademy.rest.form.RestaurantForm2;
 import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,9 @@ public interface RestaurantService {
 
 	public ArrayList<Restaurants> getAllRestaurant();
 	
-	public boolean insertRestaurant(Restaurants restaurant);
+//	public boolean addNewRestaurant(RestaurantForm restaurantForm);
+	
+	public boolean addNewRestaurant(RestaurantForm2 restaurantForm);
 	
 	public boolean deleteRestaurant(int rest_id);
 	

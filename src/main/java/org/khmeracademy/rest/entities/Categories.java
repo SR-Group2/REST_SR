@@ -2,6 +2,8 @@ package org.khmeracademy.rest.entities;
 
 import java.util.Date;
 
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
 public class Categories {
 	private int category_id;
 	private String category_name;
@@ -9,6 +11,10 @@ public class Categories {
 	private Date date_added;
 	private Date date_modify;
 	private String picture;
+	private String category_name_kh;
+	
+	@ApiModelProperty(hidden = true)
+	private Restaurants rest;
 	
 	public String getPicture() {
 		return picture;
@@ -16,7 +22,7 @@ public class Categories {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	private Restaurants rest;
+	
 	
 	public Restaurants getRest() {
 		return rest;
@@ -54,4 +60,11 @@ public class Categories {
 	public void setDate_modify(Date date_modify) {
 		this.date_modify = date_modify;
 	}
+	public String getCategory_name_kh() {
+		return category_name_kh;
+	}
+	public void setCategory_name_kh(String category_name_kh) {
+		this.category_name_kh = category_name_kh;
+	}
+	
 }

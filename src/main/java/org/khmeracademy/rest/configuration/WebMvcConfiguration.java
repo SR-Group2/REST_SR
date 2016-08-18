@@ -78,6 +78,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// URL WEB ==> RESOURCE FILE 
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/resources/upload/**").addResourceLocations("file:/opt/project/NhamEy/upload/");
 		
 		registry.addResourceHandler("/images/**").addResourceLocations("file:/resources/images/");
 	}

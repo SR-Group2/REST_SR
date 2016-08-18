@@ -13,13 +13,21 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.khmeracademy.rest.entities.Image;
+import org.khmeracademy.rest.form.RestTypeId;
+import org.khmeracademy.rest.form.RestaurantForm2;
+import org.khmeracademy.rest.services.RestaurantService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.facebook.api.RestaurantServices;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import com.google.gson.Gson;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
@@ -27,6 +35,10 @@ import net.coobird.thumbnailator.name.Rename;
 @RestController
 @RequestMapping("/api/upload")
 public class RestUploadController {
+	
+	@Autowired
+	private RestaurantService restaurantService;
+	
 	
 	//================== Upload By RestController ==============
 	@RequestMapping(value="/image", method = RequestMethod.POST)
@@ -227,4 +239,34 @@ public class RestUploadController {
 		
 		return images;
 	}
+	
+	@RequestMapping(value="/test", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,Object>> uploadTest(
+			@RequestParam(value="json_data") String jsonData,
+			@RequestParam(value="menu") List<MultipartFile> menu_files,
+			HttpServletRequest request) {
+		
+		RestaurantForm2 form = new Gson().fromJson(jsonData, RestaurantForm2.class);
+		form.setMenu_files(menu_files);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try{
+			if (restaurantService.addNewRestaurant(form)){
+				map.put("MESSAGE", "SUCCESS");
+				map.put("STATUS", true);
+			}else{
+				map.put("MESSAGE", "UNSUCCESS");
+				map.put("STATUS", true);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("MESSAGE", "ERROR");
+			map.put("STATUS", false);
+		}
+		
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
+}
+	
+	
 }

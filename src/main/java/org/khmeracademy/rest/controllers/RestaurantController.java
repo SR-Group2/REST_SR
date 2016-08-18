@@ -8,6 +8,7 @@ import java.util.Map;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.filters.RestypeFilter;
+import org.khmeracademy.rest.form.RestaurantForm;
 import org.khmeracademy.rest.services.RestaurantService;
 import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,11 +126,11 @@ public class RestaurantController {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/insert-restaurant", method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> insertRestaurant(@RequestBody Restaurants restaurant){
+	/*@RequestMapping(value = "/insert-restaurant", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> insertRestaurant(@RequestBody RestaurantForm restaurantForm){
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			if(restaurantService.insertRestaurant(restaurant)){
+			if(restaurantService.addNewRestaurant(restaurantForm)){
 				map.put("CODE", "200 OK");
 				map.put("STATUS", true);
 				map.put("MESSAGE", "Restaurant Has Been Inserted!");
@@ -145,7 +146,7 @@ public class RestaurantController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-	}
+	}*/
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Map<String, Object>> updateRestaurant(@RequestBody Restaurants restaurant){

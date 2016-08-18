@@ -24,7 +24,7 @@ public interface AddressRepository {
 	@Select(R_ADDRESS)
 	public ArrayList<Addresses> getAllAddress();
 	
-	//TODO: 1. ADDRESS WITH RESTAURANT ID
+	// 1. Insert address -> return address id (table name : addresses)
 	String C_ADDRESS = "INSERT INTO"
 			+ " addresses(street,district,communce,province)"
 			+ " VALUES(#{street},#{district},#{communce},#{province})";
