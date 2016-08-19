@@ -77,13 +77,21 @@ public class RestaurantController {
 	}
 	
 	//==================== GET RESTAURANT WITH CATEGORY==============
+	@ApiImplicitParams({
+	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
+	            value = "Results page you want to retrieve)"),
+	    @ApiImplicitParam(name = "limit", dataType = "integer", paramType = "query", defaultValue="15",
+	            value = "Number of records per page."),
+	})
 	@RequestMapping(value = "/get-restaurant-with-category", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> getRestuarantWidthCaegory(){
+	public ResponseEntity<Map<String, Object>> getRestuarantWidthCaegory(@ApiIgnore Pagination pagination){
 		Map<String, Object> map = new Hashtable<String, Object>();
 		try {
-			ArrayList<Restaurants> restaurants = restaurantService.findRestaurantWithCategory();
+			pagination.setTotalCount(restaurantService.countRestOwner());
+			ArrayList<Restaurants> restaurants = restaurantService.findRestaurantWithCategory(pagination);
 			if(!restaurants.isEmpty()){
 				map.put("DATA", restaurants);
+				map.put("PAGINATION", pagination);
 				map.put("CODE", "200 OK");
 				map.put("STATUS", true);
 				map.put("MESSAGE", "DATA FOUND");

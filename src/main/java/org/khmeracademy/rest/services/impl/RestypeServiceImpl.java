@@ -42,7 +42,7 @@ public class RestypeServiceImpl implements RestypeService {
 	@Override
 	public ArrayList<Restaurants> findRestypeById(int restype_id, Pagination pagination) {
 		
-		return restypeRepository.findRestypeById(restype_id, pagination.getLimit(), pagination.getOffset());
+		return restypeRepository.findRestypeById(restype_id, pagination.getLimit(), pagination.offset());
 		
 	}
 

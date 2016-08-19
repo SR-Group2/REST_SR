@@ -23,10 +23,12 @@ public interface RestaurantService {
 	
 	public Restaurants findRestaurantById(int rest_id);
 	
-	public ArrayList<Restaurants> findRestaurantWithCategory();
+	public ArrayList<Restaurants> findRestaurantWithCategory(Pagination pagination);
 	
 	public ArrayList<Restaurants> searchRest(Pagination pagination, RestypeFilter filter);
 	
 	public int countRestById(String keyword);
+	
+	public int countRestOwner();
 	
 }

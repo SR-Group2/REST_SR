@@ -4,19 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.khmeracademy.rest.entities.Addresses;
-import org.khmeracademy.rest.entities.CatRest;
 import org.khmeracademy.rest.entities.Categories;
-import org.khmeracademy.rest.entities.Menus;
 import org.khmeracademy.rest.entities.Restaurants;
-import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.entities.UploadedFileInfo;
 import org.khmeracademy.rest.filters.RestypeFilter;
-import org.khmeracademy.rest.form.CategoryId;
-import org.khmeracademy.rest.form.RestaurantForm;
 import org.khmeracademy.rest.form.RestaurantForm2;
 import org.khmeracademy.rest.repositories.AddressRepository;
 import org.khmeracademy.rest.repositories.CategoryRepository;
-import org.khmeracademy.rest.repositories.MenuRepository;
 import org.khmeracademy.rest.repositories.RestaurantRepository;
 import org.khmeracademy.rest.repositories.RestypeRepository;
 import org.khmeracademy.rest.services.FileUploadService;
@@ -39,8 +33,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Autowired
 	private RestypeRepository restType;
 
-	@Autowired
-	private MenuRepository menuRepository;
 	
 	@Autowired
 	private CategoryRepository categoryRepository; 
@@ -76,9 +68,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public ArrayList<Restaurants> findRestaurantWithCategory() {
+	public ArrayList<Restaurants> findRestaurantWithCategory(Pagination pagination) {
 		// TODO Auto-generated method stub
-		return restaurantRepository.findRestaurantWithCategory();
+		return restaurantRepository.findRestaurantWithCategory(pagination.getLimit(), pagination.getOffset());
 	}
 	
 	@Override
@@ -184,6 +176,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantRepository.searchRest("%" + filter.getKeyword().toLowerCase() + "%", 
 				pagination.getLimit(), pagination.getOffset());
 	}
+
+	@Override
+	public int countRestOwner() {
+		
+		return restaurantRepository.countRestOwner();
+	}
+
 
 	
 

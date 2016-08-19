@@ -44,7 +44,7 @@ public interface CategoryRepository {
 	public boolean deleteCategory(@Param("category_id") int category_id);
 	
 	/*====================== Get Category By Restaurant ID ==================*/
-	String GC_BRID = "SELECT "
+	/*String GC_BRID = "SELECT "
 					+"		r.rest_id, "
 					+"		r.rest_name, "
 					+"		c.category_id, "
@@ -54,7 +54,19 @@ public interface CategoryRepository {
 					+"		c.category_name"
 					+"	FROM "
 					+"	categories c INNER JOIN catrests cr ON c.category_id = cr.category_id "
-					+"	INNER JOIN restaurants r ON r.rest_id = cr.rest_id WHERE r.rest_id = #{rest_id}";
+					+"	INNER JOIN restaurants r ON r.rest_id = cr.rest_id WHERE r.rest_id = #{rest_id}";*/
+	String GC_BRID = "SELECT "
+			+"		r.rest_id, "
+			+"		r.rest_name, "
+			+"		c.category_id, "
+			+"		c.date_added, "
+			+"		c.date_modify, "
+			+"		c.picture, "
+			+"		c.url, "
+			+"		c.category_name"
+			+"	FROM "
+			+"	categories c "
+			+"	INNER JOIN restaurants r ON r.rest_id = c.rest_id WHERE r.rest_id = #{rest_id}";
 	@Select(GC_BRID)
 	public ArrayList<Categories> getCategoryByRestId(int rest_id);
 	
