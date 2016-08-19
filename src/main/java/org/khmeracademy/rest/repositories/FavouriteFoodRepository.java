@@ -10,10 +10,12 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.FavouriteFoods;
+import org.khmeracademy.rest.entities.FavouriteRestaurants;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FavouriteFoodRepository {
+	
 	
 	/* =================  INSERT DATA   =================== */
 	String C_FFOOD = "INSERT INTO favouritefoods (user_id, food_id)"
