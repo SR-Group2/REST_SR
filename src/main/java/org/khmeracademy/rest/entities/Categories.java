@@ -12,7 +12,16 @@ public class Categories {
 	private Date date_modify;
 	private String picture;
 	private String category_name_kh;
+	private String url;
 	
+	
+	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	@ApiModelProperty(hidden = true)
 	private Restaurants rest;
 	

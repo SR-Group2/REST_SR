@@ -223,7 +223,7 @@ public interface RestaurantRepository {
 	public ArrayList<Restaurants> findRestaurantWithCategory();
 	
 	/*====================== Get Category By Restaurant ID ==================*/
-	String GC_BRID = "SELECT "
+	/*String GC_BRID = "SELECT "
 					+"		c.category_id, "
 					+"		c.picture, "
 					+"		c.category_name_kh, "
@@ -231,7 +231,18 @@ public interface RestaurantRepository {
 					+"	FROM "
 					+"	categories c "
 					+"  INNER JOIN catrests cr ON c.category_id = cr.category_id "
-					+"	WHERE cr.rest_id = #{rest_id}";
+					+"	WHERE cr.rest_id = #{rest_id}";*/
+	String GC_BRID = "SELECT "
+			+"		c.category_id, "
+			+"		c.picture, "
+			+"		c.category_name_kh, "
+			+"		c.picture,"
+			+"		c.url,"
+			+"		c.category_name"
+			+"	FROM "
+			+"	categories c "
+			+"  INNER JOIN restaurants r ON c.rest_id = r.rest_id "
+			+"	WHERE c.rest_id = #{rest_id}";
 	@Select(GC_BRID)
 	public ArrayList<Categories> getCategoryByRestId(int rest_id);
 	
