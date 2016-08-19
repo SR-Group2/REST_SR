@@ -42,6 +42,18 @@ public interface UserRepository {
 	})
 	public boolean insertUser(Users user);
 	
+	/*=========Sing Up User=================*/
+	String S_USER="INSERT INTO"
+			+ " users (first_name, last_name, username, email, password, dob, gender, picture, role_id)"
+			+ " VALUES(#{first_name},#{last_name},#{username},#{email},#{password},#{dob},#{gender}, #{picture},1)";
+	
+	@Insert(S_USER)
+	@Results(value={
+			@Result(property="role.name", column="role_name" )
+	})
+	public boolean signUpUser(Users user);
+	
+	
 	String U_USER="UPDATE users"
 			+ " SET first_name=#{first_name},"
 			+ " last_name=#{last_name},"

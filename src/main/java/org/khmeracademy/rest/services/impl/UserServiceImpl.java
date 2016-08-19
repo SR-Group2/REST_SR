@@ -53,5 +53,10 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findUserByUsername(username);
 	}
 
+	@Override
+	public boolean signUpUser(Users user) {
+		return userRepository.signUpUser(user);
+	}
+
 
 }

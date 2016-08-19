@@ -13,6 +13,7 @@ public interface UserService {
 	
 	
 	public boolean insertUser(Users user);
+	public boolean signUpUser(Users user);
 	
 	public boolean  updateUser(Users user);
 	

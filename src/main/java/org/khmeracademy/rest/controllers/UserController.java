@@ -104,6 +104,34 @@ public class UserController {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		
 	}
+	
+	/*================= Sing Up User===================*/
+	
+	@RequestMapping(value="/sign-up", method= RequestMethod.POST)
+	public  ResponseEntity<Map<String, Object>> signUptUser(@RequestBody Users user){
+		System.out.println("API");
+		Map<String, Object> map= new HashMap<String, Object>();
+		try{
+			if(userService.signUpUser(user)){
+				map.put("STATUS", true);
+				map.put("CODE", "200");
+				map.put("MESSAGE", "SUCCESSFULLY SING UP");
+			}else{
+				map.put("STATUS", false);
+				map.put("CODE", "404");
+				map.put("MESSAGE", "Failed to Sing Up");
+			}
+			
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("CODE", "500");
+			map.put("MESSAGE", "ERROR");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+		
+	}
+	
 	@RequestMapping(method= RequestMethod.PUT)
 	public  ResponseEntity<Map<String, Object>> updateUser(@RequestBody Users user){
 		Map<String, Object> map= new HashMap<String, Object>();

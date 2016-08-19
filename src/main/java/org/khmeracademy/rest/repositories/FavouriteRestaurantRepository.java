@@ -35,14 +35,20 @@ public interface FavouriteRestaurantRepository {
 			+ " INNER JOIN restaurants R"
 			+ " ON F.rest_id=R.rest_id"
 			+ " INNER JOIN users U "
-			+ " ON U.user_id = F.user_id";
+			+ " ON U.user_id = F.user_id;"
+	        + " SELECT COUNT(F.rest_id) As total"
+	        + " From favouriterestaurants F "
+	        + " Where F.user_id=1";
+	
 	@Select(R_FREST)
 	@Results(value={
 		@Result(property="user.user_id", column="user_id"),
 		@Result(property="user.first_name", column="first_name"),
 		@Result(property="user.last_name", column="last_name"),
 		@Result(property="rest.rest_id", column="rest_id"),
-		@Result(property="rest.rest_name", column="rest_name"),	
+		@Result(property="rest.rest_name", column="rest_name"),
+		@Result(property="fav_total", column="total")
+		
 		
 		
 	})
