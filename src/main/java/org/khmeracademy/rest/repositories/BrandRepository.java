@@ -16,6 +16,7 @@ public interface BrandRepository {
 
 	String R_BRAND = "SELECT"
 			+" B.brand_id,"
+			+" B.brand_name,"
 			+" B.contact,"
 			+" B.date_added,"
 			+" B.date_modify,"
@@ -49,8 +50,8 @@ public interface BrandRepository {
 	})
 	public ArrayList<Brands> getAllBrand();
 		
-	String C_BRAND = "INSERT INTO brands (contact,rest_id,address_id)"
-			+ "VALUES ( #{contact} , #{rest.rest_id} , #{address.address_id})";
+	String C_BRAND = "INSERT INTO brands (brand_name,contact,rest_id,address_id)"
+			+ "VALUES ( #{brand_name}, #{contact} , #{rest.rest_id} , #{address.address_id})";
 	@Insert(C_BRAND)
 	public boolean insertBrand(Brands brand);
 	
@@ -63,6 +64,7 @@ public interface BrandRepository {
 	public boolean deleteBrand(int brand_id);
 	
 	String U_BRAND = "UPDATE brands SET "
+			+ " brand_name=#{brand_name},"
 			+ "	contact=#{contact} , "
 			+ "	rest_id=#{rest.rest_id} , "
 			+ "	address_id=#{address.address_id},"
@@ -75,6 +77,7 @@ public interface BrandRepository {
 	
 	String F_BRAND = "SELECT"
 			+" B.brand_id,"
+			+" B.brand_name,"
 			+" B.contact,"
 			+" B.date_added,"
 			+" B.date_modify,"

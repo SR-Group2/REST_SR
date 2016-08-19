@@ -5,6 +5,7 @@ import java.util.Date;
 public class Brands {
 
 	private int brand_id;
+	private String brand_name;
 	private String contact;
 	private Date date_added;
 	private Date date_modify;
@@ -17,7 +18,12 @@ public class Brands {
 	public void setBrand_id(int brand_id) {
 		this.brand_id = brand_id;
 	}
-	
+	public String getBrand_name() {
+		return brand_name;
+	}
+	public void setBrand_name(String brand_name) {
+		this.brand_name = brand_name;
+	}
 	public String getContact() {
 		return contact;
 	}

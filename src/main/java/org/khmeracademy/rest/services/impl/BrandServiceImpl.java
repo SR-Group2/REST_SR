@@ -4,12 +4,17 @@ import java.util.ArrayList;
 
 import org.khmeracademy.rest.entities.Brands;
 import org.khmeracademy.rest.repositories.BrandRepository;
+import org.khmeracademy.rest.services.AddressService;
 import org.khmeracademy.rest.services.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BrandServiceImpl implements BrandService {
+	
+	@Autowired
+	AddressService addressService;
 
 	@Autowired
 	private BrandRepository brandRepositoy;
@@ -20,7 +25,10 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@Transactional
 	public boolean insertBrand(Brands brand) {
+		addressService.insertAddress(brand.getAddress());
+		int address_id =  brand.getAddress().getAddress_id();
 		return brandRepositoy.insertBrand(brand);
 	}
 
