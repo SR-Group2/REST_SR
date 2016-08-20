@@ -1,4 +1,5 @@
 package org.khmeracademy.rest.services.impl;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -98,8 +99,12 @@ public class FileUploadServiceImpl implements FileUploadService{
 	}
 
 	@Override
-	public UploadedFileInfo delete(List<String> file, String folder) {
+	public UploadedFileInfo delete(List<String> filenames, String folder) {
 		
+		for(String filename : filenames){
+			File file = new File(filename);
+			file.delete();
+		}
 		return null;
 	}
 
