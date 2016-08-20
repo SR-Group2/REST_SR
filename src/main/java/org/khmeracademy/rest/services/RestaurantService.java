@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.form.RestaurantForm2;
+import org.khmeracademy.rest.form.RestaurantForm2.RestaurantUpdateForm2;
 import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,7 @@ public interface RestaurantService {
 	public int countRestById(String keyword);
 	
 	public int countRestOwner();
+	
+	public boolean updateRestaurant(RestaurantUpdateForm2 restaurantUpdateForm2);
 	
 }

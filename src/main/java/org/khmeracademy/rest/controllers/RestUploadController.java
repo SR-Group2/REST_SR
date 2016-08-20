@@ -13,13 +13,13 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.khmeracademy.rest.entities.Image;
-import org.khmeracademy.rest.form.RestTypeId;
+
 import org.khmeracademy.rest.form.RestaurantForm2;
+import org.khmeracademy.rest.form.RestaurantForm2.RestaurantUpdateForm2;
 import org.khmeracademy.rest.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.social.facebook.api.RestaurantServices;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -244,10 +244,12 @@ public class RestUploadController {
 	public ResponseEntity<Map<String,Object>> uploadTest(
 			@RequestParam(value="json_data") String jsonData,
 			@RequestParam(value="menu") List<MultipartFile> menu_files,
+			@RequestParam(value="restaurant") List<MultipartFile> restaurant_files,
 			HttpServletRequest request) {
 		
 		RestaurantForm2 form = new Gson().fromJson(jsonData, RestaurantForm2.class);
 		form.setMenu_files(menu_files);
+		form.setRestaurant_files(restaurant_files);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -266,7 +268,45 @@ public class RestUploadController {
 		}
 		
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
-}
+	}
+	
+	@RequestMapping(value="/test/update", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,Object>> updateImage(
+			@RequestParam(value="json_data") String jsonData,
+			@RequestParam(value="menu_picture") List<MultipartFile> menu_picture,
+			@RequestParam(value="delete_menu_picture") List<String> delete_menu_picture,
+			HttpServletRequest request) {
+		
+		System.out.println(jsonData);
+		System.out.println(menu_picture.size());
+		System.out.println(delete_menu_picture.size());
+		
+		
+		
+		RestaurantUpdateForm2 restUpdateForm2 = new Gson().fromJson(jsonData, RestaurantUpdateForm2.class);
+		restUpdateForm2.setMenu_files(menu_picture);
+		restUpdateForm2.setDeletedMenuImageUrl(delete_menu_picture);
+		//form.setRestaurant_files(restaurant_files);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try{
+			if (restaurantService.updateRestaurant(restUpdateForm2)){
+				map.put("MESSAGE", "SUCCESS");
+				map.put("STATUS", true);
+			}else{
+				map.put("MESSAGE", "UNSUCCESS");
+				map.put("STATUS", true);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("MESSAGE", "ERROR");
+			map.put("STATUS", false);
+		}
+		
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
+
+	}
 	
 	
 }
+

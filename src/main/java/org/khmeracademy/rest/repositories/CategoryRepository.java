@@ -96,6 +96,8 @@ public interface CategoryRepository {
 			+ " </script>";
 	@Insert(C_BATCH_CATEGORIES)
 	public boolean inertBatchCategories(@Param("menu_urls") List<String> menu_urls , @Param("rest_id") int rest_id);
+	
+
 		
 		
 }

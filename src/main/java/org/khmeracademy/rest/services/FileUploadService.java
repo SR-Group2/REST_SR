@@ -19,4 +19,6 @@ public interface FileUploadService {
 	
 	public UploadedFileInfo upload(List<MultipartFile> files, String folder, HttpServletRequest request);
 	
+	public UploadedFileInfo delete(List<String> file, String folder);
+	
 }

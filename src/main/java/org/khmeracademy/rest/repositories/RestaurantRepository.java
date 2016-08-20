@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Categories;
 import org.khmeracademy.rest.entities.Restaurants;
+import org.khmeracademy.rest.entities.Restpictures;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.form.RestaurantForm2;
 import org.springframework.stereotype.Repository;
@@ -145,6 +146,11 @@ public interface RestaurantRepository {
 			+ " FROM"
 			+ " categories"
 			+ " WHERE"
+			+ " rest_id = #{rest_id};"
+			+ "DELETE"
+			+ " FROM"
+			+ " restpictures"
+			+ " WHERE"
 			+ " rest_id = #{rest_id};";
 	@Delete(D_RESTAURANT)
 	public boolean deleteRestaurant(int rest_id);
@@ -226,6 +232,7 @@ public interface RestaurantRepository {
 			@Result(property = "address.province", column = "province"),
 			@Result(property = "address.street", column = "street"),
 			@Result(property = "categories", javaType=List.class, column="rest_id", many=@Many(select="getCategoryByRestId")),
+			@Result(property = "restpictures", javaType=List.class, column="rest_id", many=@Many(select="findRestyPicture")),
 			@Result(property = "restype", javaType=List.class, column="rest_id", many=@Many(select="findMenuByRestId"))
 	})
 	public Restaurants  findRestaurantById(int rest_id);
@@ -281,6 +288,7 @@ public interface RestaurantRepository {
 			@Result(property = "address.province", column = "province"),
 			@Result(property = "address.street", column = "street"),
 			@Result(property = "categories", javaType=List.class, column="rest_id", many=@Many(select="getCategoryByRestId")),
+			@Result(property = "restpictures", javaType=List.class, column="rest_id", many=@Many(select="findRestyPicture")),
 			@Result(property = "restype", javaType=List.class, column="rest_id", many=@Many(select="findMenuByRestId"))
 	})
 	public ArrayList<Restaurants> findRestaurantWithCategory( 
@@ -327,5 +335,15 @@ public interface RestaurantRepository {
 			@Result(property = "user.email", column = "email"),
 	})
 	public ArrayList<Restypes> findMenuByRestId(int rest_id);
+	
+	@Select("SELECT  RP.picture_id, RP.path_name, RP.date_added, RP.date_modify FROM restaurants R"
+			+ " INNER JOIN restpictures RP ON R.rest_id = RP.rest_id"
+			+ " WHERE R.rest_id =#{rest_id} ")
+	@Results(value={
+			@Result(property = "rest_id", column = "rest_id"),
+			@Result(property = "picture_id", column = "picture_id"),
+			@Result(property = "path_name", column = "path_name")
+	})
+	public ArrayList<Restpictures> findRestyPicture(int rest_id);
 	
 }

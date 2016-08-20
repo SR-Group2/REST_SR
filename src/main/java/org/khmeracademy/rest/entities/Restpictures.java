@@ -6,13 +6,14 @@ public class Restpictures {
 
 	private int picture_id;
 	private String path_name;
-	private Restaurants rest;
+	
+	/*private Restaurants rest;
 	public Restaurants getRest() {
 		return rest;
 	}
 	public void setRest(Restaurants rest) {
 		this.rest = rest;
-	}
+	}*/
 	private Date date_added;
 	private Date date_modify;
 	

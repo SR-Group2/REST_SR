@@ -12,11 +12,6 @@ import org.khmeracademy.rest.services.FileUploadService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-/***
- * Create Date: 8/8/2016 02:00PM
- * @author PHEARUN
- */
-
 @Service
 public class FileUploadServiceImpl implements FileUploadService{
 	
@@ -101,6 +96,14 @@ public class FileUploadServiceImpl implements FileUploadService{
 		}
 		return fileUpload;
 	}
+
+	@Override
+	public UploadedFileInfo delete(List<String> file, String folder) {
+		
+		return null;
+	}
+
+	
 
 	
 }

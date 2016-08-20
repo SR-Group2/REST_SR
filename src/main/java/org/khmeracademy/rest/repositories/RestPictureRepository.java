@@ -1,9 +1,11 @@
 package org.khmeracademy.rest.repositories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -62,4 +64,14 @@ public interface RestPictureRepository {
 			+ " picture_id = #{picture_id}";
 	@Select(F_RESTPICTURE)
 	public ArrayList<Restpictures>  findRestpictureById(int picture_id);
+	
+
+	String C_BATCH_RESTPICTURE =  "<script>INSERT INTO restpictures (path_name, rest_id)"
+			+ " VALUES "
+			+ " <foreach collection='path_names' item='path_name' separator=','>"
+			+ " 	(#{path_name} , #{rest_id})"
+			+ " </foreach>"
+			+ " </script>";
+	@Insert(C_BATCH_RESTPICTURE)
+	public boolean inertBatchRestpicture(@Param("path_names") List<String> path_names , @Param("rest_id") int rest_id);
 }

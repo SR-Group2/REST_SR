@@ -1,16 +1,16 @@
 package org.khmeracademy.rest.services.impl;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.khmeracademy.rest.entities.Addresses;
-import org.khmeracademy.rest.entities.Categories;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.UploadedFileInfo;
 import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.form.RestaurantForm2;
+import org.khmeracademy.rest.form.RestaurantForm2.RestaurantUpdateForm2;
 import org.khmeracademy.rest.repositories.AddressRepository;
 import org.khmeracademy.rest.repositories.CategoryRepository;
+import org.khmeracademy.rest.repositories.RestPictureRepository;
 import org.khmeracademy.rest.repositories.RestaurantRepository;
 import org.khmeracademy.rest.repositories.RestypeRepository;
 import org.khmeracademy.rest.services.FileUploadService;
@@ -37,7 +37,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Autowired
 	private CategoryRepository categoryRepository; 
 	
-
+	@Autowired
+	private RestPictureRepository restPictureRepository; 
+	
 	@Autowired
 	private FileUploadService fileUploadService;
 	
@@ -80,7 +82,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 		// ============== Belove Teacher Pirang
 		try{
 			
-			UploadedFileInfo fileInfo = fileUploadService.upload(restaurantForm.getMenu_files(), "menu");
+			UploadedFileInfo menuPath = fileUploadService.upload(restaurantForm.getMenu_files(), "menu");
+			UploadedFileInfo restaurantPath = fileUploadService.upload(restaurantForm.getRestaurant_files(), "restaurant");
 			// fileInfo.getNames() : List of FIle Path
 			//1. Upload File
 			//2. Get Url
@@ -101,8 +104,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 			System.out.println("REST ID ======= > " + restaurantForm.getRest_id());
 			
 			//3. Insert Many Categories -> return category ID (table name : categories)
-			Categories cate = new Categories();
-			categoryRepository.inertBatchCategories(fileInfo.getNames() , restaurantForm.getRest_id());
+			//Categories cate = new Categories();
+			categoryRepository.inertBatchCategories(menuPath.getNames() , restaurantForm.getRest_id());
+			
+			
+			//Restpictures restpicture = new Restpictures();
+			restPictureRepository.inertBatchRestpicture(restaurantPath.getNames(), restaurantForm.getRest_id());
+			
 			
 			//4. Insert Rest Type ID
 			restType.insertBatchRestypeId(restaurantForm.getRestypes_id(), restaurantForm.getRest_id());
@@ -182,9 +190,55 @@ public class RestaurantServiceImpl implements RestaurantService {
 		
 		return restaurantRepository.countRestOwner();
 	}
-
-
 	
+	//=============================== update image restaurant ============================
+	@Override
+	@Transactional
+	public boolean updateRestaurant(RestaurantUpdateForm2 restaurantUpdateForm2){
+		
+		// ============== Beloved Teacher Pirang =======================
+		try{
+			
+			UploadedFileInfo menuPath = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu_picture");
+			UploadedFileInfo deletemenuPath = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu_picture");
+			UploadedFileInfo restaurantPath = fileUploadService.delete(restaurantUpdateForm2.getDeletedMenuImageUrl(), "delete_menu_picture");
+			// fileInfo.getNames() : List of FIle Path
+			//1. Upload File
+			//2. Get Url
+			//3. Insert Restaurant -> Return ID
+			//4. Insert Menu
+			//==================
+			
+			// 1. Insert address -> return address id (table name : addresses)
+			Addresses address = restaurantUpdateForm2.getAddress();
+			addressRepository.insertAddress(address);
+			
+			System.out.println("ADDRESS_ID ==> " + address.getAddress_id());
+			
+			// 2. Insert Restaurant -> return rest_id (table name : restaurants)
+			restaurantUpdateForm2.setAddress(address);
+			restaurantRepository.insertRestaurant(restaurantUpdateForm2);
+			
+			System.out.println("REST ID ======= > " + restaurantUpdateForm2.getRest_id());
+			
+			//3. Insert Many Categories -> return category ID (table name : categories)
+			//Categories cate = new Categories();
+			categoryRepository.inertBatchCategories(menuPath.getNames() , restaurantUpdateForm2.getRest_id());
+			
+			
+			//Restpictures restpicture = new Restpictures();
+			restPictureRepository.inertBatchRestpicture(restaurantPath.getNames(), restaurantUpdateForm2.getRest_id());
+			
+			
+			//4. Insert Rest Type ID
+			restType.insertBatchRestypeId(restaurantUpdateForm2.getRestypes_id(), restaurantUpdateForm2.getRest_id());
+			return true;
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return false;
+
+	}
 
 }
 

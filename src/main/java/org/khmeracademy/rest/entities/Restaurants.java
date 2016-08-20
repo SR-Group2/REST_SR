@@ -11,6 +11,10 @@ public class Restaurants {
 	private String location;
 	private Addresses address;
 	private Users user;
+	
+	private List<Restpictures> restpictures;
+	
+	
 	private List<Menus> restype;//menus
 	
 	//private Restypes catagories;//restypes
@@ -24,7 +28,12 @@ public class Restaurants {
 	}
 	private Restypes restypes;
 	
-	
+	public List<Restpictures> getRestpictures() {
+		return restpictures;
+	}
+	public void setRestpictures(List<Restpictures> restpictures) {
+		this.restpictures = restpictures;
+	}
 	/*public List<Restypes> getRestypes() {
 		return restypes;
 	}*/
