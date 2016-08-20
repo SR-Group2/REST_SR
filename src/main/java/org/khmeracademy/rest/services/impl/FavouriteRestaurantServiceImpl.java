@@ -37,5 +37,18 @@ public class FavouriteRestaurantServiceImpl implements FavouriteRestaurantServic
 	public boolean insertFavouriteRestaurant(FavouriteRestaurants favouriteRestaurant) {
 		return favouriteRestaurantRepository.insertFavouriteRestaurant(favouriteRestaurant);
 	}
+
+	@Override
+	public ArrayList<FavouriteRestaurants> getFavouriteRestaurantByUserId(int user_id) {
+		return favouriteRestaurantRepository.getFavouriteRestaurantByUserId(user_id);
+	}
+
+	@Override
+	public int totalFavourite(int user_id) {
+		
+		return favouriteRestaurantRepository.totalFavourite(user_id);
+	}
+	
+	
  
 }

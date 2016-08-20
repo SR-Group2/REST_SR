@@ -23,7 +23,7 @@ public class FavouriteRestaurantController {
 	private FavouriteRestaurantService favRestService;
 	
 
-	//======================= INSERT Favourite Restaurant =============================
+	//======================= INSERT FAVORITE RESTAURANT =============================
 	@RequestMapping(value="/insert-fav-restaurnt" , method = RequestMethod.POST , headers = "Accept=Application/json")
 	public ResponseEntity<Map<String , Object>> insertFavouriteRestaurant(@RequestBody FavouriteRestaurants favouriteRestaurant){
 		Map<String , Object> map = new HashMap<String , Object>();
@@ -44,7 +44,7 @@ public class FavouriteRestaurantController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
-	//======================= GET Favourite Restaurant =============================
+	//======================= GET FAVORITE RESTAURANT =============================
 	@RequestMapping(value="/get-fav-restaurant" , method = RequestMethod.GET , headers = "Accept=Application/json")
 	public ResponseEntity<Map<String , Object>> getFavouriteRestaurant(){
 		Map<String , Object> map = new HashMap<String , Object>();
@@ -69,7 +69,7 @@ public class FavouriteRestaurantController {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 	
-	//======================= FIND Favourite Restaurant BY ID =============================
+	//======================= FIND FAVORITE RESTAURANT BY ID =============================
 	@RequestMapping(value="/{favrest_id}" , method = RequestMethod.GET , headers = "Accept=Application/json")
 	public ResponseEntity<Map<String , Object>> findFavouriteRestaurantById(@PathVariable("favrest_id") int favrest_id){
 		Map<String , Object> map = new HashMap<String , Object>();
@@ -94,7 +94,7 @@ public class FavouriteRestaurantController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
-	//======================= DELETE  CATEGORY =============================
+	//======================= DELETE  FAVORITE RESTAURANT =============================
 	@RequestMapping(value="/{favrest_id}" , method = RequestMethod.DELETE , headers = "Accept=Application/json")
 	public ResponseEntity<Map<String , Object>> deleteFavouriteRestaurant(@PathVariable("favrest_id") int favrest_id){
 		Map<String , Object> map = new HashMap<String , Object>();
@@ -115,7 +115,7 @@ public class FavouriteRestaurantController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
-	//======================= UPDATE CATEGORY =============================
+	//======================= UPDATE FAVORITE RESTAURANT =============================
 	@RequestMapping(method = RequestMethod.PUT , headers = "Accept=Application/json")
 	public ResponseEntity<Map<String , Object>> updateFavouriteRestaurant(@RequestBody FavouriteRestaurants favouriteRestaurant){
 		Map<String , Object> map = new HashMap<String , Object>();
@@ -136,5 +136,35 @@ public class FavouriteRestaurantController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
+	
+	
+	//======================= GET FAVORITE RESTAURANT BY USER ID =============================
+		@RequestMapping(value="/get-fav-rest-by-user-id/{user_id}" , method = RequestMethod.GET , headers = "Accept=Application/json")
+		public ResponseEntity<Map<String , Object>> getFavouriteRestaurantByUserId(@PathVariable("user_id") int user_id){
+			
+			Map<String , Object> map = new HashMap<String , Object>();
+		
+			try{
+				favRestService.totalFavourite(user_id);
+				ArrayList<FavouriteRestaurants> favouriteRestaurants= favRestService.getFavouriteRestaurantByUserId(user_id);
+				System.out.println(favouriteRestaurants);
+				if(!favouriteRestaurants.equals(null)) {
+					map.put("CODE", "200 OK");
+					map.put("DATA", favouriteRestaurants);
+					map.put("STATUS", true);
+					map.put("MESSAGE", "GET SUCCESSFULLY!");
+				}else{
+					map.put("MESSAGE", "FAILED TO GET!");
+					map.put("STATUS", true);
+					map.put("CODE", "404 NOT FOUND");
+				}
+			}catch(Exception e){
+				map.put("CODE", "500 SERVER ERROR!");
+				map.put("STATUS", false);
+				map.put("MESSAGE", "ERROR!");
+				e.printStackTrace();
+			}
+			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+		}
 	
 }

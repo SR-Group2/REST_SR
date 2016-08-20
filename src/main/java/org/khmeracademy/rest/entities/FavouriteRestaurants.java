@@ -1,10 +1,17 @@
 package org.khmeracademy.rest.entities;
 
+
+
 public class FavouriteRestaurants {
+
 	private int favrest_id;
 	private int fav_total;
+	
 	private Users user;
 	private Restaurants rest;
+	
+	
+	
 	public int getFavrest_id() {
 		return favrest_id;
 	}
@@ -28,6 +35,12 @@ public class FavouriteRestaurants {
 	}
 	public void setFav_total(int fav_total) {
 		this.fav_total = fav_total;
+	}
+	
+	@Override
+	public String toString() {
+		return "FavouriteRestaurants [favrest_id=" + favrest_id + ", fav_total=" + fav_total + ", user=" + user
+				+ ", rest=" + rest + "]";
 	}
 	
 }

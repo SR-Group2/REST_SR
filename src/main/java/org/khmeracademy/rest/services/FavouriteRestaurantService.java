@@ -13,4 +13,7 @@ public interface FavouriteRestaurantService {
 	public FavouriteRestaurants findFavouriteRestaurantById(@Param("favrest_id") int favrest_id);
 	public boolean updateFavouriteRestaurant(FavouriteRestaurants favouriteRestaurant);
 	public boolean deleteFavouriteRestaurant(@Param("favrest_id") int favrest_id);
+	public ArrayList<FavouriteRestaurants> getFavouriteRestaurantByUserId(@Param("user_id") int user_id);
+	
+	public int totalFavourite(int user_id);
 }
