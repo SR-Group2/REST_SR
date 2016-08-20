@@ -22,7 +22,8 @@ public interface CategoryRepository {
 	public boolean insertCategory(Categories category);
 	
 	/* =================  GET DATA   =================== */
-	String R_CAT = "SELECT category_id, category_name, other, date_added, date_modify, picture FROM CATEGORIES";
+	String R_CAT = "SELECT category_id, category_name, other, picture, url, category_name_kh,  "
+			+ " date_added, date_modify , picture FROM CATEGORIES";
 	@Select(R_CAT)
 	public ArrayList<Categories> getCategory();
 	

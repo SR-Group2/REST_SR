@@ -21,6 +21,8 @@ public class RestaurantForm2 {
 	private int rest_id;
 	private String open_close;
 	
+	private MultipartFile rest_picture;
+	
 	// ===========teacher pirang =================
 	private List<MultipartFile> menu_files;
 	//3. Insert Many Categories -> return category ID (table name : categories)
@@ -113,6 +115,14 @@ public class RestaurantForm2 {
 		return menu_files;
 	}
 
+	public MultipartFile getRest_picture() {
+		return rest_picture;
+	}
+
+	public void setRest_picture(MultipartFile rest_picture) {
+		this.rest_picture = rest_picture;
+	}
+
 	public void setMenu_files(List<MultipartFile> menu_files) {
 		this.menu_files = menu_files;
 	}
@@ -145,10 +155,11 @@ public class RestaurantForm2 {
 	public String toString() {
 		return "RestaurantForm2 [address=" + address + ", rest_name_kh=" + rest_name_kh + ", rest_name=" + rest_name
 				+ ", location=" + location + ", about=" + about + ", contact=" + contact + ", user_id=" + user_id
-				+ ", rest_id=" + rest_id + ", open_close=" + open_close + ", menu_files=" + menu_files
-				+ ", restypes_id=" + restypes_id + "]";
+				+ ", rest_id=" + rest_id + ", open_close=" + open_close + ", rest_picture=" + rest_picture
+				+ ", menu_files=" + menu_files + ", categories=" + categories + ", restypes_id=" + restypes_id + "]";
 	}
 
+	
 	
 	
 	
