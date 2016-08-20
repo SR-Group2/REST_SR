@@ -1,6 +1,8 @@
 package org.khmeracademy.rest.services.impl;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 import org.khmeracademy.rest.entities.Addresses;
 import org.khmeracademy.rest.entities.Restaurants;
@@ -59,10 +61,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantRepository.deleteRestaurant(rest_id);
 	}
 
-	@Override
-	public boolean updateRestaurant(Restaurants restaurant) {
-		return restaurantRepository.updateRestaurant(restaurant);
-	}
+	/*@Override
+	public boolean updateRestaurant(RestaurantUpdateForm2 restaurantUpdateForm2) {
+		return restaurantRepository.updateRestaurant(restaurantUpdateForm2);
+	}*/
 
 	@Override
 	public Restaurants findRestaurantById(int rest_id) {
@@ -120,55 +122,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 		}
 		return false;
 		
-		/* ======================= My Belove Teacher Tola
-		try{
-			
-			// 1. Insert address -> return address id (table name : addresses)
-			Addresses address = restaurantForm.getAddress();
-			addressRepository.insertAddress(address);
-			
-			System.out.println("ADDRESS_ID ==> " + address.getAddress_id());
-			
-			// 2. Insert Restaurant -> return rest_id (table name : restaurants)
-			restaurantForm.setAddress(address);
-			restaurantRepository.insertRestaurant(restaurantForm);
-			
-			System.out.println("getRest_id() ======= > " + restaurantForm.getRest_id());
-			
-			//3. Insert Many Categories -> return category ID (table name : categories)
-			Categories cate = new Categories();
-			categoryRepository.inertBatchCategories(restaurantForm.getCategories() , cate);
-			
-			System.out.println("getCategories_id() ======= > " + cate.getCategory_id());
-			
-			//4. Insert Many Categories ID and Restaurants ID ( table name : catrests ) 
-			System.out.println(restaurantForm.getCategories().size());
-			
-			List<CategoryId> categoryId = new ArrayList<CategoryId>();
-			
-			for(int i=0;i<restaurantForm.getCategories().size();i++){
-				CategoryId cateId = new CategoryId();
-				cateId.setCategory_id(cate.getCategory_id()-i);
-				categoryId.add(cateId);
-			}
-			
-			for(int i=0;i<categoryId.size();i++){
-				System.out.println("getCategories_id" + categoryId.get(i).getCategory_id());
-			}
-			
-			restType.inertBatchCatRest(categoryId , restaurantForm.getRest_id() );
-			
-			// 5. Get ID from table name restypes( Get from client ) 
-			//    - > Insert only 3 Menus Id and Restaurants ID  ( table name : menus ) 
-			menuRepository.inertBatchMenus(restaurantForm.getRestypes_id(), restaurantForm.getRest_id() );
-			
-			return true;
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-		return false;
-		
-		*/
 	}
 
 
@@ -199,9 +152,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 		// ============== Beloved Teacher Pirang =======================
 		try{
 			
-			UploadedFileInfo menuPath = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu_picture");
-			UploadedFileInfo deletemenuPath = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu_picture");
-			UploadedFileInfo restaurantPath = fileUploadService.delete(restaurantUpdateForm2.getDeletedMenuImageUrl(), "delete_menu_picture");
+			UploadedFileInfo menu_urls = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu");
+			List<String> deletemenuPath = restaurantUpdateForm2.getDeletedMenuImageUrl();
+			System.out.println(deletemenuPath);
 			// fileInfo.getNames() : List of FIle Path
 			//1. Upload File
 			//2. Get Url
@@ -209,29 +162,35 @@ public class RestaurantServiceImpl implements RestaurantService {
 			//4. Insert Menu
 			//==================
 			
-			// 1. Insert address -> return address id (table name : addresses)
-			Addresses address = restaurantUpdateForm2.getAddress();
-			addressRepository.insertAddress(address);
+			// 1. Update address -> return address id (table name : addresses)
+			//Addresses address = restaurantUpdateForm2.getAddress();
+			//addressRepository.insertAddress(address);
 			
-			System.out.println("ADDRESS_ID ==> " + address.getAddress_id());
+			//System.out.println("ADDRESS_ID ==> " + address.getAddress_id());
 			
-			// 2. Insert Restaurant -> return rest_id (table name : restaurants)
-			restaurantUpdateForm2.setAddress(address);
-			restaurantRepository.insertRestaurant(restaurantUpdateForm2);
+			// 2. Update Restaurant -> return rest_id (table name : restaurants)
+			//restaurantUpdateForm2.setAddress(address);
+			restaurantRepository.updateRestaurant(restaurantUpdateForm2);
 			
 			System.out.println("REST ID ======= > " + restaurantUpdateForm2.getRest_id());
 			
-			//3. Insert Many Categories -> return category ID (table name : categories)
-			//Categories cate = new Categories();
-			categoryRepository.inertBatchCategories(menuPath.getNames() , restaurantUpdateForm2.getRest_id());
+			//3. Update Many Categories -> return category ID (table name : categories)
+		
+			
+			//	categoryRepository.inertBatchCategories(menu_urls.getNames(), restaurantUpdateForm2.getRest_id());
+				
+			
+				//categoryRepository.deleteBatchCategories(deletemenuPath, restaurantUpdateForm2.getRest_id());
+			System.out.println(deletemenuPath);
+			fileUploadService.delete(deletemenuPath, "/resources/NhamEy/upload/menu");
 			
 			
 			//Restpictures restpicture = new Restpictures();
-			restPictureRepository.inertBatchRestpicture(restaurantPath.getNames(), restaurantUpdateForm2.getRest_id());
+		//	restPictureRepository.inertBatchRestpicture(restaurantPath.getNames(), restaurantUpdateForm2.getRest_id());
 			
 			
 			//4. Insert Rest Type ID
-			restType.insertBatchRestypeId(restaurantUpdateForm2.getRestypes_id(), restaurantUpdateForm2.getRest_id());
+			//restType.insertBatchRestypeId(restaurantUpdateForm2.getRestypes_id(), restaurantUpdateForm2.getRest_id());
 			return true;
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -239,6 +198,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return false;
 
 	}
+
+	
 
 }
 

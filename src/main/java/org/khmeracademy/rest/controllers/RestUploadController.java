@@ -281,12 +281,13 @@ public class RestUploadController {
 		System.out.println(menu_picture.size());
 		System.out.println(delete_menu_picture.size());
 		
-		
+		System.out.println(delete_menu_picture);
 		
 		RestaurantUpdateForm2 restUpdateForm2 = new Gson().fromJson(jsonData, RestaurantUpdateForm2.class);
-		restUpdateForm2.setMenu_files(menu_picture);
+		
 		restUpdateForm2.setDeletedMenuImageUrl(delete_menu_picture);
-		//form.setRestaurant_files(restaurant_files);
+		restUpdateForm2.setMenu_files(menu_picture);
+	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		try{

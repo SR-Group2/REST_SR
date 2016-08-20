@@ -34,8 +34,13 @@ public interface CategoryRepository {
 	public Categories findCategoryById(@Param("category_id") int category_id);
 	
 	/* =================  UPDATE DATA   =================== */
-	String U_CAT = "UPDATE CATEGORIES SET category_name=#{category_name}, other=#{other},date_modify=CURRENT_TIMESTAMP"
-			+ ", picture=#{picture} WHERE category_id=#{category_id}";
+	String U_CAT = "UPDATE CATEGORIES"
+			+ " SET category_name=#{category_name}, "
+			+ " other=#{other},"
+			+ " url=#{url},"
+			+ " date_modify=CURRENT_TIMESTAMP, "
+			+ " picture=#{picture}"
+			+ "  WHERE category_id=#{category_id}";
 	@Update(U_CAT)
 	public boolean updateCategory(Categories category);
 	
@@ -97,7 +102,14 @@ public interface CategoryRepository {
 	@Insert(C_BATCH_CATEGORIES)
 	public boolean inertBatchCategories(@Param("menu_urls") List<String> menu_urls , @Param("rest_id") int rest_id);
 	
-
+	String D_BATCH_CATEGORIES =  "<script>"
+			+ " <foreach collection='deletemenuPath' item='url'>"
+			+ " 	DELETE FROM categories "
+			+ " 	WHERE rest_id = #{rest_id} AND url = #{url};"
+			+ " </foreach>"
+			+ " </script>";
+	@Delete(D_BATCH_CATEGORIES)
+	public boolean deleteBatchCategories(@Param("deletemenuPath") List<String> deletemenuPath , @Param("rest_id") int rest_id);
 		
 		
 }

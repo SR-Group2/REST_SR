@@ -102,6 +102,7 @@ public class FileUploadServiceImpl implements FileUploadService{
 	public UploadedFileInfo delete(List<String> filenames, String folder) {
 		
 		for(String filename : filenames){
+		
 			File file = new File(filename);
 			file.delete();
 		}

@@ -21,4 +21,6 @@ public interface FileUploadService {
 	
 	public UploadedFileInfo delete(List<String> file, String folder);
 	
+	
+	
 }

@@ -20,7 +20,7 @@ public interface RestaurantService {
 	
 	public boolean deleteRestaurant(int rest_id);
 	
-	public boolean updateRestaurant(Restaurants restaurant);
+	//public boolean updateRestaurant(Restaurants restaurant);
 	
 	public Restaurants findRestaurantById(int rest_id);
 	

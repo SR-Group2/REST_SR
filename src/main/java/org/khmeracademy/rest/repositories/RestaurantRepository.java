@@ -157,17 +157,17 @@ public interface RestaurantRepository {
 	
 	String U_RESTAURANT = "UPDATE restaurants SET "
 			+ "	rest_name=#{rest_name} , "
+			+ "	rest_name_kh=#{rest_name_kh} , "
 			+ "	contact=#{contact} , "
 			+ "	about=#{about},"
 			+ " open_close = #{open_close},"
 			+ " location = #{location},"
-			+ " restype_id = #{restypes.restype_id},"
-			+ " address_id = #{address.address_id},"
-			+ " user_id = #{user.user_id} "
-			+ "WHERE "
+			+ " address_id = #{address.address_id}"
+			+ " WHERE "
 			+ "	rest_id = #{rest_id}";
+	
 	@Update(U_RESTAURANT)
-	public boolean updateRestaurant(Restaurants restaurant);
+	public boolean updateRestaurant(RestaurantForm2 restaurant);
 	
 	/*String F_RESTAURANT = "SELECT DISTINCT"
 	+ " R.rest_id,"

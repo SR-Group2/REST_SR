@@ -155,7 +155,7 @@ public class RestaurantController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}*/
-	
+	/*
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Map<String, Object>> updateRestaurant(@RequestBody Restaurants restaurant){
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -176,7 +176,7 @@ public class RestaurantController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-	}
+	}*/
 	//================== DELETE RESTAURANT BY ID =====================
 	@RequestMapping(value = "/{rest-id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Map<String, Object>> deleteRestaurant(@PathVariable("rest-id") int rest_id){
