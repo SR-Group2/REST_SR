@@ -166,5 +166,29 @@ public class FavouriteRestaurantController {
 			}
 			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		}
+		
+		@RequestMapping(value="/is-fav-existed/{user_id}/{rest_id}" , method = RequestMethod.GET , headers = "Accept=Application/json")
+		public ResponseEntity<Map<String , Object>> isFavExisted(@PathVariable("user_id") int userId, @PathVariable("rest_id") int restId){
+			
+			Map<String , Object> map = new HashMap<String , Object>();
+		
+			try{
+				if(favRestService.countFavByUserIdAndRestId(userId, restId) > 0) {
+					map.put("CODE", "200 OK");
+					map.put("STATUS", false);
+					map.put("MESSAGE", "Already exist");
+				}else{
+					map.put("CODE", "200 OK");
+					map.put("STATUS", true);
+					map.put("MESSAGE", "not yet exist");
+				}
+			}catch(Exception e){
+				map.put("CODE", "500 SERVER ERROR!");
+				map.put("STATUS", false);
+				map.put("MESSAGE", "ERROR!");
+				e.printStackTrace();
+			}
+			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+		}
 	
 }

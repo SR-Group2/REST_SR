@@ -48,6 +48,11 @@ public class FavouriteRestaurantServiceImpl implements FavouriteRestaurantServic
 		
 		return favouriteRestaurantRepository.totalFavourite(user_id);
 	}
+
+	@Override
+	public int countFavByUserIdAndRestId(int userId, int restId) {
+		return favouriteRestaurantRepository.countFavByUserIdAndRestId(userId, restId);
+	}
 	
 	
  

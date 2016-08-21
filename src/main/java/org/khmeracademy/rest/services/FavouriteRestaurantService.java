@@ -16,4 +16,5 @@ public interface FavouriteRestaurantService {
 	public ArrayList<FavouriteRestaurants> getFavouriteRestaurantByUserId(@Param("user_id") int user_id);
 	
 	public int totalFavourite(int user_id);
+	public int countFavByUserIdAndRestId(int userId , int restId);
 }

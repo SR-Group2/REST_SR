@@ -116,7 +116,9 @@ public interface FavouriteRestaurantRepository {
 		+ " R.rest_name_kh, "
 		+ " U.user_id,"
 		+ " U.first_name,"
-		+ " U.last_name"
+		+ " U.last_name,"
+		+ " U.dob,"
+		+ " U.gender"
 		+ " From favouriterestaurants F"
 		+ " INNER JOIN restaurants R"
 		+ " ON F.rest_id=R.rest_id"
@@ -127,6 +129,8 @@ public interface FavouriteRestaurantRepository {
 			@Result(property="user.user_id", column="user_id"),
 			@Result(property="user.first_name", column="first_name"),
 			@Result(property="user.last_name", column="last_name"),
+			@Result(property="user.dob", column="dob"),
+			@Result(property="user.gender", column="gender"),
 			@Result(property="rest.rest_id", column="rest_id"),
 			@Result(property="rest.rest_name", column="rest_name"),
 			// fav_total got data from totalFavourite 
@@ -141,6 +145,9 @@ public interface FavouriteRestaurantRepository {
 			+ " Where F.user_id= #{user_id} ";				 
 	@Select(C_USER_FAV)
 	public int totalFavourite(int user_id);
+	
+	@Select("select COUNT(*) from  favouriterestaurants where user_id=#{user_id} and rest_id=#{rest_id}")
+	public int countFavByUserIdAndRestId(@Param("user_id") int userId , @Param("rest_id") int restId);
 	
 	
 	
