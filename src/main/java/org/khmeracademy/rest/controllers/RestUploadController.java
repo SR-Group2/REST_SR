@@ -275,19 +275,29 @@ public class RestUploadController {
 			@RequestParam(value="json_data") String jsonData,
 			@RequestParam(value="menu_picture") List<MultipartFile> menu_picture,
 			@RequestParam(value="delete_menu_picture") List<String> delete_menu_picture,
+			@RequestParam(value="addRestFile") List<MultipartFile> addRestFile,
+			@RequestParam(value="deletedImageRest") List<String> deletedImageRest,
 			HttpServletRequest request) {
 		
 		System.out.println(jsonData);
-		System.out.println(menu_picture.size());
-		System.out.println(delete_menu_picture.size());
+		System.out.println("Menu = " + deletedImageRest.size());
+		System.out.println("Rest = " + delete_menu_picture.size());
 		
-		System.out.println(delete_menu_picture);
+		
+	
+		System.out.println("delete_menu_picture =======>"+delete_menu_picture);
+		
+		System.out.println("menu_picture =======>" + menu_picture);
 		
 		RestaurantUpdateForm2 restUpdateForm2 = new Gson().fromJson(jsonData, RestaurantUpdateForm2.class);
 		
 		restUpdateForm2.setDeletedMenuImageUrl(delete_menu_picture);
+		
 		restUpdateForm2.setMenu_files(menu_picture);
-	
+		
+		restUpdateForm2.setRestaurant_files(addRestFile);
+		
+		restUpdateForm2.setDeletedRestaurantImageUrl(deletedImageRest);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		try{
@@ -305,6 +315,7 @@ public class RestUploadController {
 		}
 		
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
+		
 
 	}
 	

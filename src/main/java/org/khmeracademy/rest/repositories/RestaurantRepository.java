@@ -28,6 +28,7 @@ public interface RestaurantRepository {
 	final String R_RESTYPE = 
 			  "SELECT rest_id, "
 			+ "	  	  rest_name, "
+			+ "	  	  rest_name_kh, "
 			+ "	  	  contact, "
 			+ "	  	  about, "
 			+ "		  open_close, "
@@ -110,11 +111,12 @@ public interface RestaurantRepository {
 	public ArrayList<Restaurants> getAllRestaurant();
 	
 	//TODO: 2. ADD TO RESTAURANT RETURN ID
-	String C_RESTAURANT = "INSERT INTO restaurants(rest_name,contact,about,"
-			+ "open_close,location,address_id,user_id)"
-			+ " VALUES(#{rest_name} , #{contact} , #{about},#{open_close},"
-			+ "#{location},"
-			+ "#{address.address_id},#{user_id})";
+	String C_RESTAURANT = "INSERT INTO restaurants"
+			+ " (rest_name, rest_name_kh, contact,about,"
+			+ " open_close,location,address_id,user_id)"
+			+ " VALUES(#{rest_name} , #{rest_name_kh} , #{contact} , #{about},#{open_close},"
+			+ " #{location},"
+			+ " #{address.address_id},#{user_id})";
 	@Insert(C_RESTAURANT)
 	@SelectKey(
             keyProperty = "rest_id",
@@ -137,17 +139,22 @@ public interface RestaurantRepository {
 			+ " restaurants"
 			+ " WHERE"
 			+ " rest_id = #{rest_id};"
-			+ "DELETE"
+			+ " DELETE"
 			+ " FROM"
 			+ " comments"
 			+ " WHERE"
 			+ " rest_id = #{rest_id};"
-			+ "DELETE"
+			+ " DELETE"
 			+ " FROM"
 			+ " categories"
 			+ " WHERE"
 			+ " rest_id = #{rest_id};"
-			+ "DELETE"
+			+ " DELETE"
+			+ " FROM"
+			+ " menus"
+			+ " WHERE"
+			+ " rest_id = #{rest_id};"
+			+ " DELETE"
 			+ " FROM"
 			+ " restpictures"
 			+ " WHERE"
@@ -345,5 +352,7 @@ public interface RestaurantRepository {
 			@Result(property = "path_name", column = "path_name")
 	})
 	public ArrayList<Restpictures> findRestyPicture(int rest_id);
+	
+	
 	
 }

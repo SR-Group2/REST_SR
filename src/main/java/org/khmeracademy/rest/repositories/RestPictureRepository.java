@@ -74,4 +74,24 @@ public interface RestPictureRepository {
 			+ " </script>";
 	@Insert(C_BATCH_RESTPICTURE)
 	public boolean inertBatchRestpicture(@Param("path_names") List<String> path_names , @Param("rest_id") int rest_id);
+	
+	//============================= DELETE PICTURE FROM RSTAURANT 
+	String D_BATCH_RESTPICTURE =  "<script>"
+			+ " <foreach collection='deletedImageRest' item='path_name'>"
+			+ " 	DELETE FROM restpictures "
+			+ " 	WHERE rest_id = #{rest_id} AND path_name = #{path_name};"
+			+ " </foreach>"
+			+ " </script>";
+	@Delete(D_BATCH_RESTPICTURE)
+	public boolean deleteBatchRestPicture(@Param("deletedImageRest") List<String> deletedImageRest , @Param("rest_id") int rest_id);
+	
+	/*//============================= INSERT MORE PICTURE TO RSTAURANT 
+	String INSERT_BATCH_RESTPICTURE =  "<script>INSERT INTO restpicture (path_name, rest_id)"
+			+ " VALUES "
+			+ " <foreach collection='rest_urls' item='path_name' separator=','>"
+			+ " 	(#{path_name} , #{rest_id})"
+			+ " </foreach>"
+			+ " </script>";
+	@Insert(INSERT_BATCH_RESTPICTURE)
+	public boolean inertBatchRestPicture(@Param("rest_urls") List<String> rest_urls , @Param("rest_id") int rest_id);*/
 }

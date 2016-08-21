@@ -101,13 +101,21 @@ public class FileUploadServiceImpl implements FileUploadService{
 	@Override
 	public UploadedFileInfo delete(List<String> filenames, String folder) {
 		
-		for(String filename : filenames){
+		/*for(String filename : filenames){
 		
-			File file = new File(filename);
-			file.delete();
-		}
+			File file = new File("D://opt//project//NhamEy//upload//restaurant//1a1a55f0-74a4-42cc-83b1-c0454dcd74ac.jpg");
+			if (file.exists())
+				file.delete();
+		}*/
 		return null;
 	}
+	
+	/*public static void main(String[] args) {
+		File file = new File("D://opt//project//NhamEy//upload//restaurant//1a1a55f0-74a4-42cc-83b1-c0454dcd74ac.jpg");
+		if (file.exists())
+			if (file.delete())
+				System.out.println("Deleted");
+	}*/
 
 	
 

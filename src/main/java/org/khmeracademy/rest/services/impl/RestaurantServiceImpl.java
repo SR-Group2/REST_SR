@@ -149,48 +149,67 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Transactional
 	public boolean updateRestaurant(RestaurantUpdateForm2 restaurantUpdateForm2){
 		
-		// ============== Beloved Teacher Pirang =======================
+		// ============== Beloved Teacher PIRANG =======================
 		try{
-			
-			UploadedFileInfo menu_urls = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu");
+	
 			List<String> deletemenuPath = restaurantUpdateForm2.getDeletedMenuImageUrl();
-			System.out.println(deletemenuPath);
-			// fileInfo.getNames() : List of FIle Path
-			//1. Upload File
-			//2. Get Url
-			//3. Insert Restaurant -> Return ID
-			//4. Insert Menu
-			//==================
+			List<String> deletedImageRest = restaurantUpdateForm2.getDeletedRestaurantImageUrl();
 			
-			// 1. Update address -> return address id (table name : addresses)
-			//Addresses address = restaurantUpdateForm2.getAddress();
-			//addressRepository.insertAddress(address);
-			
-			//System.out.println("ADDRESS_ID ==> " + address.getAddress_id());
-			
-			// 2. Update Restaurant -> return rest_id (table name : restaurants)
-			//restaurantUpdateForm2.setAddress(address);
+		
+			//================== UPDATE RESTAURANT =============================
 			restaurantRepository.updateRestaurant(restaurantUpdateForm2);
 			
-			System.out.println("REST ID ======= > " + restaurantUpdateForm2.getRest_id());
-			
-			//3. Update Many Categories -> return category ID (table name : categories)
+
+			//===================== add more category (menu) to restaurant
+			if(!restaurantUpdateForm2.getMenu_files().isEmpty()){
+				UploadedFileInfo menu_urls = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu");
+				categoryRepository.inertBatchCategories(menu_urls.getNames(), restaurantUpdateForm2.getRest_id());
+			}
+			//===================== add more Restaurant Picture  to restaurant
+			if(!restaurantUpdateForm2.getRestaurant_files().isEmpty()){
+				UploadedFileInfo path_names = fileUploadService.upload(restaurantUpdateForm2.getRestaurant_files(), "restaurant");
+				restPictureRepository.inertBatchRestpicture(path_names.getNames(), restaurantUpdateForm2.getRest_id());
+			}
 		
+
+			//===================== DELETE  CATEGORY(MENU OF RRSTAURANT  TO RESTAURANT
 			
-			//	categoryRepository.inertBatchCategories(menu_urls.getNames(), restaurantUpdateForm2.getRest_id());
-				
+			for (String string : deletedImageRest) {
+				System.out.println("Rest +> " + string);
+			}
 			
-				//categoryRepository.deleteBatchCategories(deletemenuPath, restaurantUpdateForm2.getRest_id());
+			for (String string : deletemenuPath) {
+				System.out.println("Menu +> " + string);
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			if(deletemenuPath.size() > 0){
+				if(categoryRepository.deleteBatchCategories(deletemenuPath, restaurantUpdateForm2.getRest_id()))
+					System.out.println("can delete");
+				else
+					System.out.println("Error");
+			}else{
+				System.out.println("No delete");
+			}
+			
+			//===================== DELETE  RESTAURNAT PICTURE ===========================
+			if(deletedImageRest.size() > 0){
+				restPictureRepository.deleteBatchRestPicture(deletedImageRest, restaurantUpdateForm2.getRest_id());
+			}
+			
+			//===================== DELETE  DATA FROM SERVER ===========================
 			System.out.println(deletemenuPath);
 			fileUploadService.delete(deletemenuPath, "/resources/NhamEy/upload/menu");
-			
-			
-			//Restpictures restpicture = new Restpictures();
-		//	restPictureRepository.inertBatchRestpicture(restaurantPath.getNames(), restaurantUpdateForm2.getRest_id());
-			
-			
-			//4. Insert Rest Type ID
-			//restType.insertBatchRestypeId(restaurantUpdateForm2.getRestypes_id(), restaurantUpdateForm2.getRest_id());
+	
 			return true;
 		}catch(Exception ex){
 			ex.printStackTrace();
