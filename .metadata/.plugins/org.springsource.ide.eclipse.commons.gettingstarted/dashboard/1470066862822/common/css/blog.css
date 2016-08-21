@@ -20,8 +20,9 @@
 	text-decoration: underline;
 }
 
-.blog--container.blog-preview .blog--post ul,.blog--container.blog-preview .blog--post ol,.blog--container.blog-preview .blog--post table,.blog--container.blog-preview .blog--post h3,.blog--container.blog-preview .blog--post h2
-	{
+.blog--container.blog-preview .blog--post ul, .blog--container.blog-preview .blog--post ol,
+	.blog--container.blog-preview .blog--post table, .blog--container.blog-preview .blog--post h3,
+	.blog--container.blog-preview .blog--post h2 {
 	display: none;
 }
 
@@ -100,7 +101,7 @@
 	margin: 30px 0 15px;
 }
 
-.blog--container .blog--post h3,.blog--container .blog--post h4 {
+.blog--container .blog--post h3, .blog--container .blog--post h4 {
 	font-family: "Montserrat", sans-serif;
 	font-size: 16px;
 	line-height: 26px;
@@ -119,11 +120,11 @@
 	white-space: normal;
 }
 
-.blog--container .blog--post ul,.blog--container .blog--post ol {
+.blog--container .blog--post ul, .blog--container .blog--post ol {
 	margin: 15px 0 20px 25px;
 }
 
-.blog--container .blog--post ul li,.blog--container .blog--post ol li {
+.blog--container .blog--post ul li, .blog--container .blog--post ol li {
 	padding-bottom: 20px;
 	font-size: 15px;
 	line-height: 18px;

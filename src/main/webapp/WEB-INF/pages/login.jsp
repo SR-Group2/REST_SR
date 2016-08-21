@@ -1,30 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Restaurant Web Service</title>
- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/normalize.css">
- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/normalize.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
 	<div class="login">
-        <h2>Restaurant Web Service</h2>
-        <form  action="login" id="frmLogin" method="POST">
-	      <fieldset>
-	        <input type="text" name="username" placeholder="your username" />
-	      	<input type="password"  name="password" placeholder="Password" />
-	      </fieldset>
-	      <input type="submit" value="Log In" />
-	      <div class="utilities">
-	          <a href="#">Siem Reap Class</a>
-	         <a href="#">SR-Group2 &rarr;</a>
-	      </div>
-      </form>
-    </div>
-    <script src="${pageContext.request.contextPath}/resources/scripts/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript">
+		<h2>Restaurant Web Service</h2>
+		<form action="login" id="frmLogin" method="POST">
+			<fieldset>
+				<input type="text" name="username" placeholder="your username" /> <input
+					type="password" name="password" placeholder="Password" />
+			</fieldset>
+			<input type="submit" value="Log In" />
+			<div class="utilities">
+				<a href="#">Siem Reap Class</a> <a href="#">SR-Group2 &rarr;</a>
+			</div>
+		</form>
+	</div>
+	<script
+		src="${pageContext.request.contextPath}/resources/scripts/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
         
         $(function() {
         	
