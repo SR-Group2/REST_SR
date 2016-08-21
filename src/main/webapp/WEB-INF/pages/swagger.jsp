@@ -1,36 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Restaurant Web Service Group2</title>
-  <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
-  <link href='${pageContext.request.contextPath}/resources/dist/css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='${pageContext.request.contextPath}/resources/dist/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='${pageContext.request.contextPath}/resources/dist/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='${pageContext.request.contextPath}/resources/dist/css/reset.css' media='print' rel='stylesheet' type='text/css'/>
-  <link href='${pageContext.request.contextPath}/resources/dist/css/print.css' media='print' rel='stylesheet' type='text/css'/>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/jquery-1.8.0.min.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/jquery.slideto.min.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/jquery.wiggle.min.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/handlebars-2.0.0.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/underscore-min.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/backbone-min.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/swagger-ui.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/highlight.7.3.pack.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/jsoneditor.min.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/marked.js' type='text/javascript'></script>
-  <script src='${pageContext.request.contextPath}/resources/dist/lib/swagger-oauth.js' type='text/javascript'></script>
+<meta charset="UTF-8">
+<title>Restaurant Web Service Group2</title>
+<link rel="icon" type="image/png" href="images/favicon-32x32.png"
+	sizes="32x32" />
+<link rel="icon" type="image/png" href="images/favicon-16x16.png"
+	sizes="16x16" />
+<link
+	href='${pageContext.request.contextPath}/resources/dist/css/typography.css'
+	media='screen' rel='stylesheet' type='text/css' />
+<link
+	href='${pageContext.request.contextPath}/resources/dist/css/reset.css'
+	media='screen' rel='stylesheet' type='text/css' />
+<link
+	href='${pageContext.request.contextPath}/resources/dist/css/screen.css'
+	media='screen' rel='stylesheet' type='text/css' />
+<link
+	href='${pageContext.request.contextPath}/resources/dist/css/reset.css'
+	media='print' rel='stylesheet' type='text/css' />
+<link
+	href='${pageContext.request.contextPath}/resources/dist/css/print.css'
+	media='print' rel='stylesheet' type='text/css' />
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/jquery-1.8.0.min.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/jquery.slideto.min.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/jquery.wiggle.min.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/jquery.ba-bbq.min.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/handlebars-2.0.0.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/underscore-min.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/backbone-min.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/swagger-ui.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/highlight.7.3.pack.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/jsoneditor.min.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/marked.js'
+	type='text/javascript'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/dist/lib/swagger-oauth.js'
+	type='text/javascript'></script>
 
-  <!-- Some basic translations -->
-  <!-- <script src='lang/translator.js' type='text/javascript'></script> -->
-  <!-- <script src='lang/ru.js' type='text/javascript'></script> -->
-  <!-- <script src='lang/en.js' type='text/javascript'></script> -->
+<!-- Some basic translations -->
+<!-- <script src='lang/translator.js' type='text/javascript'></script> -->
+<!-- <script src='lang/ru.js' type='text/javascript'></script> -->
+<!-- <script src='lang/en.js' type='text/javascript'></script> -->
 
-  <script type="text/javascript">
+<script type="text/javascript">
     $(function () {
       var url = window.location.search.match(/url=([^&]+)/);
       if (url && url.length > 1) {
@@ -108,22 +144,33 @@
 </head>
 
 <body class="swagger-section">
-<div id='header'>
-  <div class="swagger-ui-wrap">
-    <a id="logo" href="http://swagger.io">RESTAURANT NHAMEY</a>
-    <form id='api_selector'>
-     <!--  <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+	<div id='header'>
+		<div class="swagger-ui-wrap">
+			<a id="logo" href="http://swagger.io">RESTAURANT NHAMEY</a>
+			<form id='api_selector'>
+				<!--  <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
       <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div> -->
-      <div class='input'><input placeholder="${pageContext.request.contextPath}/api-docs" value="${pageContext.request.contextPath}/api-docs" id="input_baseUrl" name="baseUrl" type="hidden"/></div>
-      <div class='input'><input placeholder="api_key" value="Basic ZGV2OiFAI2FwaQ==" id="input_apiKey" name="apiKey" type="hidden"/></div>
-      
-      <div class='input'><a id="explore" href="#" data-sw-translate>Explore</a></div>
-       <div class='input'><a id="explores" href="${pageContext.request.contextPath}/logout">Logout</a></div>
-    </form>
-  </div>
-</div>
+				<div class='input'>
+					<input placeholder="${pageContext.request.contextPath}/api-docs"
+						value="${pageContext.request.contextPath}/api-docs"
+						id="input_baseUrl" name="baseUrl" type="hidden" />
+				</div>
+				<div class='input'>
+					<input placeholder="api_key" value="Basic ZGV2OiFAI2FwaQ=="
+						id="input_apiKey" name="apiKey" type="hidden" />
+				</div>
 
-<div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
-<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+				<div class='input'>
+					<a id="explore" href="#" data-sw-translate>Explore</a>
+				</div>
+				<div class='input'>
+					<a id="explores" href="${pageContext.request.contextPath}/logout">Logout</a>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+	<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
 </html>

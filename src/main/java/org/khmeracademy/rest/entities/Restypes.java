@@ -10,7 +10,14 @@ public class Restypes {
 	private Date date_added;
 	private Date date_modify;
 	private int parentid_restypeid;
+	private String description;
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	private Menus menus;
 	private Restaurants restaurants;
 	

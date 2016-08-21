@@ -1,4 +1,4 @@
-a[name="gs"],a[name="tutorials"] {
+a[name="gs"], a[name="tutorials"] {
 	text-decoration: none !important;
 }
 
@@ -10,7 +10,7 @@ a[name="gs"],a[name="tutorials"] {
 	color: #5fa134;
 }
 
-.content--container p,.content--container ul {
+.content--container p, .content--container ul {
 	margin-bottom: 20px;
 	border-radius: 0;
 }
@@ -29,7 +29,7 @@ a[name="gs"],a[name="tutorials"] {
 	margin: 30px 0 10px;
 }
 
-.content--container h3,.content--container h4 {
+.content--container h3, .content--container h4 {
 	font-family: "Montserrat", sans-serif;
 	font-size: 16px;
 	line-height: 26px;
@@ -280,7 +280,7 @@ a.ci-status {
 	border-left: 1px solid #cccccc;
 }
 
-.tutorial-text table tr:nth-child(odd)>td,.tutorial-text table .table-striped tbody>tr:nth-child(odd)>th
+.tutorial-text table tr:nth-child(odd)>td, .tutorial-text table .table-striped tbody>tr:nth-child(odd)>th
 	{
 	background-color: #F9F9F9;
 }

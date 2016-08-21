@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_qb8akM37EdqwVrslYOdUDA" name="REST_SR">
+  <eAnnotations xmi:id="_KW5eAcYmEd-dJYwkGUnvHA" source="http://www.topcased.org/reverse">
+    <details xmi:id="_RmM9UMYmEd-dJYwkGUnvHA" key="PROJECT_CHARSET" value="UTF-8"/>
+  </eAnnotations>
+  <packageImport xmi:id="_PClWcGXvEeak5pCPrsP1Yw">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_4UHtsIBoEduoHLDxP0HEYA" name="org.khmeracademy.rest.controllers" visibility="package">
+    <packagedElement xmi:type="uml:Package" xmi:id="_LLvlME0uEd-ONPwW9OyryA" name="Source Artefacts"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Utn6QWmtEd-Hi4dLzjZ7BQ" name="Types">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_umMdEDBmEeC3ksERX4P2Ow" name="void"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_1V1k4DBmEeC3ksERX4P2Ow" name="char"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4IaaMDBmEeC3ksERX4P2Ow" name="int"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_-Gwn8DBmEeC3ksERX4P2Ow" name="short"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_8yzckThEEeCCiOmwUXA8rg" name="long"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_-l81MDhEEeCCiOmwUXA8rg" name="double"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_AKRHoDhFEeCCiOmwUXA8rg" name="float"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_WDwmwGmtEd-Hi4dLzjZ7BQ" name="Libs"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_-mdtwNCyEdukztvu02l7OQ" name="org.khmeracademy.rest.entities" visibility="package">
+    <eAnnotations xmi:id="_5iif8GXvEeak5pCPrsP1Yw"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DzZrwGXwEeak5pCPrsP1Yw" name="Restaurants">
+      <ownedAttribute xmi:id="_cfbgoGXwEeak5pCPrsP1Yw" name="Foods\" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cfcHsGXwEeak5pCPrsP1Yw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cfcuwGXwEeak5pCPrsP1Yw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_c7DFoGXwEeak5pCPrsP1Yw" name="property2" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c7DFoWXwEeak5pCPrsP1Yw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_c7DFomXwEeak5pCPrsP1Yw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_dFbwsGXwEeak5pCPrsP1Yw" name="property3" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dFbwsWXwEeak5pCPrsP1Yw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dFcXwGXwEeak5pCPrsP1Yw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_dKdaoGXwEeak5pCPrsP1Yw" name="property4" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dKeBsGXwEeak5pCPrsP1Yw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dKeBsWXwEeak5pCPrsP1Yw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_dSKlIGXwEeak5pCPrsP1Yw" name="property5" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dSKlIWXwEeak5pCPrsP1Yw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dSKlImXwEeak5pCPrsP1Yw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_daaiMGXwEeak5pCPrsP1Yw" name="property6" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dabJQGXwEeak5pCPrsP1Yw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dabJQWXwEeak5pCPrsP1Yw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_diCNIGXwEeak5pCPrsP1Yw" name="property7" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_diC0MGXwEeak5pCPrsP1Yw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_diC0MWXwEeak5pCPrsP1Yw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_Qf9lUGXtEeak5pCPrsP1Yw" name="org.khmeracademy.rest.respositories"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_kXja0GXtEeak5pCPrsP1Yw" name="org.khmeracademy.rest.services"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_ZMqaQGXuEeak5pCPrsP1Yw" name="org.khmeracademy.rest.repositoryImpl" visibility="package"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_x47DMGXvEeak5pCPrsP1Yw" name="org.khmeracademy.rest.repositoryImpl"/>
+</uml:Model>
