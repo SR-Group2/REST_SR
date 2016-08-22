@@ -13,9 +13,11 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.khmeracademy.rest.entities.Image;
-
+import org.khmeracademy.rest.entities.Users;
+import org.khmeracademy.rest.entities.Users.Users2;
 import org.khmeracademy.rest.form.RestaurantForm2;
 import org.khmeracademy.rest.form.RestaurantForm2.RestaurantUpdateForm2;
+import org.khmeracademy.rest.repositories.UserRepository;
 import org.khmeracademy.rest.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,9 @@ public class RestUploadController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	//================== Upload By RestController ==============
 	@RequestMapping(value="/image", method = RequestMethod.POST)
@@ -269,7 +274,7 @@ public class RestUploadController {
 		
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
 	}
-	
+	//======================= upload json data with many file ===============================
 	@RequestMapping(value="/test/update", method = RequestMethod.POST)
 	public ResponseEntity<Map<String,Object>> updateImage(
 			@RequestParam(value="json_data") String jsonData,
@@ -318,6 +323,40 @@ public class RestUploadController {
 		
 
 	}
+	
+	//======================= upload User File and  data with  ===============================
+		@RequestMapping(value="/user", method = RequestMethod.POST)
+		public ResponseEntity<Map<String,Object>> uploadUser(
+				@RequestParam(value="json_data") String jsonData,
+				@RequestParam(value="picture") List<MultipartFile> picture,
+				HttpServletRequest request) {
+			
+			System.out.println(jsonData);
+			System.out.println("User File = " + picture.size());
+
+			Users2 user2 = new Gson().fromJson(jsonData, Users2.class);
+			
+			user2.setUser_file(picture);
+			
+			return null;
+			/*Map<String, Object> map = new HashMap<String, Object>();
+			try{
+				if (userRepository.insertUser(user2)){
+					map.put("MESSAGE", "SUCCESS");
+					map.put("STATUS", true);
+				}else{
+					map.put("MESSAGE", "UNSUCCESS");
+					map.put("STATUS", true);
+				}		
+			} catch (Exception e) {
+				e.printStackTrace();
+				map.put("MESSAGE", "ERROR");
+				map.put("STATUS", false);
+			}
+			
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); */
+
+		}
 	
 	
 }

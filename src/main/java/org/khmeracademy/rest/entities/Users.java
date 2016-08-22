@@ -3,6 +3,9 @@ package org.khmeracademy.rest.entities;
 import java.util.Date;
 import java.util.List;
 
+import org.khmeracademy.rest.form.RestaurantForm2;
+import org.springframework.web.multipart.MultipartFile;
+
 
 public class Users {
 	
@@ -165,5 +168,20 @@ public void setJoined(Date joined) {
 	public void setRole_name(String role_name) {
 		this.role_name = role_name;
 	}
+	
+	//===================== Upload User File ==========================
+	 public static class Users2 extends Users{
+		
+		 private List<MultipartFile> user_file;
+
+		public List<MultipartFile> getUser_file() {
+			return user_file;
+		}
+
+		public void setUser_file(List<MultipartFile> user_file) {
+			this.user_file = user_file;
+		}
+		
+	 }
 	
 }
