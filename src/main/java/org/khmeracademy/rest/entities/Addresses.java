@@ -7,6 +7,7 @@ public class Addresses {
 	private String district;
 	private String communce;
 	private String province;
+	private String village;
 	
 	public int getAddress_id() {
 		return address_id;
@@ -16,6 +17,12 @@ public class Addresses {
 	}
 	public String getStreet() {
 		return street;
+	}
+	public String getVillage() {
+		return village;
+	}
+	public void setVillage(String village) {
+		this.village = village;
 	}
 	public void setStreet(String street) {
 		this.street = street;

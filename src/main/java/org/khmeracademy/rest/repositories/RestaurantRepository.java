@@ -202,6 +202,7 @@ public interface RestaurantRepository {
 			+ " R.location,"
 			+ " A.address_id AS address_address_id,"
 			+ " A.street,"
+			+ " A.village,"
 			+ " A.district, "
 			+ " A.communce,"
 			+ " A.province,"
@@ -238,6 +239,7 @@ public interface RestaurantRepository {
 			@Result(property = "address.communce", column = "communce"),
 			@Result(property = "address.province", column = "province"),
 			@Result(property = "address.street", column = "street"),
+			@Result(property = "address.village", column = "village"),
 			@Result(property = "categories", javaType=List.class, column="rest_id", many=@Many(select="getCategoryByRestId")),
 			@Result(property = "restpictures", javaType=List.class, column="rest_id", many=@Many(select="findRestyPicture")),
 			@Result(property = "restype", javaType=List.class, column="rest_id", many=@Many(select="findMenuByRestId"))

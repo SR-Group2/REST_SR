@@ -26,8 +26,8 @@ public interface AddressRepository {
 	
 	// 1. Insert address -> return address id (table name : addresses)
 	String C_ADDRESS = "INSERT INTO"
-			+ " addresses(street,district,communce,province)"
-			+ " VALUES(#{street},#{district},#{communce},#{province})";
+			+ " addresses(street,village, district,communce,province)"
+			+ " VALUES(#{street},#{village}, #{district},#{communce},#{province})";
 	@Insert(C_ADDRESS)
 	@SelectKey(
             keyProperty = "address_id",
