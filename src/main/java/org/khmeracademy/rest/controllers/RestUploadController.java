@@ -19,6 +19,7 @@ import org.khmeracademy.rest.form.RestaurantForm2;
 import org.khmeracademy.rest.form.RestaurantForm2.RestaurantUpdateForm2;
 import org.khmeracademy.rest.repositories.UserRepository;
 import org.khmeracademy.rest.services.RestaurantService;
+import org.khmeracademy.rest.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class RestUploadController {
 	
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	//================== Upload By RestController ==============
 	@RequestMapping(value="/image", method = RequestMethod.POST)
@@ -333,15 +334,16 @@ public class RestUploadController {
 			
 			System.out.println(jsonData);
 			System.out.println("User File = " + picture.size());
-
+		
+			
 			Users2 user2 = new Gson().fromJson(jsonData, Users2.class);
 			
 			user2.setUser_file(picture);
 			
-			return null;
-			/*Map<String, Object> map = new HashMap<String, Object>();
+			
+			Map<String, Object> map = new HashMap<String, Object>();
 			try{
-				if (userRepository.insertUser(user2)){
+				if (userService.addUser(user2)){
 					map.put("MESSAGE", "SUCCESS");
 					map.put("STATUS", true);
 				}else{
@@ -354,9 +356,44 @@ public class RestUploadController {
 				map.put("STATUS", false);
 			}
 			
-			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); */
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
 
 		}
+		
+		//======================= Sign Up User File and  data with  ===============================
+	@RequestMapping(value="/signup", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,Object>> singUpUser(
+			@RequestParam(value="json_data") String jsonData,
+			@RequestParam(value="picture") List<MultipartFile> picture,
+			HttpServletRequest request) {
+		
+		System.out.println(jsonData);
+		System.out.println("User File = " + picture.size());
+	
+		
+		Users2 user2 = new Gson().fromJson(jsonData, Users2.class);
+		
+		user2.setUser_file(picture);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try{
+			if (userService.signUpUser(user2)){
+				map.put("MESSAGE", "SUCCESS");
+				map.put("STATUS", true);
+			}else{
+				map.put("MESSAGE", "UNSUCCESS");
+				map.put("STATUS", true);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("MESSAGE", "ERROR");
+			map.put("STATUS", false);
+		}
+		
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
+
+	}
 	
 	
 }

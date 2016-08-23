@@ -18,6 +18,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository {
 	
+	//=========================  GET RESTAURANT OWNER ==================
+	String R_WUSER= "SELECT U.user_id, U.first_name, U.last_name, U.username, U.email, U.password, U.dob,"
+			+ " U.gender, U.joined, U.picture, R.role_id, R.role_name"
+			+ " FROM users U"
+			+ " INNER JOIN"
+			+ " roles R"
+			+ " ON U.role_id= R.role_id WHERE R.role_id =2 ";
+	@Select(R_WUSER)
+	@Results(value={
+			@Result(property="role.id", column="role_id"),
+			@Result(property="role.name", column="role_name" )
+	})
+	public ArrayList<Users> getUserOwner();
+	
 	String R_USER= "SELECT U.user_id, U.first_name, U.last_name, U.username, U.email, U.password, U.dob,"
 			+ " U.gender, U.joined, U.picture, R.role_id, R.role_name"
 			+ " FROM users U"
@@ -94,8 +108,14 @@ public interface UserRepository {
 	})
 	public Users findUserById(int id);
 	
+	String F_USERNAME = "SELECT user_id, "
+			+ "	username, password, "
+			+ "	first_name, last_name, "
+			+ "	picture, dob, "
+			+ "	email, role_id "
+			+ "	FROM users WHERE username=#{username}";
 	
-	@Select("SELECT user_id, username, password, email, role_id FROM users WHERE username=#{username}")
+	@Select(F_USERNAME)
 	@Results(value = {
 			@Result(property = "user_id" , column = "user_id"),
 			@Result(property = "username" , column = "user_name"),
@@ -117,4 +137,17 @@ public interface UserRepository {
 			@Result(property="name" , column="role_name")
 		})
 	public ArrayList<Roles> findRolesByRoleId(int role_idddd);
+	
+	//==========================Insert into user with picture
+	/*String CP_USER="INSERT INTO"
+			+ " users (first_name, last_name, username, email, password, dob, gender, picture, role_id)"
+			+ " VALUES(#{first_name},#{last_name},#{username},#{email},#{password},#{dob},#{gender}, #{picture},#{role.id})";
+	
+	@Insert(CP_USER)
+	@Results(value={
+			@Result(property="role.id", column="role_id"),
+			@Result(property="role.name", column="role_name" ),
+			@Result(property="picture", column="role_name" )
+	})*/
+	
 }

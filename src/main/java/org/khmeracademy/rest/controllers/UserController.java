@@ -30,6 +30,31 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	//================== get user owner ==================
+	@RequestMapping(value="/get-user-owner", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getUserOwner(){
+		Map<String, Object> map= new Hashtable<String, Object>();
+		
+		try{
+			ArrayList<Users> user= userService.getUserOwner();
+			if(!user.isEmpty()){
+				map.put("DATA", user);
+				map.put("STATUS", true);
+				map.put("CODE", "200");
+				map.put("MESSAGE", "User found");
+			}else{
+				map.put("STATUS", true);
+				map.put("CODE", "404");
+				map.put("MESSAGE", "User not found");
+			}
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("MESSAGE", "ERROR");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+	
 	
 	@RequestMapping(value="/get-user", method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getAllUsers(){
@@ -107,7 +132,7 @@ public class UserController {
 	
 	/*================= Sing Up User===================*/
 	
-	@RequestMapping(value="/sign-up", method= RequestMethod.POST)
+	/*@RequestMapping(value="/sign-up", method= RequestMethod.POST)
 	public  ResponseEntity<Map<String, Object>> signUptUser(@RequestBody Users user){
 		System.out.println("API");
 		Map<String, Object> map= new HashMap<String, Object>();
@@ -130,7 +155,7 @@ public class UserController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		
-	}
+	}*/
 	
 	@RequestMapping(method= RequestMethod.PUT)
 	public  ResponseEntity<Map<String, Object>> updateUser(@RequestBody Users user){

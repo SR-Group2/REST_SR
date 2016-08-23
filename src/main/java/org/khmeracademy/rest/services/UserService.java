@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.khmeracademy.rest.entities.Roles;
 import org.khmeracademy.rest.entities.Users;
+import org.khmeracademy.rest.entities.Users.Users2;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,8 @@ public interface UserService {
 	
 	
 	public boolean insertUser(Users user);
-	public boolean signUpUser(Users user);
+	
+	public boolean signUpUser(Users2 user2);
 	
 	public boolean  updateUser(Users user);
 	
@@ -24,4 +26,8 @@ public interface UserService {
 	public ArrayList<Roles> findRolesByRoleId( int role_id);
 	
 	public Users findUserByUsername(String username);
+	
+	public boolean addUser(Users2 user);
+	
+	public ArrayList<Users> getUserOwner();
 }

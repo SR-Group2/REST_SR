@@ -182,16 +182,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 				System.out.println("Menu +> " + string);
 			}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			if(deletemenuPath.size() > 0){
 				if(categoryRepository.deleteBatchCategories(deletemenuPath, restaurantUpdateForm2.getRest_id()))
 					System.out.println("can delete");

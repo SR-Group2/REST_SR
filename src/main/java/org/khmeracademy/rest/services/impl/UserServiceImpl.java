@@ -4,16 +4,23 @@ package org.khmeracademy.rest.services.impl;
 import java.util.ArrayList;
 
 import org.khmeracademy.rest.entities.Roles;
+import org.khmeracademy.rest.entities.UploadedFileInfo;
 import org.khmeracademy.rest.entities.Users;
+import org.khmeracademy.rest.entities.Users.Users2;
 import org.khmeracademy.rest.repositories.UserRepository;
+import org.khmeracademy.rest.services.FileUploadService;
 import org.khmeracademy.rest.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
 	
 	@Override
 	public ArrayList<Users> getAllUsers() {
@@ -22,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean insertUser(Users user) {
+		
 		return userRepository.insertUser(user);
 	}
 
@@ -54,8 +62,46 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean signUpUser(Users user) {
-		return userRepository.signUpUser(user);
+	@Transactional
+	public boolean signUpUser(Users2 user2) {
+		if(!user2.getUser_file().isEmpty()){
+			UploadedFileInfo picture = fileUploadService.upload(user2.getUser_file(), "user");
+			
+			for(String picture_file : picture.getNames()){
+				user2.setPicture(picture_file);
+				System.out.println(user2);
+			}
+			
+			return userRepository.signUpUser(user2);
+			
+		}
+		
+		return false;
+		
+	}
+
+	@Override
+	@Transactional
+	public boolean addUser(Users2 user2) {
+		
+		if(!user2.getUser_file().isEmpty()){
+			UploadedFileInfo picture = fileUploadService.upload(user2.getUser_file(), "user");
+			
+			for(String picture_file : picture.getNames()){
+				user2.setPicture(picture_file);
+			}
+			
+			return userRepository.insertUser(user2);
+			
+		}
+		
+		return false;
+	}
+
+	@Override
+	public ArrayList<Users> getUserOwner() {
+		
+		return userRepository.getUserOwner();
 	}
 
 
