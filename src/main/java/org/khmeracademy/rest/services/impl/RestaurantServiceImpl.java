@@ -210,6 +210,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	}
 
+	@Override
+	public int countRest() {
+		return restaurantRepository.countRest();
+	}
+
 	
 
 }

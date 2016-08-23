@@ -151,4 +151,7 @@ public interface UserRepository {
 			@Result(property="picture", column="role_name" )
 	})*/
 	
+	@Select("SELECT COUNT(*) From users where role_id=#{role_id}")
+	public int countUser(@Param("role_id") int role_id);
+	
 }

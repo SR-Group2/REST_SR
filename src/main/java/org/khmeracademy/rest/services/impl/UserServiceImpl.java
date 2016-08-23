@@ -104,5 +104,10 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getUserOwner();
 	}
 
+	@Override
+	public int countUser(int role_id) {
+		return userRepository.countUser(role_id);
+	}
+
 
 }

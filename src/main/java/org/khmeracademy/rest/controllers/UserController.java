@@ -228,4 +228,29 @@ public class UserController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
+	
+	
+	@RequestMapping(value="/count-by-role-id/{role_id}", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> countUser(@PathVariable("role_id") int role_id){
+		Map<String, Object> map= new Hashtable<String, Object>();
+		
+		try{
+			int  totlal = userService.countUser(role_id);
+			if(totlal>0){
+				map.put("DATA", totlal);
+				map.put("STATUS", true);
+				map.put("CODE", "200");
+				map.put("MESSAGE", "User found");
+			}else{
+				map.put("STATUS", true);
+				map.put("CODE", "404");
+				map.put("MESSAGE", "User don't have");
+			}
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("MESSAGE", "ERROR");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
 }

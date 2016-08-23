@@ -355,6 +355,7 @@ public interface RestaurantRepository {
 	})
 	public ArrayList<Restpictures> findRestyPicture(int rest_id);
 	
-	
+	@Select("SELECT COUNT(*) FROM restaurants")
+	public int countRest();
 	
 }

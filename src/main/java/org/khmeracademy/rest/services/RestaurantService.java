@@ -34,4 +34,6 @@ public interface RestaurantService {
 	
 	public boolean updateRestaurant(RestaurantUpdateForm2 restaurantUpdateForm2);
 	
+	public int countRest();
+	
 }
