@@ -9,9 +9,16 @@ public class Restaurants {
 	private String about;
 	private String open_close;
 	private String location;
+	private String rest_name_kh;
 	private Addresses address;
 	private Users user;
 	
+	public String getRest_name_kh() {
+		return rest_name_kh;
+	}
+	public void setRest_name_kh(String rest_name_kh) {
+		this.rest_name_kh = rest_name_kh;
+	}
 	private List<Restpictures> restpictures;
 	
 	

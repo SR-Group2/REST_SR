@@ -196,6 +196,7 @@ public interface RestaurantRepository {
 	String F_RESTAURANT = "SELECT "
 			+ " R.rest_id,"
 			+ " R.rest_name,"
+			+ " R.rest_name_kh,"
 			+ " R.contact,"
 			+ " R.about,"
 			+ " R.open_close,"
