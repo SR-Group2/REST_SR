@@ -53,6 +53,7 @@ public class RestaurantController {
 			System.out.println(pagination.getTotalCount() + filter.getKeyword());
 //			pagination.setOffset(pagination.getOffset());
 			ArrayList<Restaurants> rest = restaurantService.searchRest(pagination, filter);
+			
 			for(int i=0;i<rest.size();i++){
 				System.out.println("NAME "+ rest.get(i).getRest_name());
 				System.out.println("Offset " + pagination.getOffset());

@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Restaurants;
+import org.khmeracademy.rest.entities.Restpictures;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.form.CategoryId;
 import org.khmeracademy.rest.form.RestTypeId;
@@ -19,8 +21,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RestypeRepository {
 	
-	final String R_RESTYPE = 
-			  "SELECT restype_id, "
+	final String R_RESTYPE = "SELECT restype_id, "
 			+ "	  	  restype_name, "
 			+ "	  	  restype_name_kh, "
 			+ "	  	  restype_picture, "
@@ -63,23 +64,34 @@ public interface RestypeRepository {
 	public boolean deleteRestype(int restype_id);
 	
 
-	String F_RESTYPE = "SELECT"
-						+ "	 r.rest_id, r.rest_name, r.contact, r.about,"
-						+ " r.open_close, r.location, rsp.restype_id AS rsprestype_id, "
-						+ "	 rsp.restype_name FROM restaurants r "
+	String F_RESTYPE = "SELECT DISTINCT"
+						+ "	r.rest_id AS restaurantid, r.rest_name,"
+						+ " r.contact, r.about,"
+						+ " r.open_close, r.location,"
+						+ " rsp.restype_id AS rsprestype_id, "
+						+ "	rsp.restype_name FROM restaurants r "
 						+ " INNER JOIN menus mn ON mn.rest_id = r.rest_id "
 						+ " INNER JOIN restypes rsp ON mn.restype_id = rsp.restype_id "
 						+ " WHERE rsp.restype_id = #{restype_id}"
-						+ " ORDER BY date_added DESC "
+						+ " ORDER BY 1 "
 						+ " OFFSET #{offset} LIMIT #{limit}  ";
 	@Select(F_RESTYPE)
 	@Results(value={
-			@Result(property="restypes.restype_id", column="rsprestype_id")
-			
+			@Result(property = "rest_id", column="restaurantid"),
+			@Result(property = "restpictures", javaType=List.class, column="restaurantid", many=@Many(select="findRestyPicture"))
 	})
 	public ArrayList<Restaurants>  findRestypeById(@Param("restype_id") int restype_id,
 			@Param("limit") int limit, @Param("offset") int offset);
 	
+	@Select("SELECT  RP.picture_id, RP.path_name, RP.date_added, RP.date_modify FROM restaurants R"
+			+ " INNER JOIN restpictures RP ON R.rest_id = RP.rest_id"
+			+ " WHERE R.rest_id =#{rest_id} ")
+	@Results(value={
+			@Result(property = "rest_id", column = "rest_id"),
+			@Result(property = "picture_id", column = "picture_id"),
+			@Result(property = "path_name", column = "path_name")
+	})
+	public ArrayList<Restpictures> findRestyPicture(int rest_id);
 	
 	String COUNT_RESTYPE = "SELECT COUNT(restype_id) FROM restypes WHERE LOWER(restype_name) LIKE '%'||#{keyword}||'%' ";
 	@Select(COUNT_RESTYPE)

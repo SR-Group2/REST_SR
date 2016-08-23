@@ -1,6 +1,7 @@
 package org.khmeracademy.rest.entities;
 
 import java.util.Date;
+import java.util.List;
 
 public class Restypes {
 	private int restype_id;
@@ -12,6 +13,14 @@ public class Restypes {
 	private int parentid_restypeid;
 	private String description;
 	
+	private List<Restpictures> restpictures;
+	
+	public List<Restpictures> getRestpictures() {
+		return restpictures;
+	}
+	public void setRestpictures(List<Restpictures> restpictures) {
+		this.restpictures = restpictures;
+	}
 	public String getDescription() {
 		return description;
 	}

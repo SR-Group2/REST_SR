@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.khmeracademy.rest.entities.Addresses;
 import org.khmeracademy.rest.entities.Restaurants;
+import org.khmeracademy.rest.entities.Restpictures;
 import org.khmeracademy.rest.entities.UploadedFileInfo;
 import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.form.RestaurantForm2;
@@ -214,6 +215,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public int countRest() {
 		return restaurantRepository.countRest();
 	}
+
+	
 
 	
 

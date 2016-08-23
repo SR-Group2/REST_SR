@@ -26,20 +26,25 @@ public interface RestaurantRepository {
 	//=================== Restaurant Pagination with search ===============
 	
 	final String R_RESTYPE = 
-			  "SELECT rest_id, "
-			+ "	  	  rest_name, "
-			+ "	  	  rest_name_kh, "
-			+ "	  	  contact, "
-			+ "	  	  about, "
-			+ "		  open_close, "
-			+ "		  location"
-			+ " FROM  restaurants "
-			+ " WHERE LOWER(rest_name) LIKE LOWER(#{keyword}) "
-			+ " ORDER BY rest_id DESC "
+			  "SELECT R.rest_id, "
+			+ "	  	  R.rest_name, "
+			+ "	  	  R.rest_name_kh, "
+			+ "	  	  R.contact, "
+			+ "	  	  R.about, "
+			+ "		  R.location"
+			+ " FROM  restaurants R "
+			+ " WHERE LOWER(R.rest_name) LIKE LOWER(#{keyword}) "
+			+ " ORDER BY R.rest_id DESC "
 			+ " LIMIT #{limit} OFFSET #{offset} ";
 	@Select(R_RESTYPE)
+	@Results(value={
+			@Result(property = "rest_id", column = "rest_id"),
+			@Result(property = "restpictures", javaType=List.class, column="rest_id", many=@Many(select="findRestyPicture"))
+	})
 	public ArrayList<Restaurants> searchRest(@Param("keyword") String keyword, 
 			@Param("limit") int limit, @Param("offset") int offset);
+	
+	
 	
 	//==================COUNT Restaurant Detail  ================
 	String COUNT_RESTBYID = "SELECT COUNT(rest_id) FROM restaurants WHERE LOWER(rest_name) LIKE '%'||#{keyword}||'%' ";

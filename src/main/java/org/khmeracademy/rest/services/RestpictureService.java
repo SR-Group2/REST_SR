@@ -13,4 +13,6 @@ public interface RestpictureService {
 	public boolean deleteRestpicture(int picture_id);
 	public boolean updateRestpicture(Restpictures restpicture);
 	public ArrayList<Restpictures>  findRestpictureById(int picture_id);
+	
+	
 }

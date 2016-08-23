@@ -3,6 +3,7 @@ package org.khmeracademy.rest.services;
 import java.util.ArrayList;
 
 import org.khmeracademy.rest.entities.Restaurants;
+import org.khmeracademy.rest.entities.Restpictures;
 import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.form.RestaurantForm2;
 import org.khmeracademy.rest.form.RestaurantForm2.RestaurantUpdateForm2;
@@ -22,7 +23,7 @@ public interface RestaurantService {
 	
 	//public boolean updateRestaurant(Restaurants restaurant);
 	
-	public Restaurants findRestaurantById(int rest_id);
+	public  Restaurants findRestaurantById(int rest_id);//edit this 
 	
 	public ArrayList<Restaurants> findRestaurantWithCategory(Pagination pagination);
 	
@@ -35,5 +36,7 @@ public interface RestaurantService {
 	public boolean updateRestaurant(RestaurantUpdateForm2 restaurantUpdateForm2);
 	
 	public int countRest();
+	
+	
 	
 }

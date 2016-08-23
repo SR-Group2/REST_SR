@@ -10,6 +10,7 @@ public class Restaurants {
 	private String open_close;
 	private String location;
 	private String rest_name_kh;
+	
 	private Addresses address;
 	private Users user;
 	
