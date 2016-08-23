@@ -24,7 +24,8 @@ public interface UserRepository {
 			+ " FROM users U"
 			+ " INNER JOIN"
 			+ " roles R"
-			+ " ON U.role_id= R.role_id WHERE R.role_id =2 ";
+			+ " ON U.role_id= R.role_id WHERE R.role_id =2  and "
+			+ " U.user_id NOT IN (SELECT DISTINCT coalesce(user_id,0) FROM restaurants)";
 	@Select(R_WUSER)
 	@Results(value={
 			@Result(property="role.id", column="role_id"),

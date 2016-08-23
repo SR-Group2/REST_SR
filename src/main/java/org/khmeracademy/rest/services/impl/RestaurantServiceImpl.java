@@ -95,6 +95,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			
 			// 1. Insert address -> return address id (table name : addresses)
 			Addresses address = restaurantForm.getAddress();
+			System.out.println(address.getStreet());
 			addressRepository.insertAddress(address);
 			
 			System.out.println("ADDRESS_ID ==> " + address.getAddress_id());
