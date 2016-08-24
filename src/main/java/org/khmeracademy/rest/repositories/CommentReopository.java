@@ -78,5 +78,9 @@ public interface CommentReopository {
 			+ " comment_id=#{comment_id}";
 	@Select(F_COMMENT)
 	public Comments getCommentById(int id);
+	
+	@Select("SELECT COUNT(*) FROM comments")
+	public int countComment();
+	
 
 }

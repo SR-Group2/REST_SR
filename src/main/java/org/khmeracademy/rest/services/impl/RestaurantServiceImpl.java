@@ -216,6 +216,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantRepository.countRest();
 	}
 
+	@Override
+	public ArrayList<Restaurants> topRest() {
+		return restaurantRepository.topRest();
+	}
+
+
 	
 
 	

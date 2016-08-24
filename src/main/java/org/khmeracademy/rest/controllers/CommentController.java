@@ -136,4 +136,28 @@ public class CommentController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/total-comment", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> countComment(){
+		Map<String, Object> map= new Hashtable<String, Object>();
+		
+		try{
+			int  totlal = commentService.countComment();
+			if(totlal>0){
+				map.put("DATA", totlal);
+				map.put("STATUS", true);
+				map.put("CODE", "200");
+				map.put("MESSAGE", "Comment found");
+			}else{
+				map.put("STATUS", true);
+				map.put("CODE", "404");
+				map.put("MESSAGE", "Commment don't have");
+			}
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("MESSAGE", "ERROR");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
 }

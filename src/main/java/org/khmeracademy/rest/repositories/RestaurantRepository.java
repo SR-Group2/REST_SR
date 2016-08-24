@@ -364,4 +364,18 @@ public interface RestaurantRepository {
 	@Select("SELECT COUNT(*) FROM restaurants")
 	public int countRest();
 	
+	String T_FAREST="Select rest_name,"
+			+ " COUNT(F.user_id) total_favorite"
+			+ " From restaurants R"
+			+ " INNER JOIN favouriterestaurants F "
+			+ " ON R.rest_id=F.rest_id"
+			+ " GROUP BY rest_name"
+			+ " ORDER BY 2 DESC"
+			+ " limit 5";
+	@Select(T_FAREST)
+	@Results(value={
+			@Result(property="total_favorite",column="total_favorite")
+	})
+	public ArrayList<Restaurants> topRest();
+	
 }

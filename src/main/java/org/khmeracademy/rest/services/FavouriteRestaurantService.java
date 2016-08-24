@@ -17,4 +17,5 @@ public interface FavouriteRestaurantService {
 	
 	public int totalFavourite(int user_id);
 	public int countFavByUserIdAndRestId(int userId , int restId);
+	public int countFavoriteRest();
 }

@@ -10,6 +10,8 @@ public class Restaurants {
 	private String open_close;
 	private String location;
 	private String rest_name_kh;
+	private int total_favorite;
+	
 	
 	private Addresses address;
 	private Users user;
@@ -113,5 +115,11 @@ public class Restaurants {
 	}
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	public int getTotal_favorite() {
+		return total_favorite;
+	}
+	public void setTotal_favorite(int total_favorite) {
+		this.total_favorite = total_favorite;
 	}	
 }

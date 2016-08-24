@@ -149,7 +149,8 @@ public interface FavouriteRestaurantRepository {
 	@Select("select COUNT(*) from  favouriterestaurants where user_id=#{user_id} and rest_id=#{rest_id}")
 	public int countFavByUserIdAndRestId(@Param("user_id") int userId , @Param("rest_id") int restId);
 	
-	
+	@Select("SELECT COUNT(*) FROM favouriterestaurants")
+	public int countFavoriteRest();
 	
 	
 }
