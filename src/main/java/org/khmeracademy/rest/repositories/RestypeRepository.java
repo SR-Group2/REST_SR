@@ -70,8 +70,8 @@ public interface RestypeRepository {
 						+ " r.open_close, r.location,"
 						+ " rsp.restype_id AS rsprestype_id, "
 						+ "	rsp.restype_name FROM restaurants r "
-						+ " INNER JOIN menus mn ON mn.rest_id = r.rest_id "
-						+ " INNER JOIN restypes rsp ON mn.restype_id = rsp.restype_id "
+						+ " LEFT JOIN menus mn ON mn.rest_id = r.rest_id "
+						+ " LEFT JOIN restypes rsp ON mn.restype_id = rsp.restype_id "
 						+ " WHERE rsp.restype_id = #{restype_id}"
 						+ " ORDER BY 1 "
 						+ " OFFSET #{offset} LIMIT #{limit}  ";
@@ -104,7 +104,7 @@ public interface RestypeRepository {
 	public ArrayList<Restypes> findRestypeByKeyword(String keyword);
 	
 	//================= Count Number of Resturant in Restype FOR Pagination
-	String COUNT_RESTAURANT = "SELECT count(r.rest_id) num_rest "
+	String COUNT_RESTAURANT = "SELECT count( DISTINCT r.rest_id) num_rest "
 				+"	FROM restaurants r "
 				+" INNER JOIN menus mn ON mn.rest_id = r.rest_id "
 				+" INNER JOIN restypes rsp ON mn.restype_id = rsp.restype_id " 
