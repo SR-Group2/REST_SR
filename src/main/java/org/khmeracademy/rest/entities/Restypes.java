@@ -3,6 +3,8 @@ package org.khmeracademy.rest.entities;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Restypes {
 	private int restype_id;
 	private String restype_name;
@@ -14,7 +16,14 @@ public class Restypes {
 	private String description;
 	
 	private List<Restpictures> restpictures;
+	private List<MultipartFile> restype_files;
 	
+	public List<MultipartFile> getRestype_files() {
+		return restype_files;
+	}
+	public void setRestype_files(List<MultipartFile> restype_files) {
+		this.restype_files = restype_files;
+	}
 	public List<Restpictures> getRestpictures() {
 		return restpictures;
 	}

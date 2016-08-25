@@ -26,4 +26,6 @@ public interface RestypeService {
 	public ArrayList<Restaurants>  findRestypeById(int restype_id, Pagination pagination);
 	
 	public ArrayList<Restypes> findRestypeByKeyword(String keyword);
+	
+	public Restypes getOnlyRestype(int restype_id);
 }

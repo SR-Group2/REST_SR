@@ -13,12 +13,14 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.khmeracademy.rest.entities.Image;
+import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.entities.Users;
 import org.khmeracademy.rest.entities.Users.Users2;
 import org.khmeracademy.rest.form.RestaurantForm2;
 import org.khmeracademy.rest.form.RestaurantForm2.RestaurantUpdateForm2;
 import org.khmeracademy.rest.repositories.UserRepository;
 import org.khmeracademy.rest.services.RestaurantService;
+import org.khmeracademy.rest.services.RestypeService;
 import org.khmeracademy.rest.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +47,9 @@ public class RestUploadController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RestypeService restypeService;
 	
 	//================== Upload By RestController ==============
 	@RequestMapping(value="/image", method = RequestMethod.POST)
@@ -430,6 +435,75 @@ public class RestUploadController {
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
 
 	}
+	//======================= INSERT RESTYPE  ===============================
+	@RequestMapping(value="/restype/add", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,Object>> insertRestype(
+			@RequestParam(value="json_data") String jsonData,
+			@RequestParam(value="picture") List<MultipartFile> picture,
+			HttpServletRequest request) {
+		
+		System.out.println(jsonData);
+		System.out.println("Restype File = " + picture.size());
+	
+		
+		Restypes restype = new Gson().fromJson(jsonData, Restypes.class);
+		
+		restype.setRestype_files(picture);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try{
+			if (restypeService.insertRestype(restype)){
+				map.put("MESSAGE", "SUCCESS");
+				map.put("STATUS", true);
+			}else{
+				map.put("MESSAGE", "UNSUCCESS");
+				map.put("STATUS", true);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("MESSAGE", "ERROR");
+			map.put("STATUS", false);
+		}
+		
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
+
+	}
+	
+	//======================= UPDATE RESTYPE  ===============================
+		@RequestMapping(value="/restype/add", method = RequestMethod.POST)
+		public ResponseEntity<Map<String,Object>> updateRestype(
+				@RequestParam(value="json_data") String jsonData,
+				@RequestParam(value="picture") List<MultipartFile> picture,
+				HttpServletRequest request) {
+			
+			System.out.println(jsonData);
+			System.out.println("Restype File = " + picture.size());
+		
+			
+			Restypes restype = new Gson().fromJson(jsonData, Restypes.class);
+			
+			restype.setRestype_files(picture);
+			
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			try{
+				if (restypeService.updateRestype(restype)){
+					map.put("MESSAGE", "SUCCESS");
+					map.put("STATUS", true);
+				}else{
+					map.put("MESSAGE", "UNSUCCESS");
+					map.put("STATUS", true);
+				}		
+			} catch (Exception e) {
+				e.printStackTrace();
+				map.put("MESSAGE", "ERROR");
+				map.put("STATUS", false);
+			}
+			
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
+
+		}
 	
 	
 }

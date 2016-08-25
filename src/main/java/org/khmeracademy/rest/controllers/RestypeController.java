@@ -101,7 +101,32 @@ public class RestypeController {
 		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK) ;
 	}
 	
-	
+	//========================  Get Only Restype By Id 
+	@RequestMapping(value = "/only/{restype_id}",method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getOnlyRestype(@PathVariable("restype_id") int restype_id){
+		Map<String , Object> map = new Hashtable<String , Object>();
+		
+		try{
+			
+			Restypes restypes = restypeService.getOnlyRestype(restype_id);
+			if(restypes != null){
+				map.put("DATA", restypes);
+				map.put("CODE", "200 OK");
+				map.put("STATUS", true);
+				map.put("MESSAGE", "DATA FOUND!");
+			}else{
+				map.put("STATUS", false);
+				map.put("CODE", "300 DATA NOT FOUND");
+				map.put("MESSAGE", "DATA NOT FOUND!");
+			}
+		}catch(Exception e){
+			map.put("STATUS", false);
+			map.put("CODE", "404 NOT FOUND");
+			map.put("MESSAGE", "NOT FOUND!");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK) ;
+	}
 	
 	@RequestMapping(value = "/insert-restype", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> insertRestype(@RequestBody Restypes restype){

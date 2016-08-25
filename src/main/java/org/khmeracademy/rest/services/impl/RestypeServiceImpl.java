@@ -4,18 +4,26 @@ import java.util.ArrayList;
 
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.entities.UploadedFileInfo;
 import org.khmeracademy.rest.filters.RestypeFilter;
 import org.khmeracademy.rest.repositories.RestypeRepository;
+import org.khmeracademy.rest.services.FileUploadService;
 import org.khmeracademy.rest.services.RestypeService;
 import org.khmeracademy.rest.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RestypeServiceImpl implements RestypeService {
 
 	@Autowired
 	private RestypeRepository restypeRepository;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
+	
+	
 	@Override
 	public ArrayList<Restypes> getAllRestype(Pagination pagination, RestypeFilter filter) {
 		System.out.println(pagination.getOffset() + " " + pagination.getLimit());
@@ -25,8 +33,25 @@ public class RestypeServiceImpl implements RestypeService {
 	}
 
 	@Override
+	@Transactional
 	public boolean insertRestype(Restypes restype) {
-		return restypeRepository.insertRestype(restype);
+		
+		if(!restype.getRestype_files().isEmpty()){
+			UploadedFileInfo picture = fileUploadService.upload(restype.getRestype_files(), "restype");
+			
+			for(String picture_file : picture.getNames()){
+				restype.setRestype_picture(picture_file);
+				System.out.println(picture_file);
+			}
+			
+			return restypeRepository.insertRestype(restype);
+			
+		}else{
+			System.out.println("null ");
+		}
+		
+		return false;
+		
 	}
 
 	@Override
@@ -35,7 +60,22 @@ public class RestypeServiceImpl implements RestypeService {
 	}
 
 	@Override
+	@Transactional
 	public boolean updateRestype(Restypes restype) {
+		if(!restype.getRestype_files().isEmpty()){
+			UploadedFileInfo picture = fileUploadService.upload(restype.getRestype_files(), "restype");
+			
+			for(String picture_file : picture.getNames()){
+				restype.setRestype_picture(picture_file);
+				System.out.println(picture_file);
+			}
+			
+			return restypeRepository.updateRestype(restype);
+			
+		}else{
+			System.out.println("null ");
+		}
+		
 		return restypeRepository.updateRestype(restype);
 	}
 
@@ -60,6 +100,12 @@ public class RestypeServiceImpl implements RestypeService {
 	public int countRest(int restype_id) {
 		
 		return restypeRepository.countRest(restype_id);
+	}
+
+	@Override
+	public Restypes getOnlyRestype(int restype_id) {
+		// TODO Auto-generated method stub
+		return restypeRepository.getOnlyRestype(restype_id);
 	}
 	
 }

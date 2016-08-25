@@ -39,7 +39,7 @@ public interface UserRepository {
 			+ " FROM users U"
 			+ " INNER JOIN"
 			+ " roles R"
-			+ " ON U.role_id= R.role_id WHERE R.role_id !=3 ";
+			+ " ON U.role_id= R.role_id ";
 	@Select(R_USER)
 	@Results(value={
 			@Result(property="role.id", column="role_id"),

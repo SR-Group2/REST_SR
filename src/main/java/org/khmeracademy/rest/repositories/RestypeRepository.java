@@ -21,6 +21,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RestypeRepository {
 	
+	final String ONLY_RESTYPE = "SELECT restype_id, "
+			+ "	  	  restype_name, "
+			+ "	  	  restype_name_kh, "
+			+ "	  	  restype_picture, "
+			+ "	  	  date_added, "
+			+ "		  date_modify, "
+			+ "		  parentid_restypeid,"
+			+ "		  description "
+			+ " FROM  restypes "
+			+ " WHERE restype_id = #{keyword}";
+	@Select(ONLY_RESTYPE)
+	public Restypes getOnlyRestype(int restype_id);
+	
+	
 	final String R_RESTYPE = "SELECT restype_id, "
 			+ "	  	  restype_name, "
 			+ "	  	  restype_name_kh, "
@@ -40,9 +54,9 @@ public interface RestypeRepository {
 	
 	
 	String C_RESTYPE = "INSERT INTO restypes(restype_name,restype_name_kh,"
-			+ "restype_picture, parentid_restypeid) "
+			+ "restype_picture, parentid_restypeid, description) "
 			+ " VALUES(#{restype_name}, #{restype_name_kh}, #{restype_picture},"
-			+ " #{parentid_restypeid})";
+			+ " #{parentid_restypeid}, #{description})";
 	@Insert(C_RESTYPE)
 	public boolean insertRestype(Restypes restype);
 	
