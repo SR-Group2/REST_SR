@@ -63,7 +63,7 @@ public interface RestypeRepository {
 	String U_RESTYPE = "UPDATE restypes SET "
 			+ "	restype_name=#{restype_name} , restype_name_kh=#{restype_name_kh}, "
 			+ "date_modify=CURRENT_TIMESTAMP , restype_picture=#{restype_picture},"
-			+ " parentid_restypeid = #{parentid_restypeid} "
+			+ " parentid_restypeid = #{parentid_restypeid}, description = #{description} "
 			+ "WHERE "
 			+ "	restype_id=#{restype_id}";
 	@Update(U_RESTYPE)

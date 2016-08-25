@@ -75,8 +75,7 @@ public class RestypeServiceImpl implements RestypeService {
 		}else{
 			System.out.println("null ");
 		}
-		
-		return restypeRepository.updateRestype(restype);
+		return false;
 	}
 
 	@Override

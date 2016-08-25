@@ -471,7 +471,7 @@ public class RestUploadController {
 	}
 	
 	//======================= UPDATE RESTYPE  ===============================
-		@RequestMapping(value="/restype/add", method = RequestMethod.POST)
+		@RequestMapping(value="/restype/update", method = RequestMethod.POST)
 		public ResponseEntity<Map<String,Object>> updateRestype(
 				@RequestParam(value="json_data") String jsonData,
 				@RequestParam(value="picture") List<MultipartFile> picture,
