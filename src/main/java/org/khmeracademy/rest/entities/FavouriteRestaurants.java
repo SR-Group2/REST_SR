@@ -1,16 +1,17 @@
 package org.khmeracademy.rest.entities;
 
-
+import java.util.List;
 
 public class FavouriteRestaurants {
 
+	
 	private int favrest_id;
 	private int fav_total;
 	
 	private Users user;
 	private Restaurants rest;
 	
-	
+	private List<Restpictures> restpictures;
 	
 	public int getFavrest_id() {
 		return favrest_id;
@@ -36,11 +37,17 @@ public class FavouriteRestaurants {
 	public void setFav_total(int fav_total) {
 		this.fav_total = fav_total;
 	}
+	public List<Restpictures> getRestpictures() {
+		return restpictures;
+	}
+	public void setRestpictures(List<Restpictures> restpictures) {
+		this.restpictures = restpictures;
+	}
+	
 	
 	@Override
 	public String toString() {
 		return "FavouriteRestaurants [favrest_id=" + favrest_id + ", fav_total=" + fav_total + ", user=" + user
-				+ ", rest=" + rest + "]";
+				+ ", rest=" + rest + ", restpictures=" + restpictures + "]";
 	}
-	
 }

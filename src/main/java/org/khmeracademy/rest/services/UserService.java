@@ -18,7 +18,9 @@ public interface UserService {
 	
 	public boolean signUpUser(Users2 user2);
 	
-	public boolean  updateUser(Users user);
+	public boolean  updateUser2(Users2 user2);
+	
+/*	public boolean  updateUser(Users user);*/
 	
 	public boolean deleteUser(int id);
 	
@@ -31,5 +33,6 @@ public interface UserService {
 	public boolean addUser(Users2 user);
 	
 	public ArrayList<Users> getUserOwner();
+	
 	public int countUser(int role_id);
 }

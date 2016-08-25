@@ -395,6 +395,42 @@ public class RestUploadController {
 
 	}
 	
+	//======================= Update User File and  data with  ===============================
+	@RequestMapping(value="/user/update", method = RequestMethod.POST)
+	public ResponseEntity<Map<String,Object>> updateUser(
+			@RequestParam(value="json_data") String jsonData,
+			@RequestParam(value="picture") List<MultipartFile> picture,
+			HttpServletRequest request) {
+		
+		System.out.println(jsonData);
+		System.out.println("User File = " + picture.size());
+	
+		
+		Users2 user2 = new Gson().fromJson(jsonData, Users2.class);
+		
+		user2.setUser_file(picture);
+		
+	
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try{
+			if (userService.updateUser2(user2)){
+				map.put("MESSAGE", "SUCCESS");
+				map.put("STATUS", true);
+			}else{
+				map.put("MESSAGE", "UNSUCCESS");
+				map.put("STATUS", true);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("MESSAGE", "ERROR");
+			map.put("STATUS", false);
+		}
+		
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
+
+	}
+	
 	
 }
 

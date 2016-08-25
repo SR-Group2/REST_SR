@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.FavouriteRestaurants;
+import org.khmeracademy.rest.entities.Restpictures;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -112,6 +113,8 @@ public interface FavouriteRestaurantRepository {
 	/*public ArrayList<FavouriteRestaurants> getFavouriteRestaurantByUserId(@Param("user_id") int user_id);*/
 	
 	String G_FREST="SELECT"
+		+ " R.rest_id,"
+		+ " F.favrest_id,"
 		+ " R.rest_name,"	
 		+ " R.rest_name_kh, "
 		+ " U.user_id,"
@@ -135,10 +138,23 @@ public interface FavouriteRestaurantRepository {
 			@Result(property="rest.rest_name", column="rest_name"),
 			// fav_total got data from totalFavourite 
 			// column user_id send parameter to totalFavourite(int user_id);
-			@Result(property ="fav_total", column="user_id", many=@Many(select="totalFavourite"))
+			@Result(property ="fav_total", column="user_id", many=@Many(select="totalFavourite")),
+			@Result(property = "restpictures", javaType=List.class, column="rest_id", many=@Many(select="findRestyPicture")),
+			
 	})
 	@Select(G_FREST)
 	public ArrayList<FavouriteRestaurants> getFavouriteRestaurantByUserId(@Param("user_id") int user_id);
+	
+	@Select("SELECT  RP.picture_id, RP.path_name, RP.date_added, RP.date_modify FROM restaurants R"
+			+ " INNER JOIN restpictures RP ON R.rest_id = RP.rest_id"
+			+ " WHERE R.rest_id =#{rest_id} ")
+	@Results(value={
+			@Result(property = "rest_id", column = "rest_id"),
+			@Result(property = "picture_id", column = "picture_id"),
+			@Result(property = "path_name", column = "path_name")
+	})
+	public ArrayList<Restpictures> findRestyPicture(int rest_id);
+	
 	
 	String C_USER_FAV = "SELECT COUNT(F.rest_id) As favtotal "
 			+ " From favouriterestaurants F "

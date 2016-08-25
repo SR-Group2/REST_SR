@@ -17,6 +17,7 @@ public interface CommentReopository {
 	String R_COMMENT= "SELECT "
 			+ " C.comment_id, "
 			+ " U.user_id, "
+			+ " U.picture, "
 			+ " R.rest_id, "
 			+ " comment, "
 			+ " R.rest_name, "
@@ -26,10 +27,11 @@ public interface CommentReopository {
 			+ " INNER JOIN restaurants R"
 			+ " ON C.rest_id = R.rest_id"
 			+ " INNER JOIN users U"
-			+ " ON C.user_id = U.user_id WHERE R.rest_id = #{rest_id}";
+			+ " ON C.user_id = U.user_id WHERE R.rest_id = #{rest_id} ORDER BY C.rest_id";
 	@Select(R_COMMENT)
 	@Results(value={
 			@Result(property="user.user_id", column="user_id"),
+			@Result(property="user.picture", column="picture"),
 			@Result(property="user.first_name", column="first_name"),
 			@Result(property="user.last_name", column="last_name"),
 			@Result(property="rest.rest_id", column="rest_id"),

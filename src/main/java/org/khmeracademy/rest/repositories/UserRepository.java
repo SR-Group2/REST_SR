@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Roles;
 import org.khmeracademy.rest.entities.Users;
+import org.khmeracademy.rest.entities.Users.Users2;
 import org.springframework.stereotype.Repository;
 
 
@@ -85,7 +86,7 @@ public interface UserRepository {
 			@Result(property="role.id", column="role_id"),
 			@Result(property="role.name", column="role_name" )
 	})
-	public boolean  updateUser(Users user);
+	public boolean  updateUser2(Users2 user);
 	
 	String D_USER="DELETE"
 				+ " FROM"

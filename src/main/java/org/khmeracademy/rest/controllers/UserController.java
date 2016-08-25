@@ -157,7 +157,7 @@ public class UserController {
 		
 	}*/
 	
-	@RequestMapping(method= RequestMethod.PUT)
+	/*@RequestMapping(method= RequestMethod.PUT)
 	public  ResponseEntity<Map<String, Object>> updateUser(@RequestBody Users user){
 		Map<String, Object> map= new HashMap<String, Object>();
 		try{
@@ -179,7 +179,7 @@ public class UserController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		
-	}
+	}*/
 	
 	@RequestMapping(value="/{user-id}", method= RequestMethod.DELETE)
 	public  ResponseEntity<Map<String, Object>> deleteUser(@PathVariable("user-id") int id){
