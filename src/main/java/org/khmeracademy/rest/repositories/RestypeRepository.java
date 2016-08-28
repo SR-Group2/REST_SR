@@ -81,7 +81,7 @@ public interface RestypeRepository {
 	String F_RESTYPE = "SELECT DISTINCT"
 						+ "	r.rest_id AS restaurantid, r.rest_name,"
 						+ " r.contact, r.about,"
-						+ " r.open_close, r.location,"
+						+ " r.open_close, r.latitude, r.longitude,"
 						+ " rsp.restype_id AS rsprestype_id, "
 						+ "	rsp.restype_name FROM restaurants r "
 						+ " LEFT JOIN menus mn ON mn.rest_id = r.rest_id "

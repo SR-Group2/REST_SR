@@ -8,7 +8,8 @@ public class Restaurants {
 	private String contact;
 	private String about;
 	private String open_close;
-	private String location;
+	private String latitude;
+	private String longitude;
 	private String rest_name_kh;
 	private int total_favorite;
 	
@@ -110,11 +111,18 @@ public class Restaurants {
 	public void setAbout(String about) {
 		this.about = about;
 	}
-	public String getLocation() {
-		return location;
+	
+	public String getLatitude() {
+		return latitude;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 	public int getTotal_favorite() {
 		return total_favorite;

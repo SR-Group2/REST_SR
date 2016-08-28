@@ -31,7 +31,8 @@ public interface RestaurantRepository {
 			+ "	  	  R.rest_name_kh, "
 			+ "	  	  R.contact, "
 			+ "	  	  R.about, "
-			+ "		  R.location"
+			+ " 	  R.latitude,"
+			+ " 	  R.longitude"
 			+ " FROM  restaurants R "
 			+ " WHERE LOWER(R.rest_name) LIKE LOWER(#{keyword}) "
 			+ " ORDER BY R.rest_id DESC "
@@ -58,7 +59,8 @@ public interface RestaurantRepository {
 			+ " R.contact,"
 			+ " R.about,"
 			+ " R.open_close,"
-			+ " R.location,"
+			+ " R.latitude,"
+			+ " R.longitude,"
 			+ " M.restype_id AS menu_restype_id,"
 			+ " A.address_id AS address_address_id, "
 			+ " A.street, "
@@ -118,10 +120,9 @@ public interface RestaurantRepository {
 	//TODO: 2. ADD TO RESTAURANT RETURN ID
 	String C_RESTAURANT = "INSERT INTO restaurants"
 			+ " (rest_name, rest_name_kh, contact,about,"
-			+ " open_close,location,address_id,user_id)"
+			+ " open_close, address_id,user_id, latitude, longitude)"
 			+ " VALUES(#{rest_name} , #{rest_name_kh} , #{contact} , #{about},#{open_close},"
-			+ " #{location},"
-			+ " #{address.address_id},#{user_id})";
+			+ " #{address.address_id},#{user_id},#{latitude},#{longitude})";
 	@Insert(C_RESTAURANT)
 	@SelectKey(
             keyProperty = "rest_id",
@@ -173,7 +174,9 @@ public interface RestaurantRepository {
 			+ "	contact=#{contact} , "
 			+ "	about=#{about},"
 			+ " open_close = #{open_close},"
-			+ " location = #{location},"
+			+ " latitude   = #{latitude},"
+			+ " longitude  = #{longitude},"
+			+ " open_close = #{open_close},"
 			+ " address_id = #{address.address_id}"
 			+ " WHERE "
 			+ "	rest_id = #{rest_id}";
@@ -187,7 +190,7 @@ public interface RestaurantRepository {
 	+ " R.contact,"
 	+ " R.about,"
 	+ " R.open_close,"
-	+ " R.location,"
+	+ " R.,"
 	+ " A.address_id AS address_address_id,"
 	+ " U.user_id AS user_user_id,"
 	+ " U.username AS user_username"
@@ -205,7 +208,8 @@ public interface RestaurantRepository {
 			+ " R.contact,"
 			+ " R.about,"
 			+ " R.open_close,"
-			+ " R.location,"
+			+ " R.latitude,"
+			+ " R.longitude,"
 			+ " A.address_id AS address_address_id,"
 			+ " A.street,"
 			+ " A.village,"
@@ -261,7 +265,8 @@ public interface RestaurantRepository {
 			+ " R.contact,"
 			+ " R.about,"
 			+ " R.open_close,"
-			+ " R.location,"
+			+ " R.latitude,"
+			+ " R.longitude,"
 			+ " A.address_id AS address_address_id,"
 			+ " A.street,"
 			+ " A.district, "

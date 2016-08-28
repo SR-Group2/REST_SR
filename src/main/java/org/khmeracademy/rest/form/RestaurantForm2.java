@@ -14,7 +14,8 @@ public class RestaurantForm2 {
 	// 2. Insert Restaurant -> return rest_id (table name : restaurants)
 	private String rest_name_kh;
 	private String rest_name;
-	private String location;
+	private String latitude;
+	private String logitude;
 	private String about;
 	private String contact;
 	private int user_id;
@@ -78,12 +79,21 @@ public class RestaurantForm2 {
 		this.rest_name = rest_name;
 	}
 
-	public String getLocation() {
-		return location;
+
+	public String getLatitude() {
+		return latitude;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLogitude() {
+		return logitude;
+	}
+
+	public void setLogitude(String logitude) {
+		this.logitude = logitude;
 	}
 
 	public String getAbout() {
@@ -153,13 +163,6 @@ public class RestaurantForm2 {
 		this.open_close = open_close;
 	}
 
-	@Override
-	public String toString() {
-		return "RestaurantForm2 [address=" + address + ", rest_name_kh=" + rest_name_kh + ", rest_name=" + rest_name
-				+ ", location=" + location + ", about=" + about + ", contact=" + contact + ", user_id=" + user_id
-				+ ", rest_id=" + rest_id + ", open_close=" + open_close + ", restaurant_files=" + restaurant_files
-				+ ", menu_files=" + menu_files + ", categories=" + categories + ", restypes_id=" + restypes_id + "]";
-	}
 	
 	public static class RestaurantUpdateForm2 extends RestaurantForm2{
 		
