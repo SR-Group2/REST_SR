@@ -15,7 +15,7 @@ public class RestaurantForm2 {
 	private String rest_name_kh;
 	private String rest_name;
 	private String latitude;
-	private String logitude;
+	private String longitude;
 	private String about;
 	private String contact;
 	private int user_id;
@@ -88,12 +88,14 @@ public class RestaurantForm2 {
 		this.latitude = latitude;
 	}
 
-	public String getLogitude() {
-		return logitude;
+	
+
+	public String getLongitude() {
+		return longitude;
 	}
 
-	public void setLogitude(String logitude) {
-		this.logitude = logitude;
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getAbout() {
