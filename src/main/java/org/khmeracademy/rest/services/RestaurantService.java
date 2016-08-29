@@ -29,7 +29,7 @@ public interface RestaurantService {
 	
 	public ArrayList<Restaurants> searchRest(Pagination pagination, RestypeFilter filter);
 	
-	public int countRestById(String keyword);
+	public int countRestById(int categoryId, String keyword);
 	
 	public int countRestOwner();
 	

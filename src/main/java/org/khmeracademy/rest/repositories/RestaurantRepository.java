@@ -11,12 +11,14 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.rest.entities.Categories;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restpictures;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.form.RestaurantForm2;
+import org.khmeracademy.rest.repositories.selectproviders.RestaurantRepositorySelectProvider;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -25,7 +27,7 @@ public interface RestaurantRepository {
 	
 	//=================== Restaurant Pagination with search ===============
 	
-	final String R_RESTYPE = 
+	/*final String R_RESTYPE = 
 			  "SELECT R.rest_id, "
 			+ "	  	  R.rest_name, "
 			+ "	  	  R.rest_name_kh, "
@@ -35,6 +37,7 @@ public interface RestaurantRepository {
 			+ " 	  R.longitude"
 			+ " FROM  restaurants R "
 			+ " WHERE LOWER(R.rest_name) LIKE LOWER(#{keyword}) "
+			+ " AND "
 			+ " ORDER BY R.rest_id DESC "
 			+ " LIMIT #{limit} OFFSET #{offset} ";
 	@Select(R_RESTYPE)
@@ -43,14 +46,22 @@ public interface RestaurantRepository {
 			@Result(property = "restpictures", javaType=List.class, column="rest_id", many=@Many(select="findRestyPicture"))
 	})
 	public ArrayList<Restaurants> searchRest(@Param("keyword") String keyword, 
+			@Param("limit") int limit, @Param("offset") int offset);*/
+	@SelectProvider(type=RestaurantRepositorySelectProvider.class, method="searchRestaurant")
+	@Results(value={
+			@Result(property = "rest_id", column = "rest_id"),
+			@Result(property = "restpictures", javaType=List.class, column="rest_id", many=@Many(select="findRestyPicture"))
+	})
+	public ArrayList<Restaurants> searchRest(@Param("category_id")int categoryId, @Param("keyword") String keyword, 
 			@Param("limit") int limit, @Param("offset") int offset);
 	
-	
-	
 	//==================COUNT Restaurant Detail  ================
-	String COUNT_RESTBYID = "SELECT COUNT(rest_id) FROM restaurants WHERE LOWER(rest_name) LIKE '%'||#{keyword}||'%' ";
-	@Select(COUNT_RESTBYID)
-	public int countRestById(String keyword);
+//	String COUNT_RESTBYID = "SELECT COUNT(rest_id) FROM restaurants WHERE LOWER(rest_name) LIKE '%'||#{keyword}||'%' ";
+//	@Select(COUNT_RESTBYID)
+//	public int countRestById(String keyword);
+	
+	@SelectProvider(type=RestaurantRepositorySelectProvider.class, method="count")
+	public int countRestById(@Param("category_id")int categoryId, @Param("keyword")String keyword);
 		
 	//================== Restaurant Detail  ================
 	String R_RESTAURANT = "SELECT"

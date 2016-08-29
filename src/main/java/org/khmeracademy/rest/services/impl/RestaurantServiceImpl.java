@@ -128,15 +128,21 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
 
+//	@Override
+//	public int countRestById(String keyword) {
+//		
+//		return restaurantRepository.countRestById(keyword.toLowerCase());
+//	}
+	
 	@Override
-	public int countRestById(String keyword) {
+	public int countRestById(int categoryId, String keyword) {
 		
-		return restaurantRepository.countRestById(keyword.toLowerCase());
+		return restaurantRepository.countRestById(categoryId, keyword.toLowerCase());
 	}
 
 	@Override
 	public ArrayList<Restaurants> searchRest(Pagination pagination, RestypeFilter filter) {
-		return restaurantRepository.searchRest("%" + filter.getKeyword().toLowerCase() + "%", 
+		return restaurantRepository.searchRest(filter.getCategoryId(), "%" + filter.getKeyword().toLowerCase() + "%", 
 				pagination.getLimit(), pagination.getOffset());
 	}
 
