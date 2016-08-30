@@ -36,7 +36,7 @@ public class RestaurantController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "keyword", dataType = "string", paramType = "query", defaultValue="",
 	            value = "search restaurant"),
-		@ApiImplicitParam(name = "categoryId", dataType = "int", paramType = "query", defaultValue="0",
+		@ApiImplicitParam(name = "category_id", dataType = "int", paramType = "query", defaultValue="0",
         value = "Category Id"),
 	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
 	            value = "Results page you want to retrieve)"),
@@ -51,7 +51,7 @@ public class RestaurantController {
 		
 		try{
 			
-			pagination.setTotalCount(restaurantService.countRestById(filter.getCategoryId(), filter.getKeyword()));
+			pagination.setTotalCount(restaurantService.countRestById(filter.getCategory_id(), filter.getKeyword()));
 			
 			System.out.println("PAGINATION TOTAL COUNT==> "+ pagination.getTotalCount());
 			System.out.println(pagination.getTotalCount() + filter.getKeyword());

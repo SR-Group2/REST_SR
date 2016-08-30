@@ -2,7 +2,7 @@ package org.khmeracademy.rest.filters;
 
 public class RestypeFilter {
 	private String keyword;
-	private int categoryId;
+	private int category_id;
 	
 	public RestypeFilter(){
 		keyword = "";
@@ -13,11 +13,12 @@ public class RestypeFilter {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public int getCategoryId() {
-		return categoryId;
+	public int getCategory_id() {
+		return category_id;
 	}
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
 	}
+	
 	
 }

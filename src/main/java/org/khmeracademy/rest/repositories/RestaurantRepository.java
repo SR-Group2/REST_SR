@@ -52,7 +52,7 @@ public interface RestaurantRepository {
 			@Result(property = "rest_id", column = "rest_id"),
 			@Result(property = "restpictures", javaType=List.class, column="rest_id", many=@Many(select="findRestyPicture"))
 	})
-	public ArrayList<Restaurants> searchRest(@Param("category_id")int categoryId, @Param("keyword") String keyword, 
+	public ArrayList<Restaurants> searchRest(@Param("category_id")int category_id, @Param("keyword") String keyword, 
 			@Param("limit") int limit, @Param("offset") int offset);
 	
 	//==================COUNT Restaurant Detail  ================

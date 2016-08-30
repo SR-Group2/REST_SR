@@ -142,8 +142,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Override
 	public ArrayList<Restaurants> searchRest(Pagination pagination, RestypeFilter filter) {
-		return restaurantRepository.searchRest(filter.getCategoryId(), "%" + filter.getKeyword().toLowerCase() + "%", 
+		
+		System.out.println(filter.getCategory_id());
+		
+		return restaurantRepository.searchRest(filter.getCategory_id(), 
+				"%" + filter.getKeyword().toLowerCase() + "%", 
 				pagination.getLimit(), pagination.getOffset());
+		
 	}
 
 	@Override
