@@ -17,6 +17,7 @@ import org.khmeracademy.rest.entities.Categories;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restpictures;
 import org.khmeracademy.rest.entities.Restypes;
+import org.khmeracademy.rest.form.RestTypeId;
 import org.khmeracademy.rest.form.RestaurantForm2;
 import org.khmeracademy.rest.repositories.selectproviders.RestaurantRepositorySelectProvider;
 import org.springframework.stereotype.Repository;
@@ -184,7 +185,6 @@ public interface RestaurantRepository {
 			+ "	rest_name_kh=#{rest_name_kh} , "
 			+ "	contact=#{contact} , "
 			+ "	about=#{about},"
-			+ " open_close = #{open_close},"
 			+ " latitude   = #{latitude},"
 			+ " longitude  = #{longitude},"
 			+ " open_close = #{open_close},"
@@ -194,6 +194,16 @@ public interface RestaurantRepository {
 	
 	@Update(U_RESTAURANT)
 	public boolean updateRestaurant(RestaurantForm2 restaurant);
+	
+	
+	String UPDATE_BATCH_MENUS =  "<script>"
+			+ " <foreach collection='restypes_id' item='restype_id' separator=','>"
+			+ "     UPDATE menus SET "
+			+ " 	restype_id = #{restype_id} WHERE rest_id =  #{rest_id})"
+			+ " </foreach>"
+			+ " </script>";
+	@Insert(UPDATE_BATCH_MENUS)
+	public boolean updateBatchMenu(@Param("restypes_id") List<RestTypeId> restypes_id , @Param("rest_id") int rest_id);
 	
 	/*String F_RESTAURANT = "SELECT DISTINCT"
 	+ " R.rest_id,"
