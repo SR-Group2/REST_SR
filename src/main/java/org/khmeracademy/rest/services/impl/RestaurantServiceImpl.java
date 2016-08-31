@@ -171,9 +171,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 		
 			//================== UPDATE RESTAURANT =============================
 			restaurantRepository.updateRestaurant(restaurantUpdateForm2);
-			restaurantRepository.updateBatchMenu(restaurantUpdateForm2.getRestypes_id(), restaurantUpdateForm2.getRest_id());
+			//restaurantRepository.updateBatchMenu(restaurantUpdateForm2.getRestypes_id(), restaurantUpdateForm2.getRest_id());
 			
-
+			System.out.println(restaurantUpdateForm2.getAddress());
+			addressRepository.updateAddress(restaurantUpdateForm2.getAddress());
 			//===================== add more category (menu) to restaurant
 			if(!restaurantUpdateForm2.getMenu_files().isEmpty()){
 				UploadedFileInfo menu_urls = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu");

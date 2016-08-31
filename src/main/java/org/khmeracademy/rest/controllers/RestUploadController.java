@@ -294,9 +294,9 @@ public class RestUploadController {
 		System.out.println("Menu = " + deletedImageRest.size());
 		System.out.println("Rest = " + delete_menu_picture.size());
 		
-		
+		return null;
 	
-		System.out.println("delete_menu_picture =======>"+delete_menu_picture);
+		/*System.out.println("delete_menu_picture =======>"+delete_menu_picture);
 		
 		System.out.println("menu_picture =======>" + menu_picture);
 		
@@ -325,7 +325,7 @@ public class RestUploadController {
 			map.put("STATUS", false);
 		}
 		
-		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); 
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK); */
 		
 
 	}
