@@ -113,14 +113,14 @@ public class UserServiceImpl implements UserService {
 			
 			for(String picture_file : picture.getNames()){
 				user2.setPicture(picture_file);
-				System.out.println(picture_file);
 			}
 			
 			return userRepository.updateUser2(user2);
 			
+		}else{
+			return userRepository.updateUser2(user2);
 		}
 		
-		return false;
 	}
 
 
