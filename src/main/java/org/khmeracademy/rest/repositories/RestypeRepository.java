@@ -145,4 +145,15 @@ public interface RestypeRepository {
 							+ " </script>";
 	@Insert(C_BATCH_REST_TYPE_ID)
 	public boolean insertBatchRestypeId(@Param("restype_ids") List<RestTypeId> rest_type_ids ,@Param("rest_id") int rest_id);
+	
+	
+	//TODO: 3. ADD TO CATE_REST WITH RESTAURANT ID
+		String U_BATCH_REST_TYPE_ID =  "<script>"
+								+ " <foreach collection='restype_ids' item='restype' separator=';'>"
+								+ " 	UPDATE  menus SET  restype_id = #{restype.restype_id} "
+								+ "		WHERE rest_id = #{rest_id}"
+								+ " </foreach>"
+								+ " </script>";
+		@Insert(U_BATCH_REST_TYPE_ID)
+		public boolean updateBatchRestypeId(@Param("restype_ids") List<RestTypeId> rest_type_ids ,@Param("rest_id") int rest_id);
 }

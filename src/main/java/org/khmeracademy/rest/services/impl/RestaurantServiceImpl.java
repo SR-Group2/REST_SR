@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.khmeracademy.rest.entities.Addresses;
+import org.khmeracademy.rest.entities.Menus;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restpictures;
 import org.khmeracademy.rest.entities.UploadedFileInfo;
 import org.khmeracademy.rest.filters.RestypeFilter;
+import org.khmeracademy.rest.form.RestTypeId;
 import org.khmeracademy.rest.form.RestaurantForm2;
 import org.khmeracademy.rest.form.RestaurantForm2.RestaurantUpdateForm2;
 import org.khmeracademy.rest.repositories.AddressRepository;
 import org.khmeracademy.rest.repositories.CategoryRepository;
+import org.khmeracademy.rest.repositories.MenuRepository;
 import org.khmeracademy.rest.repositories.RestPictureRepository;
 import org.khmeracademy.rest.repositories.RestaurantRepository;
 import org.khmeracademy.rest.repositories.RestypeRepository;
@@ -35,7 +38,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	
 	@Autowired
 	private RestypeRepository restType;
-
+	
+	@Autowired
+	private MenuRepository menuRepository;
 	
 	@Autowired
 	private CategoryRepository categoryRepository; 
@@ -58,7 +63,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 */
 	@Override
-	public boolean deleteRestaurant(int rest_id) {
+	public boolean deleteRestaurant(int rest_id, int address_id) {
+		restaurantRepository.deleteAddress(address_id);
 		return restaurantRepository.deleteRestaurant(rest_id);
 	}
 
@@ -118,6 +124,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			
 			//4. Insert Rest Type ID
 			restType.insertBatchRestypeId(restaurantForm.getRestypes_id(), restaurantForm.getRest_id());
+			
 			return true;
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -168,13 +175,27 @@ public class RestaurantServiceImpl implements RestaurantService {
 			List<String> deletemenuPath = restaurantUpdateForm2.getDeletedMenuImageUrl();
 			List<String> deletedImageRest = restaurantUpdateForm2.getDeletedRestaurantImageUrl();
 			
+			//================== UPDATE ADDRESS =============================
+			Addresses address = restaurantUpdateForm2.getAddress();
+			addressRepository.updateAddress(address);
+			
+			//================== UPDATE MENUS =============================
 		
+			menuRepository.deleteMenus(restaurantUpdateForm2.getRest_id());
+			
+			/*for(RestTypeId  id : restaurantUpdateForm2.getRestypes_id() ){
+				System.out.println(id.getRestype_id());
+			}*/
+			restType.insertBatchRestypeId(restaurantUpdateForm2.getRestypes_id(), 
+					restaurantUpdateForm2.getRest_id());
+			
 			//================== UPDATE RESTAURANT =============================
 			restaurantRepository.updateRestaurant(restaurantUpdateForm2);
 			//restaurantRepository.updateBatchMenu(restaurantUpdateForm2.getRestypes_id(), restaurantUpdateForm2.getRest_id());
 			
-			System.out.println(restaurantUpdateForm2.getAddress());
-			addressRepository.updateAddress(restaurantUpdateForm2.getAddress());
+			//System.out.println(restaurantUpdateForm2.getRestypes_id());
+			//restType.updateBatchRestypeId(restaurantUpdateForm2.getRestypes_id(), restaurantUpdateForm2.getRest_id());
+			
 			//===================== add more category (menu) to restaurant
 			if(!restaurantUpdateForm2.getMenu_files().isEmpty()){
 				UploadedFileInfo menu_urls = fileUploadService.upload(restaurantUpdateForm2.getMenu_files(), "menu");

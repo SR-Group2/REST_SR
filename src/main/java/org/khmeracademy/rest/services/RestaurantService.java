@@ -19,7 +19,7 @@ public interface RestaurantService {
 	
 	public boolean addNewRestaurant(RestaurantForm2 restaurantForm);
 	
-	public boolean deleteRestaurant(int rest_id);
+	public boolean deleteRestaurant(int rest_id, int address_id);
 	
 	//public boolean updateRestaurant(Restaurants restaurant);
 	

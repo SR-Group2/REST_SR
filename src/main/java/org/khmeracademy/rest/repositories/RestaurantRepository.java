@@ -172,6 +172,7 @@ public interface RestaurantRepository {
 			+ " menus"
 			+ " WHERE"
 			+ " rest_id = #{rest_id};"
+			
 			+ " DELETE"
 			+ " FROM"
 			+ " restpictures"
@@ -179,6 +180,10 @@ public interface RestaurantRepository {
 			+ " rest_id = #{rest_id};";
 	@Delete(D_RESTAURANT)
 	public boolean deleteRestaurant(int rest_id);
+	
+	String D_ADDRESS = "DELETE FROM  addresses WHERE address_id = #{address_id}";
+	@Delete(D_ADDRESS)
+	public boolean deleteAddress(int address_id);
 	
 	String U_RESTAURANT = "UPDATE restaurants SET "
 			+ "	rest_name=#{rest_name} , "

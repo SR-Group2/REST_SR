@@ -26,7 +26,7 @@ public interface UserRepository {
 			+ " INNER JOIN"
 			+ " roles R"
 			+ " ON U.role_id= R.role_id WHERE R.role_id =2  and "
-			+ " U.user_id NOT IN (SELECT DISTINCT coalesce(user_id,0) FROM restaurants)";
+			+ " U.user_id NOT IN (SELECT DISTINCT coalesce(user_id,0) FROM restaurants) ORDER BY U.user_id ";
 	@Select(R_WUSER)
 	@Results(value={
 			@Result(property="role.id", column="role_id"),
@@ -39,7 +39,7 @@ public interface UserRepository {
 			+ " FROM users U"
 			+ " INNER JOIN"
 			+ " roles R"
-			+ " ON U.role_id= R.role_id ";
+			+ " ON U.role_id= R.role_id ORDER BY U.user_id ";
 	@Select(R_USER)
 	@Results(value={
 			@Result(property="role.id", column="role_id"),
@@ -70,7 +70,7 @@ public interface UserRepository {
 	public boolean signUpUser(Users user);
 	
 	
-	String U_USER="UPDATE users"
+	String U_USER="UPDATE users "
 			+ " SET first_name=#{first_name},"
 			+ " last_name=#{last_name},"
 			+ " username=#{username},"

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.khmeracademy.rest.entities.DRestaurant;
 import org.khmeracademy.rest.entities.Restaurants;
 import org.khmeracademy.rest.entities.Restypes;
 import org.khmeracademy.rest.filters.RestypeFilter;
@@ -81,7 +82,36 @@ public class RestaurantController {
 		}
 		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK) ;
 	}
-	
+	//================== DELETE RESTAURANT BY ID =====================
+		@ApiImplicitParams({
+			@ApiImplicitParam(name = "rest_id", dataType = "int", paramType = "query", defaultValue="0",
+		            value = "rest_id"),
+			@ApiImplicitParam(name = "address_id", dataType = "int", paramType = "query", defaultValue="0",
+	        value = "address_id")
+		})
+		@RequestMapping(value="/delete", method = RequestMethod.DELETE)
+		public ResponseEntity<Map<String, Object>> deleteRestaurant(@ApiIgnore DRestaurant dRestaurant){
+			Map<String, Object> map = new HashMap<String, Object>();
+			System.out.println(dRestaurant.getAddress_id());
+			System.out.println(dRestaurant.getRest_id());
+			try {
+				if(restaurantService.deleteRestaurant(dRestaurant.getRest_id(),dRestaurant.getAddress_id())){
+					map.put("CODE", "200 OK");
+					map.put("STATUS", true);
+					map.put("MESSAGE", "Restaurant Has Been Deleted!");
+				}else{
+					map.put("STATUS", false);
+					map.put("CODE", "300 NOT DELETED");
+					map.put("MESSAGE", "Restaurant Has Been Deleted!");
+				}
+			} catch (Exception e) {
+				map.put("STATUS", false);
+				map.put("CODE", "404 NOT FOUND");
+				map.put("MESSAGE", " NOT FOUND!");
+				e.printStackTrace();
+			}
+			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+		}
 	//==================== GET RESTAURANT WITH CATEGORY==============
 	@ApiImplicitParams({
 	    @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", defaultValue="1",
@@ -183,28 +213,7 @@ public class RestaurantController {
 		}
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}*/
-	//================== DELETE RESTAURANT BY ID =====================
-	@RequestMapping(value = "/{rest-id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Map<String, Object>> deleteRestaurant(@PathVariable("rest-id") int rest_id){
-		Map<String, Object> map = new HashMap<String, Object>();
-		try {
-			if(restaurantService.deleteRestaurant(rest_id)){
-				map.put("CODE", "200 OK");
-				map.put("STATUS", true);
-				map.put("MESSAGE", "Restaurant Has Been Deleted!");
-			}else{
-				map.put("STATUS", false);
-				map.put("CODE", "300 NOT DELETED");
-				map.put("MESSAGE", "Restaurant Has Been Deleted!");
-			}
-		} catch (Exception e) {
-			map.put("STATUS", false);
-			map.put("CODE", "404 NOT FOUND");
-			map.put("MESSAGE", " NOT FOUND!");
-			e.printStackTrace();
-		}
-		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
-	}
+	
 	//============================= FIND RESTAURANT BY ID
 	@RequestMapping(value = "/{rest_id}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> findRestaurantById(@PathVariable("rest_id") int rest_id){
